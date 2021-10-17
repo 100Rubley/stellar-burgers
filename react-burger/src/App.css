@@ -1,1 +1,6 @@
-
+.wrapper {
+  width: 1240px;
+  height: calc(100vh - 88px);
+  margin: auto;
+  position: relative;
+}

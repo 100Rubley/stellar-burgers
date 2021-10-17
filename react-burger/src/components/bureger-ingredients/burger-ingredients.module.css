@@ -1,0 +1,20 @@
+.wrapper {
+  position: absolute;
+  left: 0;
+  width: 600px;
+  height: calc(100vh - 88px);
+}
+
+.scrollable {
+  overflow-y: scroll;
+  height: calc(100vh - 290px);
+}
+
+.figure {
+  margin: 0;
+}
+
+.ingredientContainer {
+  display: inline-flex;
+  flex-wrap: wrap;
+}

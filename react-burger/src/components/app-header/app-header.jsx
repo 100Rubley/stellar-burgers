@@ -6,7 +6,7 @@ const AppHeader = () => {
   return (
     <header className={s.header}>
       <div className={s.wrapper}>
-        <nav className={`${s.nav} m-4`}>
+        <nav className={s.nav}>
           <div className={`${s.container} m-5`}>
             <div className="mr-2">
               <BurgerIcon type="primary" />
