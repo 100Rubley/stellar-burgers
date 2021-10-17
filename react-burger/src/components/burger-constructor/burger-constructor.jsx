@@ -1,8 +1,7 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
-import data from '../../utils/data'
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({data}) => {
   const ingredients = data.filter(i => i.type !== 'bun')
   const bun = data.filter(i => i.name == 'Краторная булка N-200i')[0]
 

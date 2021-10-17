@@ -1,10 +1,9 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
 import s from './burger-ingredients.module.css'
-import data from '../../utils/data'
 import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({data}) => {
   const [current, setCurrent] = React.useState('Булки')
 
   return (
@@ -14,13 +13,13 @@ const BurgerIngredients = () => {
       </p>
 
       <div style={{ display: 'flex' }} className='mt-5'>
-        <Tab value="one" active={current === 'Булки'} onClick={setCurrent}>
+        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value="two" active={current === 'Совусы'} onClick={setCurrent}>
+        <Tab value="Совусы" active={current === 'Совусы'} onClick={setCurrent}>
           Совусы
         </Tab>
-        <Tab value="three" active={current === 'Начинки'} onClick={setCurrent}>
+        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>
@@ -32,7 +31,7 @@ const BurgerIngredients = () => {
           </p>
           {data.filter(i => i.type === 'bun').map(i => (
             <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
-              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
+              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}
@@ -44,7 +43,7 @@ const BurgerIngredients = () => {
           </p>
           {data.filter(i => i.type === 'sauce').map(i => (
             <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
-              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
+              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}
@@ -56,7 +55,7 @@ const BurgerIngredients = () => {
           </p>
           {data.filter(i => i.type === 'main').map(i => (
             <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
-              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
+              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}
