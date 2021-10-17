@@ -1,0 +1,25 @@
+.wrapper {
+  position: absolute;
+  right: 0;
+  width: 600px;
+  height: calc(100vh - 188px);
+}
+
+.scrollable{
+  overflow-y: scroll;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  height: 260px;
+}
+
+.footer {
+  position: absolute;
+  right: 70px;
+}
+
+.summary {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}

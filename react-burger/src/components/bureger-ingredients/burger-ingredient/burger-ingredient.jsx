@@ -10,7 +10,9 @@ const BurgerIngredient = ({ name, price, src }) => {
       </div>
 
       <div className={`${s.price} text text_type_main-medium mt-1 mb-1`}>
-        {price}
+        <span className='mr-2'>
+          {price}
+        </span>
         <CurrencyIcon type="primary" />
       </div>
 
