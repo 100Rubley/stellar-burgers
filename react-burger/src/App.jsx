@@ -4,9 +4,31 @@ import AppHeader from './components/app-header/app-header';
 import BurgerIngredients from './components/bureger-ingredients/burger-ingredients';
 import BurgerConstructor from './components/burger-constructor/burger-constructor';
 import { API_URL } from './utils/constants'
+import Overlay from '../src/components/modal-overlay/modal-overlay'
+import OrderDetails from './components/order-details/order-details'
+import IngredientDetails from './components/ingredient-details/ingredient-details'
 
 function App() {
   const [data, setData] = React.useState()
+
+  // используется для того, чтобы отобразить/убрать оверлей
+  const [isOverlay, setIsOverlay] = React.useState(false)
+  const toggleOverlay = () => {
+    setIsOverlay(!isOverlay)
+  }
+
+  const [modalType, setModalType] = React.useState('')
+
+  const toggleIngredientsOverlay = () => {
+    setIsOverlay(!isOverlay)
+    setModalType('ingredients')
+  }
+
+  const toggleOrderOverlay = () => {
+    setIsOverlay(!isOverlay)
+    setModalType('order')
+  }
+
   React.useEffect(() => {
     fetch(API_URL)
       .then(res => res.json())
@@ -17,21 +39,25 @@ function App() {
   return (
     <div className="App">
       <AppHeader />
-      {/* тут ниже пытался засунуть в одно условие, ла-ла ? отрисуй два компонента : загрузка
-      но получается, что через логическое && отрисовывается тот, кто вернул true последним, а как оба компонента отрисовать - туплю
-      по-этому код продублировал */}
-      <div className='wrapper'>
-        {
-          data
-            ? <BurgerIngredients data={data} /> 
-            : <div>Loading...</div>
-        }
-        {
-          data
-          ? <BurgerConstructor data={data} />
-          : <div>Loading...</div>
-        }
-      </div>
+
+      {
+        data &&
+        <div className='wrapper'>
+          <BurgerIngredients data={data} handleClick={toggleIngredientsOverlay}/>
+          <BurgerConstructor data={data} handleClick={toggleOrderOverlay}/>
+        </div>
+      }
+
+      {
+        isOverlay &&
+        <Overlay toggleOverlay={toggleOverlay}>
+          {
+            modalType === 'order'
+            ? <OrderDetails />
+            : <IngredientDetails />
+          }
+        </Overlay>
+      }
     </div>
   );
 }

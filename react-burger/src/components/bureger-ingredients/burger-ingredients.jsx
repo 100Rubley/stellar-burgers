@@ -3,7 +3,7 @@ import React from 'react'
 import s from './burger-ingredients.module.css'
 import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({data, handleClick}) => {
   const [current, setCurrent] = React.useState('Булки')
 
   return (
@@ -30,7 +30,7 @@ const BurgerIngredients = ({data}) => {
             Булки
           </p>
           {data.filter(i => i.type === 'bun').map(i => (
-            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
+            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick}>
               <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
             </div>
             )

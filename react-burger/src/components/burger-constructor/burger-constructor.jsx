@@ -1,7 +1,7 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
 
-const BurgerConstructor = ({data}) => {
+const BurgerConstructor = ({ data, handleClick }) => {
   const ingredients = data.filter(i => i.type !== 'bun')
   const bun = data.filter(i => i.name == 'Краторная булка N-200i')[0]
 
@@ -35,10 +35,10 @@ const BurgerConstructor = ({data}) => {
 
       <footer className={`${s.footer} mt-10`}>
         <span className={`${s.summary} mr-10 text text_type_main-large`}>
-          {data.reduce((sum,current) => sum + current.price, 0)}
+          {data.reduce((sum, current) => sum + current.price, 0)}
           <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={handleClick}>
           Оформить заказ
         </Button>
       </footer>
