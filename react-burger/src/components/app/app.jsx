@@ -28,7 +28,6 @@ function App() {
     if (e) {
       setIngredientData(data.filter(i => i._id == e.currentTarget.id))
     }
-    console.log(ingredientData)
   }
 
   const closeOnESC = (e) => {
@@ -61,11 +60,11 @@ function App() {
       }
 
       {isPopup &&
-        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC}>
+        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC}  headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
           {
             modalType === 'order'
               ? <OrderDetails />
-              : <IngredientDetails data={ingredientData} />
+              : <IngredientDetails data={ingredientData[0]}/>
           }
         </Modal>
       }
