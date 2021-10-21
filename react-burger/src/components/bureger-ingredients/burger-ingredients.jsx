@@ -2,6 +2,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
 import s from './burger-ingredients.module.css'
 import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
+import PropTypes from 'prop-types';
 
 const BurgerIngredients = ({data, handleClick}) => {
   const [current, setCurrent] = React.useState('Булки')
@@ -63,6 +64,11 @@ const BurgerIngredients = ({data, handleClick}) => {
       </section>
     </article>
   )
+}
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.any),
+  handleClick: PropTypes.func
 }
 
 export default BurgerIngredients

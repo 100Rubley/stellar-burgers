@@ -3,6 +3,7 @@ import s from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types';
 
 const Modal = ({ children, headerTitle, handleCloseButtonClick, handleKeyPress }) => {
   React.useEffect(() => {
@@ -26,6 +27,16 @@ const Modal = ({ children, headerTitle, handleCloseButtonClick, handleKeyPress }
     </ModalOverlay>,
     document.getElementById('modal')
   )
+}
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  headerTitle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
+  handleCloseButtonClick: PropTypes.func,
+  handleKeyPress: PropTypes.func
 }
 
 export default Modal

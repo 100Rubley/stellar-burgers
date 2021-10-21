@@ -1,8 +1,10 @@
 import React from 'react'
 import s from './ingredient-details.module.css'
+import PropTypes from 'prop-types';
+
 
 const IngredientDetails = ({ data }) => {
-  console.log(data)
+  
   return (
     <div className={s.wrapper}>
       <div>
@@ -33,6 +35,11 @@ const IngredientDetails = ({ data }) => {
       </div>
     </div>
   )
+}
+
+IngredientDetails.propTypes = {
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
+  handleClick: PropTypes.func
 }
 
 export default IngredientDetails

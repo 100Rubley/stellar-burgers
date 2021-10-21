@@ -1,9 +1,10 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({ data, handleClick }) => {
   const ingredients = data.filter(i => i.type !== 'bun')
-  const bun = data.filter(i => i.name == 'Краторная булка N-200i')[0]
+  const bun = data.filter(i => i.name === 'Краторная булка N-200i')[0]
 
   return (
     <article className={`${s.wrapper} mt-25`}>
@@ -53,6 +54,11 @@ const BurgerConstructor = ({ data, handleClick }) => {
       </footer>
     </article>
   )
+}
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.any),
+  handleClick: PropTypes.func
 }
 
 export default BurgerConstructor

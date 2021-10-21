@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './modal-overlay.module.css'
+import PropTypes from 'prop-types';
 
 const ModalOverlay = ({ children, handleOverlayClick }) => {
 
@@ -8,6 +9,11 @@ const ModalOverlay = ({ children, handleOverlayClick }) => {
       {children}
     </div>
   )
+}
+
+ModalOverlay.propTypes = {
+  children: PropTypes.element.isRequired,
+  handleOverlayClick: PropTypes.func
 }
 
 export default ModalOverlay

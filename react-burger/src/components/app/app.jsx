@@ -26,7 +26,7 @@ function App() {
     setIsPopup(!isPopup)
 
     if (e) {
-      setIngredientData(data.filter(i => i._id == e.currentTarget.id))
+      setIngredientData(data.filter(i => i._id === e.currentTarget.id))
     }
   }
 
