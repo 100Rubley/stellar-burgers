@@ -5,6 +5,15 @@
   height: calc(100vh - 188px);
 }
 
+.constructorWrapper{
+  display: flex;
+  align-items: center;
+}
+
+.bun {
+  margin-left: 24px;
+}
+
 .scrollable{
   overflow-y: scroll;
   display: flex;

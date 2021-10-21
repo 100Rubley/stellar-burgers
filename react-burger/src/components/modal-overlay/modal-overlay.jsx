@@ -1,19 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import s from './modal-overlay.module.css'
 
-const Overlay = ({children, toggleOverlay }) => {
-  React.useEffect(() => {
-    document.addEventListener('keydown', toggleOverlay)
-    return () => document.removeEventListener('keydown', toggleOverlay)
-  })
+const ModalOverlay = ({ children, handleOverlayClick }) => {
 
-  return ReactDOM.createPortal(
-    <div className={s.overlay} onClick={toggleOverlay}>
+  return (
+    <div className={s.overlay} onClick={e => (e.currentTarget === e.target) && handleOverlayClick()}>>
       {children}
-    </div>,
-    document.getElementById('root')
+    </div>
   )
 }
 
-export default Overlay
+export default ModalOverlay

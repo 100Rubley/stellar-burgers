@@ -16,8 +16,8 @@ const BurgerIngredients = ({data, handleClick}) => {
         <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value="Совусы" active={current === 'Совусы'} onClick={setCurrent}>
-          Совусы
+        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+          Соусы
         </Tab>
         <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
           Начинки
@@ -30,8 +30,8 @@ const BurgerIngredients = ({data, handleClick}) => {
             Булки
           </p>
           {data.filter(i => i.type === 'bun').map(i => (
-            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick}>
-              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
+            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}
@@ -39,11 +39,11 @@ const BurgerIngredients = ({data, handleClick}) => {
 
         <figure className={s.figure}>
           <p className="text text_type_main-medium">
-            Совусы
+            Соусы
           </p>
           {data.filter(i => i.type === 'sauce').map(i => (
-            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
-              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
+            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}
@@ -54,8 +54,8 @@ const BurgerIngredients = ({data, handleClick}) => {
             Начинки
           </p>
           {data.filter(i => i.type === 'main').map(i => (
-            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`}>
-              <BurgerIngredient key={i.id} name={i.name} price={i.price} src={i.image} />
+            <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              <BurgerIngredient name={i.name} price={i.price} src={i.image} />
             </div>
             )
           )}

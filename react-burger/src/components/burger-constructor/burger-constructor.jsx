@@ -1,4 +1,4 @@
-import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
 
 const BurgerConstructor = ({ data, handleClick }) => {
@@ -8,29 +8,38 @@ const BurgerConstructor = ({ data, handleClick }) => {
   return (
     <article className={`${s.wrapper} mt-25`}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        <div className={s.bun}>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text="Краторная булка N-200i (верх)"
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        </div>
 
         <section className={`${s.scrollable}`}>
-          {ingredients.map(i => <ConstructorElement
-            text={i.name}
-            price={i.price}
-            thumbnail={i.image}
-          />)}
+          {ingredients.map(i => (
+            <div className={s.constructorWrapper} key={i._id}>
+              <DragIcon type='primary' />
+              <ConstructorElement
+                text={i.name}
+                price={i.price}
+                thumbnail={i.image}
+              />
+            </div>
+          ))}
         </section>
 
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        <div className={s.bun}>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text="Краторная булка N-200i (низ)"
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        </div>
       </div>
 
       <footer className={`${s.footer} mt-10`}>
