@@ -1,0 +1,28 @@
+.wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1C1C21;
+  width: 720px;
+  z-index: 1000;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  background-color: #1c1c21;
+  border: none;
+}
+
+.header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 48px 48px 0 48px;
+  align-items: center;
+  justify-content: space-between;
+  width: 640px;
+}
