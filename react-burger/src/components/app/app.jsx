@@ -7,16 +7,24 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
+import { useDispatch } from 'react-redux'
+import { getIngredients } from '../../services/redusers/all-reducers'
 
 function App() {
+  const dispatch = useDispatch()
   const [data, setData] = React.useState()
-
+  
   React.useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(res => setData(res.data))
-      .catch(err => console.log(err))
-  }, [])
+    dispatch(getIngredients(API_URL));
+  }, [dispatch]);
+
+  // React.useEffect(() => {
+  //   fetch(API_URL)
+  //     .then(res => res.json())
+  //     .then(res => setData(res.data))
+  //     .catch(err => console.log(err))
+  // }, [])
+
   // используется для того, чтобы отобразить/убрать оверлей
   const [isPopup, setIsPopup] = React.useState(false)
   const [modalType, setModalType] = React.useState('order')
@@ -60,11 +68,11 @@ function App() {
       }
 
       {isPopup &&
-        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC}  headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
+        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
           {
             modalType === 'order'
               ? <OrderDetails />
-              : <IngredientDetails data={ingredientData[0]}/>
+              : <IngredientDetails data={ingredientData[0]} />
           }
         </Modal>
       }

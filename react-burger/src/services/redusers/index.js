@@ -1,6 +1,11 @@
-import { combineReducers } from 'redux'
 import { burgerReducer } from './all-reducers'
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   burger: burgerReducer
 })
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
