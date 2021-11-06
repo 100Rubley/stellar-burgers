@@ -7,36 +7,22 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getIngredients } from '../../services/redusers/all-reducers'
 
 function App() {
-  const dispatch = useDispatch()
-  const [data, setData] = React.useState()
-  
-  React.useEffect(() => {
-    dispatch(getIngredients(API_URL));
-  }, [dispatch]);
-
-  // React.useEffect(() => {
-  //   fetch(API_URL)
-  //     .then(res => res.json())
-  //     .then(res => setData(res.data))
-  //     .catch(err => console.log(err))
-  // }, [])
-
   // используется для того, чтобы отобразить/убрать оверлей
   const [isPopup, setIsPopup] = React.useState(false)
   const [modalType, setModalType] = React.useState('order')
   const [ingredientData, setIngredientData] = React.useState()
 
-  const togglePopup = (e) => {
-    setIsPopup(!isPopup)
+  // const togglePopup = (e) => {
+  //   setIsPopup(!isPopup)
 
-    if (e) {
-      setIngredientData(data.filter(i => i._id === e.currentTarget.id))
-    }
-  }
+  //   if (e) {
+  //     setIngredientData(data.filter(i => i._id === e.currentTarget.id))
+  //   }
+  // }
 
   const closeOnESC = (e) => {
     if (e.key === 'Escape') {
@@ -50,25 +36,28 @@ function App() {
   const setModalOrderType = () => {
     setModalType('order')
   }
+// ------------------------------------------------------------
 
   return (
     <div>
       <AppHeader />
 
       {
-        data &&
-        <div className={s.wrapper}>
-          <div onClick={setModalIngredientType}>
-            <BurgerIngredients data={data} handleClick={togglePopup} />
+          <div className={s.wrapper}>
+            <div onClick={setModalIngredientType}>
+              {/* <BurgerIngredients handleClick={togglePopup} /> */}
+              <BurgerIngredients />
+            </div>
+            <div onClick={setModalOrderType}>
+              {/* <BurgerConstructor data={data} handleClick={togglePopup} /> */}
+              <BurgerConstructor />
+            </div>
           </div>
-          <div onClick={setModalOrderType}>
-            <BurgerConstructor data={data} handleClick={togglePopup} />
-          </div>
-        </div>
       }
 
       {isPopup &&
-        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
+        // <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
+        <Modal handleKeyPress={closeOnESC} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
           {
             modalType === 'order'
               ? <OrderDetails />
