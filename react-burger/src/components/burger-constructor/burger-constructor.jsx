@@ -2,16 +2,17 @@ import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktiku
 import s from './burger-constructor.module.css'
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useDrop } from 'react-dnd';
+import { useEffect, useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
+import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 
 const BurgerConstructor = ({ handleClick }) => {
-  const ingredients = useSelector(state => state.burger.currentConstructorIngredients)
-  const bun = useSelector(state => state.burger.currentBun)
+  const bun = useSelector(state => state.burgerConstructor?.bun)
+  const ingredients = useSelector(state => state.burgerConstructor?.constructorIngredients)
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient',
-    collect: (monitor) => ({
+    collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     })
@@ -19,6 +20,12 @@ const BurgerConstructor = ({ handleClick }) => {
 
   return (
     <article className={`${s.wrapper} mt-25`} ref={drop}>
+
+      {/* 
+      когда нет ни булки, ни ингредиента, отрисуй контейнер " перетащи сюда "
+      когда есть булка, но нет ингредиента - отрисовать булки и контейнер " выбери начинку и соус "
+      когда есть и булка и ингредиент, добавить кнопку "оформить заказ" с суммой 
+      */}
 
       {
         bun
@@ -35,14 +42,7 @@ const BurgerConstructor = ({ handleClick }) => {
 
             <section className={`${s.scrollable}`}>
               {ingredients.map(i => (
-                <div className={s.constructorWrapper} key={i._id}>
-                  <DragIcon type='primary' />
-                  <ConstructorElement
-                    text={i.name}
-                    price={i.price}
-                    thumbnail={i.image}
-                  />
-                </div>
+                <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
               ))}
             </section>
 
