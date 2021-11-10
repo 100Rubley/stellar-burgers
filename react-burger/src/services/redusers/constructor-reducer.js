@@ -1,12 +1,12 @@
 const ADD_BUN = 'ADD_BUN'
 const ADD_INGREDIENT = 'ADD_INGREDIENT'
 const MOVE_INGREDIENT = 'MOVE_INGREDIENT'
+const REMOVE_ITEM = 'REMOVE_ITEM'
 
 const initialState = {
   constructorIngredients: [],
   bun: {},
 
-  currentIngredient: {},
   order: {}
 }
 
@@ -32,6 +32,13 @@ export const constructorReducer = (state = initialState, action) => {
       newIngredients.splice(hoverIngredient, 0, dragIngredient)
       return { ...state, constructorIngredients: newIngredients }
     }
+    case REMOVE_ITEM: {
+      const removedIndex = state.constructorIngredients.findIndex(i => i.uniqueId === action.id)
+      const newIngredients = [...state.constructorIngredients]
+      newIngredients.splice(removedIndex, 1)
+      return { ...state, constructorIngredients: newIngredients }
+    }
+
     default:
       return state
   }
@@ -40,6 +47,7 @@ export const constructorReducer = (state = initialState, action) => {
 const addBun = item => ({ type: ADD_BUN, item })
 const addIngredient = item => ({ type: ADD_INGREDIENT, item })
 export const moveIngredient = (dragIndex, hoverIndex) => ({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
+export const removeItem = id => ({ type: REMOVE_ITEM, id })
 
 export const addToConstructor = item => dispatch => {
   if (item.type === 'bun') {
