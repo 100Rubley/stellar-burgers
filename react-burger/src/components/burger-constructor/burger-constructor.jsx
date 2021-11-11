@@ -2,32 +2,25 @@ import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-de
 import s from './burger-constructor.module.css'
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import {  useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 
 const BurgerConstructor = ({ handleClick }) => {
   const bun = useSelector(state => state.burgerConstructor?.bun)
   const ingredients = useSelector(state => state.burgerConstructor?.constructorIngredients)
 
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+  const isBun = !Object.keys(bun).length === false
+  const isIngredients = !Object.keys(ingredients).length === false
+
+  const [, drop] = useDrop(() => ({
     accept: 'ingredient',
-    collect: monitor => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    })
   }))
 
   return (
     <article className={`${s.wrapper} mt-25`} ref={drop}>
 
-      {/* 
-      когда нет ни булки, ни ингредиента, отрисуй контейнер " перетащи сюда "
-      когда есть булка, но нет ингредиента - отрисовать булки и контейнер " выбери начинку и соус "
-      когда есть и булка и ингредиент, добавить кнопку "оформить заказ" с суммой 
-      */}
-
       {
-        bun
+        isBun
           ? <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div className={s.bun}>
               <ConstructorElement
@@ -40,9 +33,15 @@ const BurgerConstructor = ({ handleClick }) => {
             </div>
 
             <section className={`${s.scrollable}`}>
-              {ingredients.map(i => (
-                <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
-              ))}
+              {
+                isIngredients
+                  ? ingredients?.map(i => (
+                    <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
+                  ))
+                  // Заменить нижнюю заглушку
+                  : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Добавьте начинку</div>
+              }
+              {}
             </section>
 
             <div className={s.bun}>
@@ -55,18 +54,22 @@ const BurgerConstructor = ({ handleClick }) => {
               />
             </div>
           </div>
-          : <div>Выберите булку </div>
+          // Заменить нижнюю заглушку
+          : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Перетащите сюда булку</div>
       }
 
-      <footer className={`${s.footer} mt-10`}>
-        <span className={`${s.summary} mr-10 text text_type_main-large`}>
-          {/* {data.reduce((sum, current) => sum + current.price, 0)} */}
-          <CurrencyIcon type="primary" />
-        </span>
-        <Button type="primary" size="large" onClick={handleClick}>
-          Оформить заказ
+      {
+        (isBun && isIngredients) &&
+        <footer className={`${s.footer} mt-10`}>
+          <span className={`${s.summary} mr-10 text text_type_main-large`}>
+            {ingredients.reduce((sum, current) => sum + current.price, 0) + bun.price}
+            <CurrencyIcon type="primary" />
+          </span>
+          <Button type="primary" size="large" onClick={handleClick}>
+            Оформить заказ
         </Button>
-      </footer>
+        </footer>
+      }
     </article>
   )
 }
