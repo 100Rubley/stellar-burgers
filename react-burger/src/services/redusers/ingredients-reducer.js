@@ -3,13 +3,14 @@ const SET_INGREDIENTS_SUCCESS = 'SET_INGREDIENTS_SUCCESS'
 const SET_INGREDIENTS_REQUEST = 'SET_INGREDIENTS_REQUEST'
 const SET_INGREDIENTS_ERROR = 'SET_INGREDIENTS_ERROR'
 const SET_CURRENT_INGREDIENT = 'SET_CURRENT_INGREDIENT'
+const REMOVE_CURRENT_INGREDIENT = 'REMOVE_CURRENT_INGREDIENT'
 // _________________________________
 
 const initialState = {
   ingredients: [],
   ingredientsError: false,
   ingredientsRequest: false,
-  
+
   currentIngredient: {},
 }
 
@@ -24,7 +25,9 @@ export const ingredientsReducer = (state = initialState, action) => {
 
 
     case SET_CURRENT_INGREDIENT:
-      return {...state, currentIngredient: {...action.ingredient}}
+      return { ...state, currentIngredient: { ...action.ingredient } }
+    case REMOVE_CURRENT_INGREDIENT:
+      return {...state, currentIngredient: {}}
     default:
       return state
   }
@@ -34,7 +37,8 @@ export const ingredientsReducer = (state = initialState, action) => {
 const setIngredientsSuccess = ingredients => ({ type: SET_INGREDIENTS_SUCCESS, ingredients })
 const setIngredientsRequest = () => ({ type: SET_INGREDIENTS_REQUEST })
 const setIngredientsError = () => ({ type: SET_INGREDIENTS_ERROR })
-export const setCurrentIngredient = ingredient => ({type: SET_CURRENT_INGREDIENT, ingredient})
+export const setCurrentIngredient = ingredient => ({ type: SET_CURRENT_INGREDIENT, ingredient })
+export const removeCurrentIngredient = () => ({ type: REMOVE_CURRENT_INGREDIENT })
 // ____________________________
 
 // тут хранятся thunk-creators

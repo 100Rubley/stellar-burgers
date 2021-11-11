@@ -7,7 +7,7 @@ import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentIngredient } from '../../services/redusers/ingredients-reducer'
+import { setCurrentIngredient, removeCurrentIngredient } from '../../services/redusers/ingredients-reducer'
 
 function App() {
   // используется для того, чтобы отобразить/убрать оверлей
@@ -20,6 +20,9 @@ function App() {
 
   const togglePopup = (e) => {
     setIsPopup(!isPopup)
+    if (isPopup) {
+      dispatch(removeCurrentIngredient())
+    }
 
     if (e) {
       dispatch(setCurrentIngredient(ingredients.find(i => i._id === e.currentTarget.id)))
@@ -28,6 +31,7 @@ function App() {
 
   const closeOnESC = (e) => {
     if (e.key === 'Escape') {
+      dispatch(removeCurrentIngredient())
       setIsPopup(!isPopup)
     }
   }

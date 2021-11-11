@@ -1,9 +1,8 @@
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useSelector } from 'react-redux';
+import {  useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 
 const BurgerConstructor = ({ handleClick }) => {
