@@ -9,20 +9,21 @@ import s from './app.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
 import { requestIngredients } from '../../services/redusers/ingredients-reducer'
+import { postOrder } from '../../services/redusers/constructor-reducer'
 
 function App() {
-  // используется для того, чтобы отобразить/убрать оверлей
-  const ingredients = useSelector(state => state.ingredients.ingredients)
-  const currentIngredient = useSelector(state => state.ingredients.currentIngredient)
   const dispatch = useDispatch()
-
-  const [isPopup, setIsPopup] = React.useState(false)
-  const [modalType, setModalType] = React.useState('order')
-
 
   React.useEffect(() => {
     dispatch(requestIngredients());
   }, [dispatch]);
+
+  // используется для того, чтобы отобразить/убрать оверлей
+  const ingredients = useSelector(state => state.ingredients.ingredients)
+  const currentIngredient = useSelector(state => state.ingredients.currentIngredient)
+
+  const [isPopup, setIsPopup] = React.useState(false)
+  const [modalType, setModalType] = React.useState('order')
 
   const togglePopup = (e) => {
     setIsPopup(!isPopup)
@@ -50,6 +51,11 @@ function App() {
   }
   // ------------------------------------------------------------
 
+  const handleOrderRequest = (data) => {
+    dispatch(postOrder(data))
+    setIsPopup(!isPopup)
+  }
+
   return (
     <div>
       <AppHeader />
@@ -59,7 +65,7 @@ function App() {
             <BurgerIngredients handleClick={togglePopup} />
           </div>
           <div onClick={setModalOrderType}>
-            <BurgerConstructor handleClick={togglePopup} />
+            <BurgerConstructor handleClick={togglePopup} handleRequest={handleOrderRequest} />
           </div>
         </div>
       }

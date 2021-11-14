@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 
-const BurgerConstructor = ({ handleClick }) => {
+const BurgerConstructor = ({ handleRequest }) => {
   const bun = useSelector(state => state.burgerConstructor?.bun)
   const ingredients = useSelector(state => state.burgerConstructor?.constructorIngredients)
 
@@ -16,21 +16,31 @@ const BurgerConstructor = ({ handleClick }) => {
     accept: 'ingredient',
   }))
 
+  const requestData = [
+    bun._id,
+    ...ingredients.map(i => i._id)
+  ]
+
   return (
     <article className={`${s.wrapper} mt-25`} ref={drop}>
 
       {
-        isBun
-          ? <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div className={s.bun}>
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text="Краторная булка N-200i (верх)"
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
+        isBun || isIngredients
+          ?
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {
+              isBun &&
+              <div className={s.bun}>
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={bun.name}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            }
+
 
             <section className={`${s.scrollable}`}>
               {
@@ -41,18 +51,20 @@ const BurgerConstructor = ({ handleClick }) => {
                   // Заменить нижнюю заглушку
                   : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Добавьте начинку</div>
               }
-              {}
             </section>
 
-            <div className={s.bun}>
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text="Краторная булка N-200i (низ)"
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
+            {
+              isBun &&
+              <div className={s.bun}>
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={bun.name}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            }
           </div>
           // Заменить нижнюю заглушку
           : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Перетащите сюда булку</div>
@@ -65,7 +77,7 @@ const BurgerConstructor = ({ handleClick }) => {
             {ingredients.reduce((sum, current) => sum + current.price, 0) + bun.price}
             <CurrencyIcon type="primary" />
           </span>
-          <Button type="primary" size="large" onClick={handleClick}>
+          <Button type="primary" size="large" onClick={() => { handleRequest(requestData) }}>
             Оформить заказ
         </Button>
         </footer>
@@ -75,7 +87,7 @@ const BurgerConstructor = ({ handleClick }) => {
 }
 
 BurgerConstructor.propTypes = {
-  handleClick: PropTypes.func
+  handleRequest: PropTypes.func
 }
 
 export default BurgerConstructor

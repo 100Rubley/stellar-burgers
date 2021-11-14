@@ -44,7 +44,7 @@ export const constructorReducer = (state = initialState, action) => {
     case POST_ORDER_ERROR:
       return { ...state, orderError: true, orderRequest: false }
     case POST_ORDER_SUCCESS:
-      return { ...state, order: { ...action.order }, orderError: false, orderRequest: false }
+      return { ...state, order: action.number, orderError: false, orderRequest: false }
 
     case MOVE_INGREDIENT: {
       const dragIngredient = state.constructorIngredients.find(i => i.uniqueId === action.dragIndex)
@@ -91,12 +91,13 @@ export const postOrder = data => dispatch => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      'ingredients': data
+    }),
   })
     .then(res => res.json())
     .then(res => {
       if (res && res.success) {
-        console.log(res)
         dispatch(postOrderSuccess(res.order.number));
       }
     })
