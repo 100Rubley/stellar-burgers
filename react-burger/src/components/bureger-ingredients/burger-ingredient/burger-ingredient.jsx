@@ -3,7 +3,7 @@ import React from "react"
 import s from './burger-ingredient.module.css'
 import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
-import { addToConstructor } from "../../../services/redusers/constructor-reducer";
+import { addToConstructor } from "../../../services/actions/constructor-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const BurgerIngredient = ({ ingredient }) => {
@@ -40,7 +40,7 @@ const BurgerIngredient = ({ ingredient }) => {
         <div className={s.counter}>
           <img src={ingredient.image} alt="Фото ингредиента" />
           {
-            !!amount && <Counter count={amount} size="default" />
+            !!amount && <Counter count={ingredient.type === 'bun' ? 2 : amount} size="default" />
           }
         </div>
       </div>

@@ -8,8 +8,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
-import { requestIngredients } from '../../services/redusers/ingredients-reducer'
-import { postOrder } from '../../services/redusers/constructor-reducer'
+import { requestIngredients } from '../../services/actions/ingredients-actions'
+import { postOrder } from '../../services/actions/constructor-actions'
 
 function App() {
   const dispatch = useDispatch()

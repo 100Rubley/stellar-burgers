@@ -1,5 +1,4 @@
 import { SET_CURRENT_INGREDIENT, SET_INGREDIENTS_ERROR, SET_INGREDIENTS_REQUEST, SET_INGREDIENTS_SUCCESS, REMOVE_CURRENT_INGREDIENT, BASE_URL } from "../../utils/constants"
-import { setIngredientsRequest, setIngredientsSuccess, setIngredientsError } from '../actions/ingredients-actions'
 
 const initialState = {
   ingredients: [],
@@ -27,19 +26,4 @@ export const ingredientsReducer = (state = initialState, action) => {
   }
 }
 
-// тут хранятся thunk-creators
-export const requestIngredients = () => dispatch => {
-  dispatch(setIngredientsRequest())
-  fetch(`${BASE_URL}/ingredients`)
-    .then(res => res.json())
-    .then(res => {
-      if (res && res.success) {
-        dispatch(setIngredientsSuccess(res.data));
-      }
-    })
-    .catch(err => {
-      dispatch(setIngredientsError())
-      console.log(err)
-    })
-};
-// ___________________________
+
