@@ -1,13 +1,6 @@
-const ADD_BUN = 'ADD_BUN'
-const ADD_INGREDIENT = 'ADD_INGREDIENT'
-const MOVE_INGREDIENT = 'MOVE_INGREDIENT'
-const REMOVE_ITEM = 'REMOVE_ITEM'
-const ADD_TO_INGREDIENTS_MAP = 'ADD_TO_INGREDIENTS_MAP'
-const ADD_TO_BUN_MAP = 'ADD_TO_BUN_MAP'
+import { BASE_URL, ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR } from "../../utils/constants"
+import { addBun, addIngredient, addToIngredientsMap, addToBunMap, postOrderSuccess, postOrderRequest, postOrderError } from '../actions/constructor-actions'
 
-const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS'
-const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST'
-const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
 
 const initialState = {
   constructorIngredients: [],
@@ -81,18 +74,6 @@ export const constructorReducer = (state = initialState, action) => {
   }
 }
 
-const addBun = item => ({ type: ADD_BUN, item })
-const addIngredient = item => ({ type: ADD_INGREDIENT, item })
-const addToIngredientsMap = id => ({ type: ADD_TO_INGREDIENTS_MAP, id })
-const addToBunMap = id => ({ type: ADD_TO_BUN_MAP, id })
-
-export const moveIngredient = (dragIndex, hoverIndex) => ({ type: MOVE_INGREDIENT, dragIndex, hoverIndex })
-export const removeItem = id => ({ type: REMOVE_ITEM, id })
-
-const postOrderSuccess = order => ({ type: POST_ORDER_SUCCESS, order })
-const postOrderRequest = () => ({ type: POST_ORDER_REQUEST })
-const postOrderError = () => ({ type: POST_ORDER_ERROR })
-
 export const addToConstructor = item => dispatch => {
   if (item.type === 'bun') {
     dispatch(addToBunMap(item._id))
@@ -105,7 +86,7 @@ export const addToConstructor = item => dispatch => {
 
 export const postOrder = data => dispatch => {
   dispatch(postOrderRequest())
-  fetch(`https://norma.nomoreparties.space/api/orders`, {
+  fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,10 +1,5 @@
-// тут хранятся константы для action
-const SET_INGREDIENTS_SUCCESS = 'SET_INGREDIENTS_SUCCESS'
-const SET_INGREDIENTS_REQUEST = 'SET_INGREDIENTS_REQUEST'
-const SET_INGREDIENTS_ERROR = 'SET_INGREDIENTS_ERROR'
-const SET_CURRENT_INGREDIENT = 'SET_CURRENT_INGREDIENT'
-const REMOVE_CURRENT_INGREDIENT = 'REMOVE_CURRENT_INGREDIENT'
-// _________________________________
+import { SET_CURRENT_INGREDIENT, SET_INGREDIENTS_ERROR, SET_INGREDIENTS_REQUEST, SET_INGREDIENTS_SUCCESS, REMOVE_CURRENT_INGREDIENT, BASE_URL } from "../../utils/constants"
+import { setIngredientsRequest, setIngredientsSuccess, setIngredientsError } from '../actions/ingredients-actions'
 
 const initialState = {
   ingredients: [],
@@ -23,7 +18,6 @@ export const ingredientsReducer = (state = initialState, action) => {
     case SET_INGREDIENTS_SUCCESS:
       return { ...state, ingredients: action.ingredients, ingredientsError: false, ingredientsRequest: false }
 
-
     case SET_CURRENT_INGREDIENT:
       return { ...state, currentIngredient: { ...action.ingredient } }
     case REMOVE_CURRENT_INGREDIENT:
@@ -33,18 +27,10 @@ export const ingredientsReducer = (state = initialState, action) => {
   }
 }
 
-// тут хранятся action-creators
-const setIngredientsSuccess = ingredients => ({ type: SET_INGREDIENTS_SUCCESS, ingredients })
-const setIngredientsRequest = () => ({ type: SET_INGREDIENTS_REQUEST })
-const setIngredientsError = () => ({ type: SET_INGREDIENTS_ERROR })
-export const setCurrentIngredient = ingredient => ({ type: SET_CURRENT_INGREDIENT, ingredient })
-export const removeCurrentIngredient = () => ({ type: REMOVE_CURRENT_INGREDIENT })
-// ____________________________
-
 // тут хранятся thunk-creators
-export const requestIngredients = url => dispatch => {
+export const requestIngredients = () => dispatch => {
   dispatch(setIngredientsRequest())
-  fetch(url)
+  fetch(`${BASE_URL}/ingredients`)
     .then(res => res.json())
     .then(res => {
       if (res && res.success) {

@@ -3,7 +3,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { moveIngredient, removeItem } from '../../../services/redusers/constructor-reducer'
+import { moveIngredient, removeItem } from '../../../services/actions/constructor-actions'
 
 const DraggableIngredient = ({ name, price, image, uniqueId }) => {
   const ref = useRef(null)

@@ -75,7 +75,6 @@ const BurgerConstructor = ({ handleClick }) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.any),
   handleClick: PropTypes.func
 }
 

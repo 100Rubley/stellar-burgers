@@ -7,7 +7,8 @@ import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentIngredient, removeCurrentIngredient } from '../../services/redusers/ingredients-reducer'
+import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
+import { requestIngredients } from '../../services/redusers/ingredients-reducer'
 
 function App() {
   // используется для того, чтобы отобразить/убрать оверлей
@@ -17,6 +18,11 @@ function App() {
 
   const [isPopup, setIsPopup] = React.useState(false)
   const [modalType, setModalType] = React.useState('order')
+
+
+  React.useEffect(() => {
+    dispatch(requestIngredients());
+  }, [dispatch]);
 
   const togglePopup = (e) => {
     setIsPopup(!isPopup)
@@ -42,20 +48,20 @@ function App() {
   const setModalOrderType = () => {
     setModalType('order')
   }
-// ------------------------------------------------------------
+  // ------------------------------------------------------------
 
   return (
     <div>
       <AppHeader />
       {
-          <div className={s.wrapper}>
-            <div onClick={setModalIngredientType}>
-              <BurgerIngredients handleClick={togglePopup}/>
-            </div>
-            <div onClick={setModalOrderType}>
-              <BurgerConstructor handleClick={togglePopup}/>
-            </div>
+        <div className={s.wrapper}>
+          <div onClick={setModalIngredientType}>
+            <BurgerIngredients handleClick={togglePopup} />
           </div>
+          <div onClick={setModalOrderType}>
+            <BurgerConstructor handleClick={togglePopup} />
+          </div>
+        </div>
       }
 
       {isPopup &&
@@ -63,7 +69,7 @@ function App() {
           {
             modalType === 'order'
               ? <OrderDetails />
-              : <IngredientDetails data={currentIngredient}/>
+              : <IngredientDetails data={currentIngredient} />
           }
         </Modal>
       }

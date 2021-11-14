@@ -3,18 +3,10 @@ import React from 'react'
 import s from './burger-ingredients.module.css'
 import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { requestIngredients } from '../../services/redusers/ingredients-reducer';
-import { API_URL } from '../../utils/constants';
+import { useSelector } from 'react-redux';
 
 const BurgerIngredients = ({ handleClick }) => {
   const [current, setCurrent] = React.useState('Булки')
-
-  const dispatch = useDispatch()
-
-  React.useEffect(() => {
-    dispatch(requestIngredients(API_URL));
-  }, [dispatch]);
 
   const data = useSelector(state => state.ingredients.ingredients)
   const ingredientsRequest = useSelector(state => state.ingredients.ingredientsRequest)
