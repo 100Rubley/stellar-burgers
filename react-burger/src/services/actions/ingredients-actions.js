@@ -10,7 +10,12 @@ export const removeCurrentIngredient = () => ({ type: REMOVE_CURRENT_INGREDIENT 
 export const requestIngredients = () => dispatch => {
   dispatch(setIngredientsRequest())
   fetch(`${BASE_URL}/ingredients`)
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`);
+    })
     .then(res => {
       if (res && res.success) {
         dispatch(setIngredientsSuccess(res.data));

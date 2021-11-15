@@ -34,7 +34,12 @@ export const postOrder = data => dispatch => {
       'ingredients': data
     }),
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка ${res.status}`)
+    })
     .then(res => {
       if (res && res.success) {
         dispatch(postOrderSuccess(res.order.number));
