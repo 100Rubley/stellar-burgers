@@ -39,7 +39,6 @@ const IngredientDetails = ({ data }) => {
 
 IngredientDetails.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
-  handleClick: PropTypes.func
 }
 
 export default IngredientDetails

@@ -1,37 +1,44 @@
-import React from 'react';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../bureger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { API_URL } from '../../utils/constants'
+import React from 'react'
+import AppHeader from '../app-header/app-header'
+import BurgerIngredients from '../bureger-ingredients/burger-ingredients'
+import BurgerConstructor from '../burger-constructor/burger-constructor'
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
+import { requestIngredients } from '../../services/actions/ingredients-actions'
+import { postOrder } from '../../services/actions/constructor-actions'
 
 function App() {
-  const [data, setData] = React.useState()
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(res => setData(res.data))
-      .catch(err => console.log(err))
-  }, [])
+    dispatch(requestIngredients());
+  }, [dispatch]);
+
   // используется для того, чтобы отобразить/убрать оверлей
+  const ingredients = useSelector(state => state.ingredients.ingredients)
+  const currentIngredient = useSelector(state => state.ingredients.currentIngredient)
+
   const [isPopup, setIsPopup] = React.useState(false)
   const [modalType, setModalType] = React.useState('order')
-  const [ingredientData, setIngredientData] = React.useState()
 
   const togglePopup = (e) => {
     setIsPopup(!isPopup)
+    if (isPopup) {
+      dispatch(removeCurrentIngredient())
+    }
 
     if (e) {
-      setIngredientData(data.filter(i => i._id === e.currentTarget.id))
+      dispatch(setCurrentIngredient(ingredients.find(i => i._id === e.currentTarget.id)))
     }
   }
 
   const closeOnESC = (e) => {
     if (e.key === 'Escape') {
+      dispatch(removeCurrentIngredient())
       setIsPopup(!isPopup)
     }
   }
@@ -42,29 +49,33 @@ function App() {
   const setModalOrderType = () => {
     setModalType('order')
   }
+  // ------------------------------------------------------------
+
+  const handleOrderRequest = (data) => {
+    dispatch(postOrder(data))
+    setIsPopup(!isPopup)
+  }
 
   return (
     <div>
       <AppHeader />
-
       {
-        data &&
         <div className={s.wrapper}>
           <div onClick={setModalIngredientType}>
-            <BurgerIngredients data={data} handleClick={togglePopup} />
+            <BurgerIngredients handleClick={togglePopup} />
           </div>
           <div onClick={setModalOrderType}>
-            <BurgerConstructor data={data} handleClick={togglePopup} />
+            <BurgerConstructor handleClick={togglePopup} handleRequest={handleOrderRequest} />
           </div>
         </div>
       }
 
       {isPopup &&
-        <Modal handleCloseButtonClick={togglePopup} handleKeyPress={closeOnESC}  headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
+        <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
           {
             modalType === 'order'
               ? <OrderDetails />
-              : <IngredientDetails data={ingredientData[0]}/>
+              : <IngredientDetails data={currentIngredient} />
           }
         </Modal>
       }

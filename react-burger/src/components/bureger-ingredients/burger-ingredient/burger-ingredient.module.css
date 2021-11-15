@@ -10,3 +10,10 @@
   display: flex;
   align-items: center;
 }
+
+.counter {
+  position: relative;
+  right: 0;
+  top: 0;
+}
+

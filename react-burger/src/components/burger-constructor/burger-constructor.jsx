@@ -1,64 +1,93 @@
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 
-const BurgerConstructor = ({ data, handleClick }) => {
-  const ingredients = data.filter(i => i.type !== 'bun')
-  const bun = data.filter(i => i.name === 'Краторная булка N-200i')[0]
+const BurgerConstructor = ({ handleRequest }) => {
+  const bun = useSelector(state => state.burgerConstructor?.bun)
+  const ingredients = useSelector(state => state.burgerConstructor?.constructorIngredients)
+
+  const isBun = !Object.keys(bun).length === false
+  const isIngredients = !Object.keys(ingredients).length === false
+
+  const [, drop] = useDrop(() => ({
+    accept: 'ingredient',
+  }))
+
+  const requestData = [
+    bun._id,
+    ...ingredients.map(i => i._id)
+  ]
 
   return (
-    <article className={`${s.wrapper} mt-25`}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <div className={s.bun}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
+    <article className={`${s.wrapper} mt-25`} ref={drop}>
 
-        <section className={`${s.scrollable}`}>
-          {ingredients.map(i => (
-            <div className={s.constructorWrapper} key={i._id}>
-              <DragIcon type='primary' />
-              <ConstructorElement
-                text={i.name}
-                price={i.price}
-                thumbnail={i.image}
-              />
-            </div>
-          ))}
-        </section>
+      {
+        isBun || isIngredients
+          ?
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {
+              isBun &&
+              <div className={s.bun}>
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${bun.name} (верх)`}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            }
 
-        <div className={s.bun}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
-      </div>
 
-      <footer className={`${s.footer} mt-10`}>
-        <span className={`${s.summary} mr-10 text text_type_main-large`}>
-          {data.reduce((sum, current) => sum + current.price, 0)}
-          <CurrencyIcon type="primary" />
-        </span>
-        <Button type="primary" size="large" onClick={handleClick}>
-          Оформить заказ
+            <section className={`${s.scrollable}`}>
+              {
+                isIngredients
+                  ? ingredients?.map(i => (
+                    <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
+                  ))
+                  // Заменить нижнюю заглушку
+                  : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Добавьте начинку</div>
+              }
+            </section>
+
+            {
+              isBun &&
+              <div className={s.bun}>
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${bun.name} (низ)`}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            }
+          </div>
+          // Заменить нижнюю заглушку
+          : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Перетащите сюда булку</div>
+      }
+
+      {
+        (isBun && isIngredients) &&
+        <footer className={`${s.footer} mt-10`}>
+          <span className={`${s.summary} mr-10 text text_type_main-large`}>
+            {ingredients.reduce((sum, current) => sum + current.price, 0) + bun.price}
+            <CurrencyIcon type="primary" />
+          </span>
+          <Button type="primary" size="large" onClick={() => { handleRequest(requestData) }}>
+            Оформить заказ
         </Button>
-      </footer>
+        </footer>
+      }
     </article>
   )
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.any),
-  handleClick: PropTypes.func
+  handleRequest: PropTypes.func
 }
 
 export default BurgerConstructor
