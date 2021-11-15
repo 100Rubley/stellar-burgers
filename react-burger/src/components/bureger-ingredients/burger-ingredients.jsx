@@ -1,16 +1,16 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import s from './burger-ingredients.module.css'
 import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const BurgerIngredients = ({ handleClick }) => {
-  const [current, setCurrent] = React.useState('Булки')
-  const bunRef = React.useRef()
-  const sauceRef = React.useRef()
-  const mainRef = React.useRef()
-  const tabRef = React.useRef()
+  const [current, setCurrent] = useState('Булки')
+  const bunRef = useRef()
+  const sauceRef = useRef()
+  const mainRef = useRef()
+  const tabRef = useRef()
 
   const data = useSelector(state => state.ingredients.ingredients)
   const ingredientsRequest = useSelector(state => state.ingredients.ingredientsRequest)
@@ -53,7 +53,7 @@ const BurgerIngredients = ({ handleClick }) => {
       {
         ingredientsRequest
           ? <div>Loading</div>
-          : <section className={`${s.scrollable} mt-10`} id = 'scroll' onScroll={checkActualTab}>
+          : <section className={`${s.scrollable} mt-10`} id='scroll' onScroll={checkActualTab}>
             <figure className={s.figure}>
               <p className="text text_type_main-medium" id='bun' ref={bunRef}>
                 Булки
