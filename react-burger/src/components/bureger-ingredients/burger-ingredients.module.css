@@ -10,6 +10,17 @@
   height: calc(100vh - 290px);
 }
 
+.scrollable::-webkit-scrollbar {
+  width: .5em;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
 .figure {
   margin: 0;
 }
