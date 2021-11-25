@@ -11,12 +11,12 @@ import { setCurrentIngredient, removeCurrentIngredient } from '../../services/ac
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { postOrder } from '../../services/actions/constructor-actions'
 import { Switch, Route } from 'react-router-dom';
-import Login from '../pages/login'
-import SignUp from '../pages/sign-up'
-import RecreatePassword from '../pages/new-password'
-import ResetPassword from '../pages/reset-password'
-import Profile from '../pages/profile'
-import Error404 from '../pages/error404'
+import Login from '../pages/login/login'
+import SignUp from '../pages/sign-up/sign-up'
+import RecreatePassword from '../pages/new-password/new-password'
+import ResetPassword from '../pages/reset-password/reset-password'
+import Profile from '../pages/profile/profile'
+import Error404 from '../pages/error404/error404'
 
 function App() {
   const dispatch = useDispatch()
