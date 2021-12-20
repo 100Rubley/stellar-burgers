@@ -1,6 +1,7 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   const [icon, setIcon] = React.useState('ShowIcon')
@@ -45,18 +46,22 @@ const Login = () => {
       <div className="text text_type_main-default mt-15 text_color_inactive">
         Вы - новый пользователь?
         <span>
-          <Button type="secondary" size="medium">
-            Зарегистрироваться
+          <Link to='/register'>
+            <Button type="secondary" size="medium">
+              Зарегистрироваться
           </Button>
+          </Link>
         </span>
       </div>
 
       <div className="text text_type_main-default mt-4 text_color_inactive">
         Забыли пароль?
         <span>
-          <Button type="secondary" size="medium">
-            Восстановить пароль
+          <Link to='/forgot-password'>
+            <Button type="secondary" size="medium">
+              Восстановить пароль
           </Button>
+          </Link>
         </span>
       </div>
     </div>

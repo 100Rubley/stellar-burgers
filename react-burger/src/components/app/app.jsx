@@ -13,7 +13,7 @@ import { postOrder } from '../../services/actions/constructor-actions'
 import { Switch, Route } from 'react-router-dom';
 import Login from '../pages/login/login'
 import SignUp from '../pages/sign-up/sign-up'
-import RecreatePassword from '../pages/new-password/new-password'
+import NewPassword from '../pages/new-password/new-password'
 import ResetPassword from '../pages/reset-password/reset-password'
 import Profile from '../pages/profile/profile'
 import Error404 from '../pages/error404/error404'
@@ -88,7 +88,7 @@ function App() {
         </Route>
 
         <Route path='/forgot-password' exact>
-          <RecreatePassword />
+          <NewPassword />
         </Route>
 
         <Route path='/reset-password' exact>

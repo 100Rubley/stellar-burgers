@@ -1,5 +1,5 @@
 import s from './profile.module.css'
-import { Button, Input  } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
 
 const Profile = () => {

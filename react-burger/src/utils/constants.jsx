@@ -21,3 +21,13 @@ export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST'
 export const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
 // __________________________________
 
+// Постоянные для user-reducer
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR'
+export const CANCEL_RESET_SUCCESS = 'CANCEL_RESET_SUCCESS'
+
+export const SAVE_PASSWORD_SUCCESS = 'SAVE_PASSWORD_SUCCESS'
+export const SAVE_PASSWORD_REQUEST = 'SAVE_PASSWORD_REQUEST'
+export const SAVE_PASSWORD_ERROR = 'SAVE_PASSWORD_ERROR'
+// __________________________________

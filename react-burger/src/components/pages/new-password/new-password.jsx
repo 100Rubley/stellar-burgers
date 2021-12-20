@@ -1,31 +1,57 @@
 import s from './new-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import React, { useCallback, useRef, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetPassword, cancelResetSuccess } from '../../../services/actions/user-actions'
 
-const RecreatePassword = () => {
-  const [icon, setIcon] = React.useState('ShowIcon')
+const NewPassword = () => {
+  const [icon, setIcon] = useState('ShowIcon')
+  const [emailValue, setEmailValue] = useState('')
+  const inputPassRef = useRef(null)
+  const dispatch = useDispatch()
+  const history = useHistory() 
+  const isResetSuccess = useSelector(state => state.user.resetPassSuccess)
+
+  if (isResetSuccess) {
+    history.replace({ pathname: '/reset-password' })
+    dispatch(cancelResetSuccess())
+  }
+
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
     icon === 'ShowIcon' ? setIcon('HideIcon') : setIcon('ShowIcon')
   }
-  const inputPassRef = React.useRef(null)
+  
+  const onEmailChange = e => {
+    setEmailValue(e.target.value)
+  }
+
+  const resetRequset = useCallback(
+    (e) => {
+      e.preventDefault()
+      dispatch(resetPassword(emailValue))
+    }, [emailValue, dispatch]
+  )
 
   return (
     <div className={s.wrapper}>
       <form className={s.form}>
         <div className="text text_type_main-default mt-15">Восстановление пароля</div>
         <Input
-          type={'password'}
+          type={'email'}
           placeholder={'Укажите e-mail'}
-          name={'password'}
+          name={'email'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}
           icon={`${icon}`}
           ref={inputPassRef}
           onIconClick={onIconClick}
+          onChange={onEmailChange}
+          value={emailValue}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={resetRequset}>
           Восстановить
         </Button>
       </form>
@@ -33,13 +59,15 @@ const RecreatePassword = () => {
       <div className="text text_type_main-default mt-15 text_color_inactive">
         Вспомнили пароль?
         <span>
-          <Button type="secondary" size="medium">
-            Войти
-          </Button>
+          <Link to='/login'>
+            <Button type="secondary" size="medium">
+              Войти
+            </Button>
+          </Link>
         </span>
       </div>
     </div>
   )
 }
 
-export default RecreatePassword
+export default NewPassword

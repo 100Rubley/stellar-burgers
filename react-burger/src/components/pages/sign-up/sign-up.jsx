@@ -1,6 +1,7 @@
 import s from './sign-up.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
   const [nameValue, setNameValue] = React.useState('')
@@ -42,6 +43,7 @@ const SignUp = () => {
           size={'default'}
           onChange={onNameChange}
           ref={inputNameRef}
+          value={nameValue}
         />
         <Input
           type={'e-mail'}
@@ -52,6 +54,7 @@ const SignUp = () => {
           size={'default'}
           onChange={onEmailChange}
           ref={inputEmailRef}
+          value={emailValue}
         />
         <Input
           type={'password'}
@@ -64,6 +67,7 @@ const SignUp = () => {
           onChange={onPassChange}
           ref={inputPassRef}
           onIconClick={onIconClick}
+          value={passValue}
         />
         <Button type="primary" size="medium">
           Зарегистрироваться
@@ -73,9 +77,11 @@ const SignUp = () => {
       <div className="text text_type_main-default mt-15 text_color_inactive">
         Уже зарегистрированы?
         <span>
-          <Button type="secondary" size="medium">
-            Войти
+          <Link to='/login'>
+            <Button type="secondary" size="medium">
+              Войти
           </Button>
+          </Link>
         </span>
       </div>
     </div>
