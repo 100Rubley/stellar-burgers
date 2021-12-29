@@ -1,4 +1,5 @@
 import { BASE_URL, ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR } from "../../utils/constants"
+import { checkResponse } from '../../utils/common'
 
 export const addBun = item => ({ type: ADD_BUN, item })
 export const addIngredient = item => ({ type: ADD_INGREDIENT, item })
@@ -33,12 +34,7 @@ export const postOrder = data => dispatch => {
       'ingredients': data
     }),
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка ${res.status}`)
-    })
+    .then(checkResponse)
     .then(res => {
       if (res && res.success) {
         dispatch(postOrderSuccess(res.order.number));

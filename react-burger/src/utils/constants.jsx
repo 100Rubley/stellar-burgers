@@ -1,4 +1,8 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api'
+export const USER_LOGIN_URL = 'https://norma.nomoreparties.space/api/auth/login' // <---- token
+export const USER_REGISTER_URL = 'https://norma.nomoreparties.space/api/auth/register' // <---- token
+export const USER_LOGOUT_URL = 'https://norma.nomoreparties.space/api/auth/logout'
+export const REFRESH_TOKEN_URL = 'https://norma.nomoreparties.space/api/auth/token'
 
 // Постоянные для ingredients-reducer
 export const SET_INGREDIENTS_SUCCESS = 'SET_INGREDIENTS_SUCCESS'
@@ -30,4 +34,12 @@ export const CANCEL_RESET_SUCCESS = 'CANCEL_RESET_SUCCESS'
 export const SAVE_PASSWORD_SUCCESS = 'SAVE_PASSWORD_SUCCESS'
 export const SAVE_PASSWORD_REQUEST = 'SAVE_PASSWORD_REQUEST'
 export const SAVE_PASSWORD_ERROR = 'SAVE_PASSWORD_ERROR'
+
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
+export const SIGN_UP_ERROR = 'SIGN_UP_ERROR'
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
+
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
+export const LOG_IN_ERROR = 'LOG_IN_ERROR'
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'
 // __________________________________

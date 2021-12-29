@@ -1,15 +1,39 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logIn } from '../../../services/actions/user-actions'
 
 const Login = () => {
+  const [emailValue, setEmailValue] = React.useState('')
+  const [passValue, setPassValue] = React.useState('')
+
   const [icon, setIcon] = React.useState('ShowIcon')
+
+  const dispatch = useDispatch()
+
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
     icon === 'ShowIcon' ? setIcon('HideIcon') : setIcon('ShowIcon')
   }
   const inputPassRef = React.useRef(null)
+  const inputEmailRef = React.useRef(null)
+
+  const onEmailChange = e => {
+    setEmailValue(e.target.value)
+  }
+
+  const onPassChange = e => {
+    setPassValue(e.target.value)
+  }
+
+  const logInHandle = useCallback(
+    e => {
+      e.preventDefault()
+      dispatch(logIn(emailValue, passValue))
+    }, [emailValue, passValue]
+  )
 
   return (
     <div className={s.wrapper}>
@@ -23,8 +47,8 @@ const Login = () => {
           error={false}
           errorText={'Ошибка'}
           size={'default'}
-        // onChange={onEmailChange}
-        // ref={inputEmailRef}
+          onChange={onEmailChange}
+          ref={inputEmailRef}
         />
         <Input
           type={'password'}
@@ -34,12 +58,12 @@ const Login = () => {
           errorText={'Ошибка'}
           size={'default'}
           icon={`${icon}`}
-          // onChange={onPassChange}
+          onChange={onPassChange}
           ref={inputPassRef}
           onIconClick={onIconClick}
         />
-        <Button type="primary" size="medium">
-          Зарегистрироваться
+        <Button type="primary" size="medium" onClick={logInHandle}>
+          Войти
         </Button>
       </form>
 

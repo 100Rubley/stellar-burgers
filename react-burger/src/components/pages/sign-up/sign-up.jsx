@@ -1,14 +1,19 @@
 import s from './sign-up.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { signUp } from '../../../services/actions/user-actions'
 
 const SignUp = () => {
+  const dispatch = useDispatch()
+
   const [nameValue, setNameValue] = React.useState('')
   const [emailValue, setEmailValue] = React.useState('')
   const [passValue, setPassValue] = React.useState('')
 
   const [icon, setIcon] = React.useState('ShowIcon')
+
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
     icon === 'ShowIcon' ? setIcon('HideIcon') : setIcon('ShowIcon')
@@ -29,6 +34,13 @@ const SignUp = () => {
   const onPassChange = e => {
     setPassValue(e.target.value)
   }
+
+  const signUpHandle = useCallback(
+    e => {
+      e.preventDefault()
+      dispatch(signUp(emailValue, passValue, nameValue))
+    }, [nameValue, emailValue, passValue]
+  )
 
   return (
     <div className={s.wrapper}>
@@ -69,7 +81,7 @@ const SignUp = () => {
           onIconClick={onIconClick}
           value={passValue}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={signUpHandle}>
           Зарегистрироваться
         </Button>
       </form>

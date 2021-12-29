@@ -5,38 +5,60 @@ import {
   SAVE_PASSWORD_SUCCESS,
   SAVE_PASSWORD_REQUEST,
   SAVE_PASSWORD_ERROR,
-  CANCEL_RESET_SUCCESS
+  CANCEL_RESET_SUCCESS,
+  SIGN_UP_ERROR,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  LOG_IN_REQUEST,
+  LOG_IN_ERROR,
+  LOG_IN_SUCCESS
 } from "../../utils/constants"
 
 const initialState = {
   email: '',
   password: '',
+  name: '',
 
-  passwordRequest: false,
-  passwordRequestError: false,
+  isAuth: false,
+
+  request: false,
+  error: false,
+
   resetPassSuccess: false,
-
-  savePassRequest: false,
-  savePassRequestError: false,
 }
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_PASSWORD_SUCCESS:
-      return { ...state, passwordRequestError: false, passwordRequest: false, resetPassSuccess: true }
+      return { ...state, request: false, error: false, resetPassSuccess: true }
     case RESET_PASSWORD_ERROR:
-      return { ...state, passwordRequestError: true, passwordRequest: false, resetPassSuccess: false }
+      return { ...state, error: true, request: false, resetPassSuccess: false }
     case RESET_PASSWORD_REQUEST:
-      return { ...state, passwordRequest: true, resetPassSuccess: false }
+      return { ...state, request: true, error: false, resetPassSuccess: false }
     case CANCEL_RESET_SUCCESS:
       return { ...state, resetPassSuccess: false }
 
     case SAVE_PASSWORD_SUCCESS:
-      return { ...state, savePassRequestError: false, savePassRequest: false }
+      return { ...state, error: false, request: false }
     case SAVE_PASSWORD_ERROR:
-      return { ...state, savePassRequestError: true, savePassRequest: false }
+      return { ...state, error: true, request: false }
     case SAVE_PASSWORD_REQUEST:
-      return { ...state, savePassRequest: true }
+      return { ...state, error: false, request: true }
+
+    case SIGN_UP_REQUEST:
+      return { ...state, request: true, error: false }
+    case SIGN_UP_ERROR:
+      return { ...state, request: false, error: true }
+    case SIGN_UP_SUCCESS:
+      return { ...state, request: false, error: false, email: action.email, name: action.name, password: action.password }
+
+    case LOG_IN_REQUEST:
+      return { ...state, request: true, error: false }
+    case LOG_IN_ERROR:
+      return { ...state, request: false, error: true }
+    case LOG_IN_SUCCESS:
+      return { ...state, request: false, error: false, email: action.email, password: action.password }
+
 
     default:
       return state;
