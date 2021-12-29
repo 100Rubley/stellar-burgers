@@ -11,7 +11,9 @@ import {
   SIGN_UP_SUCCESS,
   LOG_IN_REQUEST,
   LOG_IN_ERROR,
-  LOG_IN_SUCCESS
+  LOG_IN_SUCCESS,
+  LOG_OUT_ERROR,
+  LOG_OUT_SUCCESS
 } from "../../utils/constants"
 
 const initialState = {
@@ -57,7 +59,12 @@ export const userReducer = (state = initialState, action) => {
     case LOG_IN_ERROR:
       return { ...state, request: false, error: true }
     case LOG_IN_SUCCESS:
-      return { ...state, request: false, error: false, email: action.email, password: action.password }
+      return { ...state, request: false, error: false, email: action.email, password: action.password, isAuth: true }
+
+    case LOG_OUT_ERROR:
+      return { ...state, request: false, error: true }
+    case LOG_OUT_SUCCESS:
+      return { ...state, request: false, error: false, email: '', password: '', isAuth: false }
 
 
     default:

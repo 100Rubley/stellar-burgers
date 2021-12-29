@@ -14,9 +14,12 @@ import {
   USER_LOGIN_URL,
   LOG_IN_REQUEST,
   LOG_IN_ERROR,
-  LOG_IN_SUCCESS
+  LOG_IN_SUCCESS,
+  USER_LOGOUT_URL,
+  LOG_OUT_ERROR,
+  LOG_OUT_SUCCESS
 } from "../../utils/constants"
-import { checkResponse, setCookie } from '../../utils/common'
+import { checkResponse, setCookie, getCookie } from '../../utils/common'
 
 
 export const resetPasswordRequest = () => ({ type: RESET_PASSWORD_REQUEST })
@@ -32,9 +35,12 @@ export const signUpRequest = () => ({ type: SIGN_UP_REQUEST })
 export const signUpSuccess = (email, password, name) => ({ type: SIGN_UP_SUCCESS, email, password, name })
 export const signUpError = () => ({ type: SIGN_UP_ERROR })
 
-export const logInError = () => ({type: LOG_IN_ERROR})
-export const logInRequest = () => ({type: LOG_IN_REQUEST})
-export const logInSuccess = (email, password) => ({type: LOG_IN_SUCCESS, email, password})
+export const logInError = () => ({ type: LOG_IN_ERROR })
+export const logInRequest = () => ({ type: LOG_IN_REQUEST })
+export const logInSuccess = (email, password) => ({ type: LOG_IN_SUCCESS, email, password })
+
+export const logOutSuccess = () => ({ type: LOG_OUT_SUCCESS })
+export const logOutError = () => ({ type: LOG_OUT_ERROR })
 
 export const resetPassword = email => dispatch => {
   dispatch(resetPasswordRequest())
@@ -149,5 +155,26 @@ export const logIn = (email, password) => dispatch => {
     })
 }
 
-// Доделать санку logIn, создать экшены и т.д., она вообще не готова
+export const logOut = () => dispatch => {
+  const refreshToken = getCookie('refreshToken')
+
+  fetch(`${USER_LOGOUT_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: refreshToken }),
+  })
+    .then(checkResponse)
+    .then(res => {
+      if (res && res.success) {
+        console.log(res)
+        dispatch(logOutSuccess());
+      }
+    })
+    .catch(err => {
+      dispatch(logOutError())
+      console.log(err)
+    })
+}
 

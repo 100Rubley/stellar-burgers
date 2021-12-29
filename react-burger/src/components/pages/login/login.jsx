@@ -1,8 +1,8 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../../services/actions/user-actions'
 
 const Login = () => {
@@ -12,6 +12,13 @@ const Login = () => {
   const [icon, setIcon] = React.useState('ShowIcon')
 
   const dispatch = useDispatch()
+  const history = useHistory() 
+
+  const isAuth = useSelector(state => state.user.isAuth)
+
+  if (isAuth) {
+    history.replace({ pathname: '/' })
+  }
 
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
