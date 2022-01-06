@@ -3,6 +3,7 @@ export const USER_LOGIN_URL = 'https://norma.nomoreparties.space/api/auth/login'
 export const USER_REGISTER_URL = 'https://norma.nomoreparties.space/api/auth/register' // <---- token
 export const USER_LOGOUT_URL = 'https://norma.nomoreparties.space/api/auth/logout'
 export const REFRESH_TOKEN_URL = 'https://norma.nomoreparties.space/api/auth/token'
+export const USER_INFO_URL = 'https://norma.nomoreparties.space/api/auth/user' // <-- get/patch
 
 // Постоянные для ingredients-reducer
 export const SET_INGREDIENTS_SUCCESS = 'SET_INGREDIENTS_SUCCESS'
@@ -26,23 +27,7 @@ export const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
 // __________________________________
 
 // Постоянные для user-reducer
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
-export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR'
-export const CANCEL_RESET_SUCCESS = 'CANCEL_RESET_SUCCESS'
-
-export const SAVE_PASSWORD_SUCCESS = 'SAVE_PASSWORD_SUCCESS'
-export const SAVE_PASSWORD_REQUEST = 'SAVE_PASSWORD_REQUEST'
-export const SAVE_PASSWORD_ERROR = 'SAVE_PASSWORD_ERROR'
-
-export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
-export const SIGN_UP_ERROR = 'SIGN_UP_ERROR'
-export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
-
-export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
-export const LOG_IN_ERROR = 'LOG_IN_ERROR'
-export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'
-
-export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS'
-export const LOG_OUT_ERROR = 'LOG_OUT_ERROR'
+export const REQUEST = 'REQUEST'
+export const REQUEST_ERROR = 'REQUEST_ERROR'
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
 // __________________________________

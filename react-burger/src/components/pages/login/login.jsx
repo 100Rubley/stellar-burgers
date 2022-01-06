@@ -48,9 +48,9 @@ const Login = () => {
         <div className="text text_type_main-default mt-15">Вход</div>
 
         <Input
-          type={'e-mail'}
+          type={'email'}
           placeholder={'E-mail'}
-          name={'e-mail'}
+          name={'email'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}

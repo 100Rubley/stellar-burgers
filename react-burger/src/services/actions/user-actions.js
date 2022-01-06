@@ -1,46 +1,35 @@
 import {
   BASE_URL,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_ERROR,
-  SAVE_PASSWORD_SUCCESS,
-  SAVE_PASSWORD_REQUEST,
-  SAVE_PASSWORD_ERROR,
-  CANCEL_RESET_SUCCESS,
-  SIGN_UP_REQUEST,
   USER_REGISTER_URL,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_ERROR,
   USER_LOGIN_URL,
-  LOG_IN_REQUEST,
-  LOG_IN_ERROR,
-  LOG_IN_SUCCESS,
   USER_LOGOUT_URL,
-  LOG_OUT_ERROR,
-  LOG_OUT_SUCCESS
+  USER_INFO_URL,
+
+  REQUEST_ERROR,
+  REQUEST_SUCCESS,
+  REQUEST
 } from "../../utils/constants"
 import { checkResponse, setCookie, getCookie } from '../../utils/common'
+import { deleteCookie } from "../../utils/common"
+import { retriableFetch } from "../../utils/common"
 
+export const request = () => ({ type: REQUEST })
+export const requestError = () => ({ type: REQUEST_ERROR })
+export const requestSuccess = () => ({ type: REQUEST_SUCCESS })
 
-export const resetPasswordRequest = () => ({ type: RESET_PASSWORD_REQUEST })
-export const resetPasswordError = () => ({ type: RESET_PASSWORD_ERROR })
-export const resetPasswordSuccess = () => ({ type: RESET_PASSWORD_SUCCESS })
-export const cancelResetSuccess = () => ({ type: CANCEL_RESET_SUCCESS })
+export const logInSuccess = (email, password) => ({ type: REQUEST_SUCCESS, payload: { email, password, isAuth: true } }) //надо isAuth где-то еще доставать, так не дело
 
-export const savePasswordSuccess = () => ({ type: SAVE_PASSWORD_SUCCESS })
-export const savePasswordRequest = () => ({ type: SAVE_PASSWORD_REQUEST })
-export const savePasswordError = () => ({ type: SAVE_PASSWORD_ERROR })
+export const signUpSuccess = (email, password, name) => ({ type: REQUEST_SUCCESS, payload: { email, password, name } })
 
-export const signUpRequest = () => ({ type: SIGN_UP_REQUEST })
-export const signUpSuccess = (email, password, name) => ({ type: SIGN_UP_SUCCESS, email, password, name })
-export const signUpError = () => ({ type: SIGN_UP_ERROR })
+export const resetPasswordSuccess = () => ({ type: REQUEST_SUCCESS, payload: { resetPassSuccess: true } })
+export const resetPasswordError = () => ({ type: requestError, payload: { resetPassSuccess: false } })
+export const resetPasswordRequest = () => ({ type: REQUEST, payload: { resetPassSuccess: false } })
+export const cancelResetSuccess = () => ({ type: REQUEST, payload: { resetPassSuccess: false } })
 
-export const logInError = () => ({ type: LOG_IN_ERROR })
-export const logInRequest = () => ({ type: LOG_IN_REQUEST })
-export const logInSuccess = (email, password) => ({ type: LOG_IN_SUCCESS, email, password })
-
-export const logOutSuccess = () => ({ type: LOG_OUT_SUCCESS })
-export const logOutError = () => ({ type: LOG_OUT_ERROR })
+export const logOutSuccess = () => ({
+  type: REQUEST_SUCCESS,
+  payload: { email: '', password: '', isAuth: false }
+})
 
 export const resetPassword = email => dispatch => {
   dispatch(resetPasswordRequest())
@@ -56,7 +45,6 @@ export const resetPassword = email => dispatch => {
     .then(checkResponse)
     .then(res => {
       if (res && res.success) {
-        console.log(res)
         dispatch(resetPasswordSuccess());
       }
     })
@@ -67,7 +55,7 @@ export const resetPassword = email => dispatch => {
 }
 
 export const savePassword = (newPassword, token) => dispatch => {
-  dispatch(savePasswordRequest())
+  dispatch(request())
 
   fetch(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
@@ -82,18 +70,17 @@ export const savePassword = (newPassword, token) => dispatch => {
     .then(checkResponse)
     .then(res => {
       if (res && res.success) {
-        dispatch(savePasswordSuccess());
-        console.log(res)
+        dispatch(requestSuccess());
       }
     })
     .catch(err => {
-      dispatch(savePasswordError())
+      dispatch(requestError())
       console.log(err)
     })
 }
 
 export const signUp = (email, password, name) => dispatch => {
-  dispatch(signUpRequest())
+  dispatch(request())
 
   fetch(`${USER_REGISTER_URL}`, {
     method: 'POST',
@@ -109,7 +96,6 @@ export const signUp = (email, password, name) => dispatch => {
     .then(checkResponse)
     .then(res => {
       if (res && res.success) {
-        console.log(res)
         setCookie('refreshToken', res.refreshToken)
         let accessToken = res.accessToken.split('Bearer ')[1]
         if (accessToken) {
@@ -119,13 +105,13 @@ export const signUp = (email, password, name) => dispatch => {
       }
     })
     .catch(err => {
-      dispatch(signUpError())
+      dispatch(requestError())
       console.log(err)
     })
 }
 
 export const logIn = (email, password) => dispatch => {
-  dispatch(logInRequest())
+  dispatch(request())
 
   fetch(`${USER_LOGIN_URL}`, {
     method: 'POST',
@@ -140,7 +126,6 @@ export const logIn = (email, password) => dispatch => {
     .then(checkResponse)
     .then(res => {
       if (res && res.success) {
-        console.log(res)
         setCookie('refreshToken', res.refreshToken)
         let accessToken = res.accessToken.split('Bearer ')[1]
         if (accessToken) {
@@ -150,13 +135,14 @@ export const logIn = (email, password) => dispatch => {
       }
     })
     .catch(err => {
-      dispatch(logInError())
+      dispatch(requestError())
       console.log(err)
     })
 }
 
 export const logOut = () => dispatch => {
   const refreshToken = getCookie('refreshToken')
+  dispatch(request())
 
   fetch(`${USER_LOGOUT_URL}`, {
     method: 'POST',
@@ -168,13 +154,32 @@ export const logOut = () => dispatch => {
     .then(checkResponse)
     .then(res => {
       if (res && res.success) {
-        console.log(res)
         dispatch(logOutSuccess());
+        deleteCookie('refreshToken')
+        deleteCookie('accessToken')
       }
     })
     .catch(err => {
-      dispatch(logOutError())
+      dispatch(requestError())
       console.log(err)
     })
 }
 
+export const getUserData = () => dispatch => {
+  const accessToken = getCookie('accessToken')
+  dispatch(request())
+
+  retriableFetch(USER_INFO_URL, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + accessToken
+    }
+  })
+    .then(res => {
+      if (res && res.success) {
+        console.log(res)
+      }
+    })
+
+}

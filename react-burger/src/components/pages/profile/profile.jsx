@@ -1,22 +1,34 @@
 import s from './profile.module.css'
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logOut } from '../../../services/actions/user-actions'
+import { getUserData, logOut } from '../../../services/actions/user-actions'
 import { useHistory } from 'react-router-dom'
 
 const Profile = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector(state => state.user.isAuth)
+  const userName = useSelector(state => state.user.name)
+  const userEmail = useSelector(state => state.user.email)
+  const userPass = useSelector(state => state.user.password)
   const history = useHistory()
-
+  
   const logOutHandle = () => {
     dispatch(logOut())
   }
+  
+  const [isEdit, setIsEdit] = useState(false)
+  const editIconHandler = () => setIsEdit(!isEdit)
+  const onBlurHandler = () => setIsEdit(false)
+  const onFocusHandler = () => setIsEdit(true)
 
-  if (!isAuth) {
-    history.replace({ pathname: '/login' })
-  }
+  useEffect(() => {
+    dispatch(getUserData())
+  }, [])
+
+  // if (!isAuth) {
+  //   history.replace({ pathname: '/login' })
+  // }
 
   return (
     <div className={`${s.wrapper} mt-15`}>
@@ -31,35 +43,50 @@ const Profile = () => {
         </p>
       </nav>
 
-      <div className={s.form}>
+      <form className={s.form}>
         <Input
           type={'text'}
           placeholder={'Имя'}
           name={'name'}
-          error={false}
-          errorText={'Ошибка'}
           size={'default'}
           icon={'EditIcon'}
+          value={userName}
+          onIconClick={editIconHandler}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
         />
         <Input
-          type={'e-mail'}
+          type={'email'}
           placeholder={'E-mail'}
-          name={'e-mail'}
-          error={false}
-          errorText={'Ошибка'}
+          name={'email'}
           size={'default'}
           icon={'EditIcon'}
+          value={userEmail}
+          onIconClick={editIconHandler}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
         />
         <Input
           type={'password'}
           placeholder={'Пароль'}
           name={'password'}
-          error={false}
-          errorText={'Ошибка'}
           size={'default'}
           icon={'EditIcon'}
+          value={userPass}
+          onIconClick={editIconHandler}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
         />
-      </div>
+
+        {
+          isEdit &&
+          <div>
+            <Button type="secondary" size="medium">Отмена</Button>
+
+            <Button type="primary" size="medium">Сохранить</Button>
+          </div>
+        }
+      </form>
     </div>
   )
 }
