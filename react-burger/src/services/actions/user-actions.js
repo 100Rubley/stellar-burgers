@@ -19,10 +19,10 @@ export const requestSuccess = () => ({ type: REQUEST_SUCCESS })
 
 export const logInSuccess = (email, password) => ({ type: REQUEST_SUCCESS, payload: { email, password, isAuth: true } }) //надо isAuth где-то еще доставать, так не дело
 
-export const signUpSuccess = (email, password, name) => ({ type: REQUEST_SUCCESS, payload: { email, password, name } })
+export const signUpSuccess = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name } })
 
 export const resetPasswordSuccess = () => ({ type: REQUEST_SUCCESS, payload: { resetPassSuccess: true } })
-export const resetPasswordError = () => ({ type: requestError, payload: { resetPassSuccess: false } })
+export const resetPasswordError = () => ({ type: REQUEST_ERROR, payload: { resetPassSuccess: false } })
 export const resetPasswordRequest = () => ({ type: REQUEST, payload: { resetPassSuccess: false } })
 export const cancelResetSuccess = () => ({ type: REQUEST, payload: { resetPassSuccess: false } })
 
@@ -30,6 +30,8 @@ export const logOutSuccess = () => ({
   type: REQUEST_SUCCESS,
   payload: { email: '', password: '', isAuth: false }
 })
+
+export const setUserData = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name } })
 
 export const resetPassword = email => dispatch => {
   dispatch(resetPasswordRequest())
@@ -101,7 +103,7 @@ export const signUp = (email, password, name) => dispatch => {
         if (accessToken) {
           setCookie('accessToken', accessToken);
         }
-        dispatch(signUpSuccess(email, password, name));
+        dispatch(signUpSuccess(email, name));
       }
     })
     .catch(err => {
@@ -165,6 +167,7 @@ export const logOut = () => dispatch => {
     })
 }
 
+
 export const getUserData = () => dispatch => {
   const accessToken = getCookie('accessToken')
   dispatch(request())
@@ -178,8 +181,36 @@ export const getUserData = () => dispatch => {
   })
     .then(res => {
       if (res && res.success) {
+        dispatch(setUserData(res.user.email, res.user.name))
         console.log(res)
       }
     })
+    .catch(err => {
+      dispatch(requestError())
+      console.log(err)
+    })
+}
 
+export const refreshUserData = (email, name, password) => dispatch => {
+  const accessToken = getCookie('accessToken')
+  dispatch(request())
+
+  retriableFetch(USER_INFO_URL, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + accessToken
+    },
+    body: JSON.stringify({email, name, password})
+  })
+    .then(res => {
+      if (res && res.success) {
+        dispatch(setUserData(res.user.email, res.user.name))
+        console.log(res)
+      }
+    })
+    .catch(err => {
+      dispatch(requestError())
+      console.log(err)
+    })
 }

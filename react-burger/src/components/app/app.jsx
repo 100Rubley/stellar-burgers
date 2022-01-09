@@ -17,6 +17,7 @@ import NewPassword from '../pages/new-password/new-password'
 import ResetPassword from '../pages/reset-password/reset-password'
 import Profile from '../pages/profile/profile'
 import Error404 from '../pages/error404/error404'
+import ProtectedRoute from '../protected-route/protected-route'
 
 function App() {
   const dispatch = useDispatch()
@@ -95,9 +96,13 @@ function App() {
           <ResetPassword />
         </Route>
 
-        <Route path='/profile' exact>
+        <ProtectedRoute path='/profile' exact>
           <Profile />
-        </Route>
+        </ProtectedRoute>
+
+        {/* <Route path='/profile' exact>
+          <Profile />
+        </Route> */}
 
         <Route path='*'>
           <Error404 />

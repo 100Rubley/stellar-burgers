@@ -1,6 +1,6 @@
 .wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 1200px;
   margin: 60px auto;
 }
