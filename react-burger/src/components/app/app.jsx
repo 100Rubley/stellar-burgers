@@ -18,12 +18,14 @@ import ResetPassword from '../pages/reset-password/reset-password'
 import Profile from '../pages/profile/profile'
 import Error404 from '../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
+import { getUserData } from '../../services/actions/user-actions'
 
 function App() {
   const dispatch = useDispatch()
 
   React.useEffect(() => {
     dispatch(requestIngredients());
+    dispatch(getUserData())
   }, [dispatch]);
 
   // используется для того, чтобы отобразить/убрать оверлей
@@ -100,16 +102,10 @@ function App() {
           <Profile />
         </ProtectedRoute>
 
-        {/* <Route path='/profile' exact>
-          <Profile />
-        </Route> */}
-
         <Route path='*'>
           <Error404 />
         </Route>
       </Switch>
-
-
 
       {isPopup &&
         <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >

@@ -1,16 +1,19 @@
 import s from './reset-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { savePassword } from '../../../services/actions/user-actions'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 const ResetPassword = () => {
+  const dispatch = useDispatch()
+
+  const isAuth = useSelector(state => state.user.isAuth)
+
   const [icon, setIcon] = useState('ShowIcon')
   const [pass, setPass] = useState('')
   const [code, setCode] = useState('')
   const inputPassRef = useRef(null)
-  const dispatch = useDispatch()
 
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
@@ -31,6 +34,16 @@ const ResetPassword = () => {
       dispatch(savePassword(pass, code))
     }, [dispatch, pass, code]
   )
+
+  if (isAuth) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    );
+  }
 
   return (
     <div className={s.wrapper}>

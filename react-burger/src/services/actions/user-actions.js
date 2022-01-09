@@ -19,7 +19,7 @@ export const requestSuccess = () => ({ type: REQUEST_SUCCESS })
 
 export const logInSuccess = (email, password) => ({ type: REQUEST_SUCCESS, payload: { email, password, isAuth: true } }) //надо isAuth где-то еще доставать, так не дело
 
-export const signUpSuccess = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name } })
+export const signUpSuccess = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name, isAuth: true } })
 
 export const resetPasswordSuccess = () => ({ type: REQUEST_SUCCESS, payload: { resetPassSuccess: true } })
 export const resetPasswordError = () => ({ type: REQUEST_ERROR, payload: { resetPassSuccess: false } })
@@ -31,7 +31,7 @@ export const logOutSuccess = () => ({
   payload: { email: '', password: '', isAuth: false }
 })
 
-export const setUserData = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name } })
+export const setUserData = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name, isAuth: true } })
 
 export const resetPassword = email => dispatch => {
   dispatch(resetPasswordRequest())
@@ -133,7 +133,7 @@ export const logIn = (email, password) => dispatch => {
         if (accessToken) {
           setCookie('accessToken', accessToken);
         }
-        dispatch(logInSuccess(email, password));
+        dispatch(logInSuccess(res.user.email, res.user.name));
       }
     })
     .catch(err => {
@@ -176,13 +176,12 @@ export const getUserData = () => dispatch => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + accessToken
+      Authorization: 'Bearer' + accessToken
     }
   })
     .then(res => {
       if (res && res.success) {
         dispatch(setUserData(res.user.email, res.user.name))
-        console.log(res)
       }
     })
     .catch(err => {
@@ -191,7 +190,7 @@ export const getUserData = () => dispatch => {
     })
 }
 
-export const refreshUserData = (email, name, password) => dispatch => {
+export const refreshUserData = (email, name) => dispatch => {
   const accessToken = getCookie('accessToken')
   dispatch(request())
 
@@ -199,9 +198,9 @@ export const refreshUserData = (email, name, password) => dispatch => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + accessToken
+      Authorization: 'Bearer ' + accessToken
     },
-    body: JSON.stringify({email, name, password})
+    body: JSON.stringify({ email, name })
   })
     .then(res => {
       if (res && res.success) {

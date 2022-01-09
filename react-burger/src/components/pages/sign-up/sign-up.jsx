@@ -1,12 +1,13 @@
 import s from './sign-up.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../../../services/actions/user-actions'
 
 const SignUp = () => {
   const dispatch = useDispatch()
+  const isAuth = useSelector(state => state.user.isAuth)
 
   const [nameValue, setNameValue] = React.useState('')
   const [emailValue, setEmailValue] = React.useState('')
@@ -41,6 +42,16 @@ const SignUp = () => {
       dispatch(signUp(emailValue, passValue, nameValue))
     }, [nameValue, emailValue, passValue]
   )
+
+  if (isAuth) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    );
+  }
 
   return (
     <div className={s.wrapper}>
