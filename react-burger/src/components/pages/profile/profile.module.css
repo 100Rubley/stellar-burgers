@@ -25,3 +25,11 @@
 .listItem {
   cursor: pointer;
 }
+
+.active {
+  color: aliceblue;
+}
+
+a {
+  text-decoration: none;
+}

@@ -17,7 +17,7 @@ export const request = () => ({ type: REQUEST })
 export const requestError = () => ({ type: REQUEST_ERROR })
 export const requestSuccess = () => ({ type: REQUEST_SUCCESS })
 
-export const logInSuccess = (email, password) => ({ type: REQUEST_SUCCESS, payload: { email, password, isAuth: true } }) //надо isAuth где-то еще доставать, так не дело
+export const logInSuccess = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name, isAuth: true } }) //надо isAuth где-то еще доставать, так не дело
 
 export const signUpSuccess = (email, name) => ({ type: REQUEST_SUCCESS, payload: { email, name, isAuth: true } })
 

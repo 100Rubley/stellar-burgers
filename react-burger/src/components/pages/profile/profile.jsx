@@ -3,6 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserData, logOut, refreshUserData } from '../../../services/actions/user-actions'
+import { NavLink } from 'react-router-dom'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -45,13 +46,31 @@ const Profile = () => {
     setIsEdit(false)
   }
 
+  const [path, setPath] = useState('/profile')
+  const linkStyle = 'text text_type_main-medium text_color_inactive'
   return (
     <div className={`${s.wrapper} mt-15`}>
       <nav className={`${s.nav} mr-30`}>
         <div className={`${s.list} mb-20`}>
-          <div className={`${s.listItem} text text_type_main-medium`}>Профиль</div>
-          <div className={`${s.listItem} text text_type_main-medium text_color_inactive`}>История заказов</div>
-          <div className={`${s.listItem} text text_type_main-medium text_color_inactive`} onClick={logOutHandle}>Выход</div>
+          <NavLink
+            to='/profile'
+            className={`${s.listItem} ${linkStyle}`}
+            activeClassName={path === '/profile' ? `${s.active}` : ''}
+            onClick={() => setPath('/profile')}
+          >
+            Профиль
+          </NavLink>
+
+          <NavLink
+            to='/profile/orders'
+            className={`${s.listItem} ${linkStyle}`}
+            activeClassName={path === '/profile/orders' ? `${s.active}` : ''}
+            onClick={() => setPath('/profile/orders')}
+          >
+            История заказов
+          </NavLink>
+
+          <div className={`${s.listItem} ${linkStyle}`} onClick={logOutHandle}>Выход</div>
         </div>
         <p className="text text_type_main-default text_color_inactive">
           В этом разделе Вы можете изменить свои персональные данные
