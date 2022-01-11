@@ -5,10 +5,14 @@ const ProtectedRoute = ({ children, ...rest }) => {
   const isAuth = useSelector(state => state.user.isAuth)
 
   return (
-    <Route {...rest} render={() =>
+    <Route {...rest} render={({ location }) =>
       isAuth ?
         (children) :
-        (<Redirect to='/login' />)
+        (
+          <Redirect
+            to={{ pathname: '/login', state: { form: location } }}
+          />
+        )
     } />
   )
 }

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { postOrder } from '../../services/actions/constructor-actions'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
 import Login from '../pages/login/login'
 import SignUp from '../pages/sign-up/sign-up'
 import NewPassword from '../pages/new-password/new-password'
@@ -21,103 +21,119 @@ import ProtectedRoute from '../protected-route/protected-route'
 import { getUserData } from '../../services/actions/user-actions'
 
 function App() {
-  const dispatch = useDispatch()
+  const ModalSwitch = () => {
+    const location = useLocation()
+    const history = useHistory()
+    const dispatch = useDispatch()
 
-  React.useEffect(() => {
-    dispatch(requestIngredients());
-    dispatch(getUserData())
-  }, [dispatch]);
+    let background = location.state && location.state.background
 
-  // используется для того, чтобы отобразить/убрать оверлей
-  const ingredients = useSelector(state => state.ingredients.ingredients)
-  const currentIngredient = useSelector(state => state.ingredients.currentIngredient)
+    React.useEffect(() => {
+      dispatch(requestIngredients());
+      dispatch(getUserData())
+    }, [dispatch]);
 
-  const [isPopup, setIsPopup] = React.useState(false)
-  const [modalType, setModalType] = React.useState('order')
+    // используется для того, чтобы отобразить/убрать оверлей
+    const ingredients = useSelector(state => state.ingredients.ingredients)
 
-  const togglePopup = (e) => {
-    setIsPopup(!isPopup)
-    if (isPopup) {
-      dispatch(removeCurrentIngredient())
+    const [isPopup, setIsPopup] = React.useState(false)
+    const [modalType, setModalType] = React.useState('order')
+
+    const togglePopup = () => {
+      setIsPopup(!isPopup)
+      if (isPopup) {
+        dispatch(removeCurrentIngredient())
+        history.goBack()  
+      }
     }
 
-    if (e) {
-      dispatch(setCurrentIngredient(ingredients.find(i => i._id === e.currentTarget.id)))
+    const closeOnESC = (e) => {
+      if (e.key === 'Escape') {
+        dispatch(removeCurrentIngredient())
+        togglePopup(false)
+      }
     }
-  }
 
-  const closeOnESC = (e) => {
-    if (e.key === 'Escape') {
-      dispatch(removeCurrentIngredient())
+    const setModalIngredientType = () => {
+      setModalType('ingredient')
+    }
+    const setModalOrderType = () => {
+      setModalType('order')
+    }
+    // ------------------------------------------------------------
+
+    const handleOrderRequest = (data) => {
+      dispatch(postOrder(data))
       setIsPopup(!isPopup)
     }
-  }
 
-  const setModalIngredientType = () => {
-    setModalType('ingredient')
-  }
-  const setModalOrderType = () => {
-    setModalType('order')
-  }
-  // ------------------------------------------------------------
+    return (
+      <>
+        <AppHeader />
 
-  const handleOrderRequest = (data) => {
-    dispatch(postOrder(data))
-    setIsPopup(!isPopup)
-  }
-
-  return (
-    <div>
-      <AppHeader />
-
-      <Switch>
-        <Route path='/' exact>
-          <div className={s.wrapper}>
-            <div onClick={setModalIngredientType}>
-              <BurgerIngredients handleClick={togglePopup} />
+        <Switch location={background || location}>
+          <Route path='/' exact>
+            <div className={s.wrapper}>
+              <div onClick={setModalIngredientType}>
+                <BurgerIngredients handleClick={togglePopup} />
+              </div>
+              <div onClick={setModalOrderType}>
+                <BurgerConstructor handleClick={togglePopup} handleRequest={handleOrderRequest} />
+              </div>
             </div>
-            <div onClick={setModalOrderType}>
-              <BurgerConstructor handleClick={togglePopup} handleRequest={handleOrderRequest} />
-            </div>
-          </div>
-        </Route>
+          </Route>
 
-        <Route path='/login' exact>
-          <Login />
-        </Route>
+          <Route path='/ingredients/:ingredientId' exact>
+            <IngredientDetails />
+          </Route>
 
-        <Route path='/register' exact>
-          <SignUp />
-        </Route>
+          <Route path='/login' exact>
+            <Login />
+          </Route>
 
-        <Route path='/forgot-password' exact>
-          <NewPassword />
-        </Route>
+          <Route path='/register' exact>
+            <SignUp />
+          </Route>
 
-        <Route path='/reset-password' exact>
-          <ResetPassword />
-        </Route>
+          <Route path='/forgot-password' exact>
+            <NewPassword />
+          </Route>
 
-        <ProtectedRoute path='/profile' exact>
-          <Profile />
-        </ProtectedRoute>
+          <Route path='/reset-password' exact>
+            <ResetPassword />
+          </Route>
 
-        <Route path='*'>
-          <Error404 />
-        </Route>
-      </Switch>
+          <ProtectedRoute path='/profile' exact>
+            <Profile />
+          </ProtectedRoute>
 
-      {isPopup &&
-        <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={modalType === 'ingredient' && 'Детали ингредиента'} >
-          {
-            modalType === 'order'
-              ? <OrderDetails />
-              : <IngredientDetails data={currentIngredient} />
-          }
-        </Modal>
-      }
-    </div>
-  );
+          <Route path='*'>
+            <Error404 />
+          </Route>
+        </Switch>
+
+        {background && (
+          <Route
+            path='/ingredients/:ingredientId'
+            children={
+              <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={'Детали ингредиента'}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        )}
+
+        {modalType === 'order' && isPopup &&
+          <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={null} >
+            
+             <OrderDetails />
+            
+          </Modal>
+        }
+      </>
+    );
+  }
+  return <ModalSwitch />
 }
 
 export default App;
