@@ -1,14 +1,22 @@
 import s from './reset-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { savePassword } from '../../services/actions/user-actions'
 
 const ResetPassword = () => {
-  const dispatch = useDispatch()
+  // redirect
+  const history = useHistory()
+  const location = useLocation()
+  const background = location.state && location.state.prevPath;
+  
+  if (background !== '/forgot-password') {
+    history.goBack()
+  }
+  // --------
 
-  const isAuth = useSelector(state => state.user.isAuth)
+  const dispatch = useDispatch()
 
   const [icon, setIcon] = useState('ShowIcon')
   const [pass, setPass] = useState('')
@@ -34,16 +42,6 @@ const ResetPassword = () => {
       dispatch(savePassword(pass, code))
     }, [dispatch, pass, code]
   )
-
-  if (isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/'
-        }}
-      />
-    );
-  }
 
   return (
     <div className={s.wrapper}>

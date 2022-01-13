@@ -7,10 +7,10 @@ import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import s from './app.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentIngredient, removeCurrentIngredient } from '../../services/actions/ingredients-actions'
+import { removeCurrentIngredient } from '../../services/actions/ingredients-actions'
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { postOrder } from '../../services/actions/constructor-actions'
-import { Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory, Redirect } from 'react-router-dom';
 import Login from '../../pages/login/login'
 import SignUp from '../../pages/sign-up/sign-up'
 import NewPassword from '../../pages/new-password/new-password'
@@ -33,8 +33,8 @@ function App() {
       dispatch(getUserData())
     }, [dispatch]);
 
+    const isAuth = useSelector(state => state.user.isAuth)
     // используется для того, чтобы отобразить/убрать оверлей
-    const ingredients = useSelector(state => state.ingredients.ingredients)
 
     const [isPopup, setIsPopup] = React.useState(false)
     const [modalType, setModalType] = React.useState('order')
@@ -43,7 +43,7 @@ function App() {
       setIsPopup(!isPopup)
       if (isPopup) {
         dispatch(removeCurrentIngredient())
-        history.goBack()  
+        history.goBack()
       }
     }
 
@@ -63,8 +63,12 @@ function App() {
     // ------------------------------------------------------------
 
     const handleOrderRequest = (data) => {
-      dispatch(postOrder(data))
-      setIsPopup(!isPopup)
+      if (!isAuth) {
+        history.replace({pathname: '/login', state: {form: location}})
+      } else {
+        dispatch(postOrder(data))
+        setIsPopup(!isPopup)
+      }
     }
 
     return (
@@ -125,9 +129,9 @@ function App() {
 
         {modalType === 'order' && isPopup &&
           <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={null} >
-            
-             <OrderDetails />
-            
+
+            <OrderDetails />
+
           </Modal>
         }
       </>

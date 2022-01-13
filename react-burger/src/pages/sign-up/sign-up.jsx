@@ -69,9 +69,9 @@ const SignUp = () => {
           value={nameValue}
         />
         <Input
-          type={'e-mail'}
+          type={'email'}
           placeholder={'E-mail'}
-          name={'e-mail'}
+          name={'email'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}

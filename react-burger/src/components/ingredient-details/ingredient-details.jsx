@@ -13,7 +13,7 @@ const IngredientDetails = () => {
   const current = ingredients.find(i => i._id === ingredientId)
   useEffect(() => {
     dispatch(setCurrentIngredient(current))
-  })
+  }, [dispatch, current])
 
   return (
     <div className={s.wrapper}>

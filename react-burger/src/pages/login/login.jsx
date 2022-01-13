@@ -1,7 +1,7 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
 
@@ -13,9 +13,9 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-
+  const location = useLocation()
+  const background = location.state && location.state.form;
   const isAuth = useSelector(state => state.user.isAuth)
-
 
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
@@ -43,7 +43,7 @@ const Login = () => {
     return (
       <Redirect
         to={{
-          pathname: '/'
+          pathname: `${background.pathname}`
         }}
       />
     );

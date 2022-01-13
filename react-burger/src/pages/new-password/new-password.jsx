@@ -1,13 +1,14 @@
 import s from './new-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback, useRef, useState } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelResetSuccess, resetPassword } from '../../services/actions/user-actions'
 
 const NewPassword = () => {
   const history = useHistory()
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const [icon, setIcon] = useState('ShowIcon')
   const [emailValue, setEmailValue] = useState('')
@@ -36,7 +37,7 @@ const NewPassword = () => {
       dispatch(resetPassword(emailValue))
     }, [emailValue, dispatch]
   )
-  
+
   if (isAuth) {
     return (
       <Redirect
@@ -64,9 +65,11 @@ const NewPassword = () => {
           onChange={onEmailChange}
           value={emailValue}
         />
-        <Button type="primary" size="medium">
-          Восстановить
-        </Button>
+        <Link to={{ pathname: 'reset-password', state: { prevPath: location.pathname } }}>
+          <Button type="primary" size="medium">
+            Восстановить
+          </Button>
+        </Link>
       </form>
 
       <div className="text text_type_main-default mt-15 text_color_inactive">
