@@ -1,4 +1,4 @@
-import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR } from "../actions/action-types"
+import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR, CLEAR_CONSTRUCTOR } from "../actions/action-types"
 import { addBun, addIngredient, addToIngredientsMap, addToBunMap, postOrderSuccess, postOrderRequest, postOrderError } from '../actions/constructor-actions'
 
 
@@ -68,6 +68,9 @@ export const constructorReducer = (state = initialState, action) => {
 
       return { ...state, constructorIngredients: newIngredients, ingredientsMap: itemsMap }
     }
+
+    case CLEAR_CONSTRUCTOR:
+      return {...state, constructorIngredients: [], bun: {}, bunMap: new Map(), ingredientsMap: new Map()}
 
     default:
       return state

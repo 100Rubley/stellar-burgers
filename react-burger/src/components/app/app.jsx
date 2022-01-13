@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeCurrentIngredient } from '../../services/actions/ingredients-actions'
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { postOrder } from '../../services/actions/constructor-actions'
-import { Switch, Route, useLocation, useHistory, Redirect } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Login from '../../pages/login/login'
 import SignUp from '../../pages/sign-up/sign-up'
 import NewPassword from '../../pages/new-password/new-password'
@@ -43,7 +43,9 @@ function App() {
       setIsPopup(!isPopup)
       if (isPopup) {
         dispatch(removeCurrentIngredient())
-        history.goBack()
+        if (modalType !== 'order') {
+          history.goBack()
+        }
       }
     }
 
@@ -64,10 +66,11 @@ function App() {
 
     const handleOrderRequest = (data) => {
       if (!isAuth) {
-        history.replace({pathname: '/login', state: {form: location}})
+        history.replace({ pathname: '/login', state: { form: location } })
       } else {
         dispatch(postOrder(data))
         setIsPopup(!isPopup)
+        history.replace({ pathname: '/'})
       }
     }
 
@@ -116,7 +119,7 @@ function App() {
           </Route>
         </Switch>
 
-        {background && (
+        {background && isPopup && (
           <Route
             path='/ingredients/:ingredientId'
             children={

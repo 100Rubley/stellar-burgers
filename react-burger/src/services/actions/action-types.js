@@ -17,6 +17,8 @@ export const ADD_TO_BUN_MAP = 'ADD_TO_BUN_MAP'
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS'
 export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST'
 export const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
+
+export const CLEAR_CONSTRUCTOR ='CLEAR_CONSTRUCTOR'
 // __________________________________
 
 // Постоянные для user-reducer
