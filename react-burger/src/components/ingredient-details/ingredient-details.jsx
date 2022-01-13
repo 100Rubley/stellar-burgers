@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import s from './ingredient-details.module.css'
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
@@ -46,10 +45,6 @@ const IngredientDetails = () => {
       </div>
     </div>
   )
-}
-
-IngredientDetails.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default IngredientDetails

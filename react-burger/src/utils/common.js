@@ -1,4 +1,4 @@
-import { REFRESH_TOKEN_URL } from "./constants";
+import { BASE_URL } from "./constants";
 
 export const getCookie = name => {
   let matches = document.cookie.match(new RegExp(
@@ -41,7 +41,7 @@ export const deleteCookie = name => {
 export const checkResponse = res => res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 
 export const refreshToken = () => {
-  return fetch(`${REFRESH_TOKEN_URL}`, {
+  return fetch(`${BASE_URL}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

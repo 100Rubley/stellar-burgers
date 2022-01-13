@@ -11,12 +11,12 @@ import { setCurrentIngredient, removeCurrentIngredient } from '../../services/ac
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { postOrder } from '../../services/actions/constructor-actions'
 import { Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
-import Login from '../pages/login/login'
-import SignUp from '../pages/sign-up/sign-up'
-import NewPassword from '../pages/new-password/new-password'
-import ResetPassword from '../pages/reset-password/reset-password'
-import Profile from '../pages/profile/profile'
-import Error404 from '../pages/error404/error404'
+import Login from '../../pages/login/login'
+import SignUp from '../../pages/sign-up/sign-up'
+import NewPassword from '../../pages/new-password/new-password'
+import ResetPassword from '../../pages/reset-password/reset-password'
+import Profile from '../../pages/profile/profile'
+import Error404 from '../../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
 import { getUserData } from '../../services/actions/user-actions'
 
@@ -26,7 +26,7 @@ function App() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    let background = location.state && location.state.background
+    const background = location.state && location.state.background
 
     React.useEffect(() => {
       dispatch(requestIngredients());

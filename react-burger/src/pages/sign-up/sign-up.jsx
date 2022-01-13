@@ -3,7 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import React, { useCallback } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { signUp } from '../../../services/actions/user-actions'
+import { signUp } from '../../services/actions/user-actions'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -40,7 +40,7 @@ const SignUp = () => {
     e => {
       e.preventDefault()
       dispatch(signUp(emailValue, passValue, nameValue))
-    }, [nameValue, emailValue, passValue]
+    }, [nameValue, emailValue, passValue, dispatch]
   )
 
   if (isAuth) {
@@ -55,7 +55,7 @@ const SignUp = () => {
 
   return (
     <div className={s.wrapper}>
-      <form className={s.form}>
+      <form className={s.form} onSubmit={signUpHandle}>
         <div className="text text_type_main-default mt-15">Регистрация</div>
         <Input
           type={'text'}
@@ -92,7 +92,7 @@ const SignUp = () => {
           onIconClick={onIconClick}
           value={passValue}
         />
-        <Button type="primary" size="medium" onClick={signUpHandle}>
+        <Button type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </form>

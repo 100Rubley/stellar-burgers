@@ -2,8 +2,8 @@ import s from './reset-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { savePassword } from '../../../services/actions/user-actions'
 import { Link, Redirect } from 'react-router-dom'
+import { savePassword } from '../../services/actions/user-actions'
 
 const ResetPassword = () => {
   const dispatch = useDispatch()
@@ -47,7 +47,7 @@ const ResetPassword = () => {
 
   return (
     <div className={s.wrapper}>
-      <form className={s.form}>
+      <form className={s.form} onSubmit={passSave}>
         <div className="text text_type_main-default mt-15">Восстановить пароль</div>
 
         <Input
@@ -74,7 +74,7 @@ const ResetPassword = () => {
           value={code}
           onChange={onCodeChange}
         />
-        <Button type="primary" size="medium" onClick={passSave}>
+        <Button type="primary" size="medium">
           Сохранить
         </Button>
       </form>

@@ -2,7 +2,7 @@ import {
   REQUEST_SUCCESS,
   REQUEST_ERROR,
   REQUEST,
-} from "../../utils/constants"
+} from "../actions/action-types"
 
 const initialState = {
   email: '',

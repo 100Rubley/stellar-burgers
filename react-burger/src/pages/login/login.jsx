@@ -3,7 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import React, { useCallback } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logIn } from '../../../services/actions/user-actions'
+import { logIn } from '../../services/actions/user-actions'
 
 const Login = () => {
   const [emailValue, setEmailValue] = React.useState('')
@@ -36,7 +36,7 @@ const Login = () => {
     e => {
       e.preventDefault()
       dispatch(logIn(emailValue, passValue))
-    }, [emailValue, passValue]
+    }, [emailValue, passValue, dispatch]
   )
 
   if (isAuth) {
@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <div className={s.wrapper}>
-      <form className={s.form}>
+      <form className={s.form} onSubmit={logInHandle}>
         <div className="text text_type_main-default mt-15">Вход</div>
 
         <Input
@@ -63,6 +63,7 @@ const Login = () => {
           size={'default'}
           onChange={onEmailChange}
           ref={inputEmailRef}
+          value={emailValue}
         />
         <Input
           type={'password'}
@@ -75,8 +76,9 @@ const Login = () => {
           onChange={onPassChange}
           ref={inputPassRef}
           onIconClick={onIconClick}
+          value={passValue}
         />
-        <Button type="primary" size="medium" onClick={logInHandle}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </form>

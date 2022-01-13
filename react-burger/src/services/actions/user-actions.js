@@ -1,17 +1,12 @@
 import {
-  BASE_URL,
-  USER_REGISTER_URL,
-  USER_LOGIN_URL,
-  USER_LOGOUT_URL,
-  USER_INFO_URL,
-
   REQUEST_ERROR,
   REQUEST_SUCCESS,
   REQUEST
-} from "../../utils/constants"
+} from "./action-types"
 import { checkResponse, setCookie, getCookie } from '../../utils/common'
 import { deleteCookie } from "../../utils/common"
 import { retriableFetch } from "../../utils/common"
+import { BASE_URL } from "../../utils/constants"
 
 export const request = () => ({ type: REQUEST })
 export const requestError = () => ({ type: REQUEST_ERROR })
@@ -84,7 +79,7 @@ export const savePassword = (newPassword, token) => dispatch => {
 export const signUp = (email, password, name) => dispatch => {
   dispatch(request())
 
-  fetch(`${USER_REGISTER_URL}`, {
+  fetch(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -115,7 +110,7 @@ export const signUp = (email, password, name) => dispatch => {
 export const logIn = (email, password) => dispatch => {
   dispatch(request())
 
-  fetch(`${USER_LOGIN_URL}`, {
+  fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -146,7 +141,7 @@ export const logOut = () => dispatch => {
   const refreshToken = getCookie('refreshToken')
   dispatch(request())
 
-  fetch(`${USER_LOGOUT_URL}`, {
+  fetch(`${BASE_URL}/auth/logout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -172,7 +167,7 @@ export const getUserData = () => dispatch => {
   const accessToken = getCookie('accessToken')
   dispatch(request())
 
-  retriableFetch(USER_INFO_URL, {
+  retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -194,18 +189,17 @@ export const refreshUserData = (email, name) => dispatch => {
   const accessToken = getCookie('accessToken')
   dispatch(request())
 
-  retriableFetch(USER_INFO_URL, {
+  retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + accessToken
+      'authorization': 'Bearer ' + accessToken
     },
     body: JSON.stringify({ email, name })
   })
     .then(res => {
       if (res && res.success) {
         dispatch(setUserData(res.user.email, res.user.name))
-        console.log(res)
       }
     })
     .catch(err => {

@@ -2,8 +2,8 @@ import s from './profile.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserData, logOut, refreshUserData } from '../../../services/actions/user-actions'
 import { NavLink } from 'react-router-dom'
+import { getUserData, logOut, refreshUserData } from '../../services/actions/user-actions'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserData())
-  }, [])
+  }, [dispatch])
 
   const onSubmitHandle = e => {
     e.preventDefault()
@@ -37,7 +37,6 @@ const Profile = () => {
     dispatch(refreshUserData(form.email, form.name))
 
     setIsEdit(false)
-    console.log('submited')
   }
 
   const onCancelHandle = e => {
@@ -80,7 +79,7 @@ const Profile = () => {
       {isLoaded
         ? <div>Loading...</div>
         :
-        <form className={s.form}>
+        <form className={s.form} onSubmit={onSubmitHandle}>
           <Input
             type={'text'}
             placeholder={'Имя'}
@@ -90,7 +89,7 @@ const Profile = () => {
             onIconClick={editIconHandler}
             onFocus={onFocusHandler}
             onChange={onChange}
-            value={form.name}
+            value={form.name || ''}
           />
           <Input
             type={'email'}
@@ -101,7 +100,7 @@ const Profile = () => {
             onIconClick={editIconHandler}
             onFocus={onFocusHandler}
             onChange={onChange}
-            value={form.email}
+            value={form.email || ''}
           />
           <Input
             type={'password'}
@@ -112,7 +111,7 @@ const Profile = () => {
             onIconClick={editIconHandler}
             onFocus={onFocusHandler}
             onChange={onChange}
-            value={form.password}
+            value={form.password || ''}
           />
 
           {
@@ -120,7 +119,7 @@ const Profile = () => {
             <div>
               <Button type="secondary" size="medium" onClick={onCancelHandle}>Отмена</Button>
 
-              <Button type="primary" size="medium" onClick={onSubmitHandle}>Сохранить</Button>
+              <Button type="primary" size="medium">Сохранить</Button>
             </div>
           }
         </form>
