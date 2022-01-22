@@ -32,3 +32,11 @@ menu {
   position: absolute;
   right: 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+.active {
+  color: aliceblue;
+}

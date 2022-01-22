@@ -1,44 +1,49 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react'
+import React, { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import s from './app-header.module.css'
 
 const AppHeader = () => {
+  const linkStyle = 'text text_type_main-default text_color_inactive m-5'
+  const [path, setPath] = useState('/')
+  const location = useLocation()
+
   return (
     <header className={s.header}>
       <div className={s.wrapper}>
         <nav className={s.nav}>
-          <div className={`${s.container} m-5`}>
+          <NavLink to='/' className={`${linkStyle} ${s.container}`} activeClassName={path === '/' ? `${s.active}` : ''} onClick={() => setPath('/')}>
             <div className="mr-2">
-              <BurgerIcon type="primary" />
+              <BurgerIcon type={path === '/' ? 'primary' : 'secondary'} />
             </div>
-            <p className="text text_type_main-default">
               Конструктор
-          </p>
-          </div>
+          </NavLink>
 
-          <div className={`${s.container} m-5`}>
+          <NavLink to='/order-feed' className={`${linkStyle} ${s.container}`} activeClassName={s.active} onClick={() => setPath('/order-feed')}>
             <div className="mr-2">
-              <ListIcon type="secondary" />
+              <ListIcon type={path === '/order-feed' ? 'primary' : 'secondary'} />
             </div>
-            <p className="text text_type_main-default text_color_inactive">
               Лента заказов
-          </p>
-          </div>
+          </NavLink>
         </nav>
 
         <div className={s.logoWrapper}>
-          <Logo />
+          <NavLink to='/'>
+            <Logo />
+          </NavLink>
         </div>
 
         <menu>
-          <div className={`${s.container} m-5`}>
+          <NavLink to={{ pathname: '/profile', state: { form: location } }}
+            className={`${linkStyle} ${s.container}`}
+            activeClassName={s.active}
+            onClick={() => setPath('/profile')}
+          >
             <div className="mr-2">
-              <ProfileIcon type="secondary" />
+              <ProfileIcon type={path === '/profile' ? 'primary' : 'secondary'} />
             </div>
-            <p className="text text_type_main-default text_color_inactive">
               Личный кабинет
-          </p>
-          </div>
+          </NavLink>
         </menu>
       </div>
     </header>

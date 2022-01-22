@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import s from './ingredient-details.module.css'
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
 
 
-const IngredientDetails = ({ data }) => {
-  
+const IngredientDetails = () => {
+  const dispatch = useDispatch()
+  const { ingredientId } = useParams()
+  const ingredients = useSelector(state => state.ingredients.ingredients)
+  const data = useSelector(state => state.ingredients?.currentIngredient)
+  const current = ingredients.find(i => i._id === ingredientId)
+  useEffect(() => {
+    dispatch(setCurrentIngredient(current))
+  }, [dispatch, current])
+
   return (
     <div className={s.wrapper}>
       <div>
@@ -35,10 +45,6 @@ const IngredientDetails = ({ data }) => {
       </div>
     </div>
   )
-}
-
-IngredientDetails.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default IngredientDetails

@@ -79,7 +79,7 @@ const BurgerConstructor = ({ handleRequest }) => {
           </span>
           <Button type="primary" size="large" onClick={() => { handleRequest(requestData) }}>
             Оформить заказ
-        </Button>
+          </Button>
         </footer>
       }
     </article>
