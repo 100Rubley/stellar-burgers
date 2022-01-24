@@ -1,23 +1,41 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useCallback, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
 
-const Login = () => {
+export interface ILocation {
+  // почему-то вариант state: {
+  //           from: string
+  //         }
+  // дает ошибку
+
+  state: object
+  form: string
+}
+
+export interface IIput {
+  name: string
+  value: string
+}
+
+export type TIcon = 'CurrencyIcon' | 'BurgerIcon' | 'LockIcon' | 'DragIcon' | 'CloseIcon' | 'CheckMarkIcon' | 'ListIcon' | 'ProfileIcon' |
+  'EditIcon' | 'InfoIcon' | 'ShowIcon' | 'HideIcon' | 'LogoutIcon' | 'DeleteIcon' | 'ArrowUpIcon' | 'ArrowDownIcon' | 'MenuIcon' | undefined
+
+const Login: FC = () => {
   const [form, setValue] = useState({ email: '', password: '' })
-  const onChange = e => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value })
   }
 
-  const [icon, setIcon] = React.useState('HideIcon')
+  const [icon, setIcon] = useState<TIcon>('HideIcon')
 
   const dispatch = useDispatch()
-  const location = useLocation()
-  const background = location.state && location.state.form;
-  const isAuth = useSelector(state => state.user.isAuth)
-  const inputPassRef = React.useRef(null)
+  const location = useLocation<ILocation>()
+  const background: any = location.state && location.state.form;
+  const isAuth = useSelector((state: any) => state.user.isAuth)
+  const inputPassRef = useRef<HTMLInputElement>(null!)
 
   const passInputType = icon === 'ShowIcon' ? 'text' : 'password'
 
@@ -61,7 +79,7 @@ const Login = () => {
           placeholder={'Пароль'}
           name={'password'}
           size={'default'}
-          icon={`${icon}`}
+          icon={icon}
           onChange={onChange}
           onIconClick={onIconClick}
           ref={inputPassRef}

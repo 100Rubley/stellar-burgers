@@ -1,19 +1,25 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useRef, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import s from './burger-ingredients.module.css'
-import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import BurgerIngredient, { IIngredient } from './burger-ingredient/burger-ingredient';
 
-const BurgerIngredients = ({ handleClick }) => {
+interface IBurgerIngredientsProps {
+  // не понимаю как надо типизировать handleClick, подскажите
+  handleClick: any
+}
+
+const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
+  // string
   const [current, setCurrent] = useState('Булки')
-  const bunRef = useRef()
-  const sauceRef = useRef()
-  const mainRef = useRef()
-  const tabRef = useRef()
 
-  const data = useSelector(state => state.ingredients.ingredients)
-  const ingredientsRequest = useSelector(state => state.ingredients.ingredientsRequest)
+  const bunRef = useRef<HTMLInputElement>(null!)
+  const sauceRef = useRef<HTMLInputElement>(null!)
+  const mainRef = useRef<HTMLInputElement>(null!)
+  const tabRef = useRef<HTMLInputElement>(null!)
+
+  const data = useSelector((state: any) => state.ingredients.ingredients)
+  const ingredientsRequest = useSelector((state: any) => state.ingredients.ingredientsRequest)
 
   const checkActualTab = () => {
     const tabsTop = tabRef.current.getBoundingClientRect().top;
@@ -58,7 +64,7 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='bun' ref={bunRef}>
                 Булки
               </p>
-              {data.filter(i => i.type === 'bun').map(i => (
+              {data.filter((i: IIngredient) => i.type === 'bun').map((i: IIngredient) => (
                 <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
@@ -70,7 +76,7 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='sauce' ref={sauceRef}>
                 Соусы
               </p>
-              {data.filter(i => i.type === 'sauce').map(i => (
+              {data.filter((i: IIngredient) => i.type === 'sauce').map((i: IIngredient) => (
                 <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
@@ -82,7 +88,7 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='main' ref={mainRef}>
                 Начинки
               </p>
-              {data.filter(i => i.type === 'main').map(i => (
+              {data.filter((i: IIngredient) => i.type === 'main').map((i: IIngredient) => (
                 <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
@@ -93,10 +99,6 @@ const BurgerIngredients = ({ handleClick }) => {
       }
     </article>
   )
-}
-
-BurgerIngredients.propTypes = {
-  handleClick: PropTypes.func
 }
 
 export default BurgerIngredients

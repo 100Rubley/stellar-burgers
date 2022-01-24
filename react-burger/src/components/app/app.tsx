@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../bureger-ingredients/burger-ingredients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
@@ -20,23 +20,36 @@ import Error404 from '../../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
 import { getUserData } from '../../services/actions/user-actions'
 
-function App() {
-  const ModalSwitch = () => {
-    const location = useLocation()
+interface IBackgroundLocation {
+  background: {
+    pathname: string
+    search: string
+    hash: string
+    state: any
+    key: string
+  }
+}
+
+const App: FC = () => {
+  const ModalSwitch: FC = () => {
+    const location = useLocation<IBackgroundLocation | undefined>()
     const history = useHistory()
     const dispatch = useDispatch()
 
     const background = location.state && location.state.background
 
     React.useEffect(() => {
+      // redux пока не переделываем на ts
       dispatch(requestIngredients());
       dispatch(getUserData())
     }, [dispatch]);
 
-    const isAuth = useSelector(state => state.user.isAuth)
+    const isAuth = useSelector((state: any) => state.user.isAuth)
     // используется для того, чтобы отобразить/убрать оверлей
 
+    // boolean
     const [isPopup, setIsPopup] = React.useState(false)
+    // string
     const [modalType, setModalType] = React.useState('order')
 
     const togglePopup = () => {
@@ -49,10 +62,10 @@ function App() {
       }
     }
 
-    const closeOnESC = (e) => {
+    const closeOnESC = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         dispatch(removeCurrentIngredient())
-        togglePopup(false)
+        togglePopup()
       }
     }
 
@@ -64,13 +77,13 @@ function App() {
     }
     // ------------------------------------------------------------
 
-    const handleOrderRequest = (data) => {
+    const handleOrderRequest = (data: any) => {
       if (!isAuth) {
         history.replace({ pathname: '/login', state: { form: location } })
       } else {
         dispatch(postOrder(data))
         setIsPopup(!isPopup)
-        history.replace({ pathname: '/'})
+        history.replace({ pathname: '/' })
       }
     }
 
@@ -85,7 +98,7 @@ function App() {
                 <BurgerIngredients handleClick={togglePopup} />
               </div>
               <div onClick={setModalOrderType}>
-                <BurgerConstructor handleClick={togglePopup} handleRequest={handleOrderRequest} />
+                <BurgerConstructor handleRequest={handleOrderRequest} />
               </div>
             </div>
           </Route>

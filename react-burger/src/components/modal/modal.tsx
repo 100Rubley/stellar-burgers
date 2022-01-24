@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { FC, useEffect } from 'react'
 import s from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types';
 
-const Modal = ({ children, headerTitle, handleCloseButtonClick, handleKeyPress }) => {
-  React.useEffect(() => {
+interface IModalProps {
+  handleCloseButtonClick: any
+  handleKeyPress: any
+  headerTitle: string | null
+}
+
+const Modal: FC<IModalProps> = ({ children, headerTitle, handleCloseButtonClick, handleKeyPress }) => {
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyPress)
     return () => document.removeEventListener('keydown', handleKeyPress)
   })
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <ModalOverlay handleOverlayClick={handleCloseButtonClick}>
       <div className={s.wrapper}>
         <div className={s.header}>
@@ -25,18 +30,8 @@ const Modal = ({ children, headerTitle, handleCloseButtonClick, handleKeyPress }
         {children}
       </div>
     </ModalOverlay>,
-    document.getElementById('modal')
+    document.getElementById('modal') as HTMLElement
   )
-}
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  headerTitle: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
-  handleCloseButtonClick: PropTypes.func,
-  handleKeyPress: PropTypes.func
 }
 
 export default Modal

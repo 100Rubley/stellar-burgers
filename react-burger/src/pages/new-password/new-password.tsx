@@ -1,26 +1,26 @@
 import s from './new-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useCallback, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useState } from 'react'
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelResetSuccess, resetPassword } from '../../services/actions/user-actions'
 
-const NewPassword = () => {
+const NewPassword: FC = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const location = useLocation()
 
   const [emailValue, setEmailValue] = useState('')
 
-  const isResetSuccess = useSelector(state => state.user.resetPassSuccess)
-  const isAuth = useSelector(state => state.user.isAuth)
+  const isResetSuccess = useSelector((state: any) => state.user.resetPassSuccess)
+  const isAuth = useSelector((state: any) => state.user.isAuth)
 
   if (isResetSuccess) {
     history.replace({ pathname: '/reset-password' })
     dispatch(cancelResetSuccess())
   }
 
-  const onEmailChange = e => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value)
   }
 

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import s from './order-details.module.css'
 import orderCheck from '../../images/orderCheck.svg'
 import { useSelector } from 'react-redux'
 
-const OrderDetails = () => {
-  const orderNumber = useSelector(state => state.burgerConstructor.order)
-  const orderRequest = useSelector(state => state.burgerConstructor.orderRequest)
+const OrderDetails: FC = () => {
+  const orderNumber = useSelector((state: any) => state.burgerConstructor.order)
+  const orderRequest = useSelector((state: any) => state.burgerConstructor.orderRequest)
 
   return (
     <div className={s.wrapper}>

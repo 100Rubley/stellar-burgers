@@ -1,17 +1,30 @@
 import s from './draggable-ingredient.module.css'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag, useDrop } from 'react-dnd';
-import { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { moveIngredient, removeItem } from '../../../services/actions/constructor-actions'
+import { IIngredient } from '../../bureger-ingredients/burger-ingredient/burger-ingredient';
 
-const DraggableIngredient = ({ name, price, image, uniqueId }) => {
-  const ref = useRef(null)
+interface IDraggableIngredientProps {
+  name: string
+  price: number
+  image: string
+  uniqueId: number
+}
+
+export interface IItem extends IIngredient {
+  uniqueId: number
+  index: number | undefined
+}
+
+const DraggableIngredient: FC<IDraggableIngredientProps> = ({ name, price, image, uniqueId }) => {
+  const ref = useRef<HTMLDivElement | null>(null)
   const dispatch = useDispatch()
 
   const [, drop] = useDrop({
     accept: 'constructor',
-    hover(item, monitor) {
+    hover(item: IItem, monitor: any) {
       if (!ref.current) {
         return
       }

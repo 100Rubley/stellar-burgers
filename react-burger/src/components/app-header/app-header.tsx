@@ -1,12 +1,12 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import s from './app-header.module.css'
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
   const linkStyle: string = 'text text_type_main-default text_color_inactive m-5'
   const [path, setPath] = useState<string>('/')
-  const location = useLocation<object>()
+  const location = useLocation()
 
   return (
     <header className={s.header}>

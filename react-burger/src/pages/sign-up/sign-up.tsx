@@ -1,28 +1,29 @@
 import s from './sign-up.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useCallback, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../../services/actions/user-actions'
+import { TIcon } from '../login/login'
 
-const SignUp = () => {
+const SignUp: FC = () => {
   const dispatch = useDispatch()
-  const isAuth = useSelector(state => state.user.isAuth)
+  const isAuth = useSelector((state: any) => state.user.isAuth)
 
   const [form, setValue] = useState({ email: ``, name: ``, password: `` })
-  const onChange = e => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value })
   }
 
-  const [icon, setIcon] = React.useState('HideIcon')
+  const [icon, setIcon] = React.useState<TIcon>('HideIcon')
   const passInputType = icon === 'ShowIcon' ? 'text' : 'password'
+
+  const inputPassRef = React.useRef<HTMLInputElement>(null!)
 
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
     icon === 'ShowIcon' ? setIcon('HideIcon') : setIcon('ShowIcon')
   }
-
-  const inputPassRef = React.useRef(null)
 
   const signUpHandle = useCallback(
     e => {
@@ -66,7 +67,7 @@ const SignUp = () => {
           placeholder={'Пароль'}
           name={'password'}
           size={'default'}
-          icon={`${icon}`}
+          icon={icon}
           onChange={onChange}
           ref={inputPassRef}
           onIconClick={onIconClick}
