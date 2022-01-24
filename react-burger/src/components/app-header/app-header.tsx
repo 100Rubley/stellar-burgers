@@ -4,9 +4,9 @@ import { NavLink, useLocation } from 'react-router-dom'
 import s from './app-header.module.css'
 
 const AppHeader = () => {
-  const linkStyle = 'text text_type_main-default text_color_inactive m-5'
-  const [path, setPath] = useState('/')
-  const location = useLocation()
+  const linkStyle: string = 'text text_type_main-default text_color_inactive m-5'
+  const [path, setPath] = useState<string>('/')
+  const location = useLocation<object>()
 
   return (
     <header className={s.header}>
