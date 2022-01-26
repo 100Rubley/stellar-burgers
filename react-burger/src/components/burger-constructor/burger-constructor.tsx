@@ -1,6 +1,5 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import DraggableIngredient, { IItem } from './draggable-ingredient/draggable-ingredient'
@@ -9,7 +8,7 @@ import React from 'react';
 import {IIngredient} from '../bureger-ingredients/burger-ingredient/burger-ingredient'
 
 interface IBurgerConstructor {
-  handleRequest: any
+  handleRequest: (data: string[]) => void
 }
 
 const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
@@ -91,10 +90,6 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
       }
     </article>
   )
-}
-
-BurgerConstructor.propTypes = {
-  handleRequest: PropTypes.func
 }
 
 export default BurgerConstructor

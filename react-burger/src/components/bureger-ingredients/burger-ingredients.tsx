@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import BurgerIngredient, { IIngredient } from './burger-ingredient/burger-ingredient';
 
 interface IBurgerIngredientsProps {
-  // не понимаю как надо типизировать handleClick, подскажите
-  handleClick: any
+  handleClick: () => void
 }
 
 const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {

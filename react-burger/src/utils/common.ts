@@ -55,7 +55,7 @@ export const retriableFetch = async (url: string, options:any = {}) => {
     const res = await fetch(url, options)
     const result = await checkResponse(res)
     return result
-  } catch (err) {
+  } catch (err: any | unknown) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken()
       setCookie('refreshToken', refreshData.refreshToken)
