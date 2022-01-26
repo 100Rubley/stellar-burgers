@@ -5,8 +5,8 @@ import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 interface IModalProps {
-  handleCloseButtonClick: any
-  handleKeyPress: any
+  handleCloseButtonClick: () => void
+  handleKeyPress: (e: KeyboardEvent) => void
   headerTitle: string | null
 }
 

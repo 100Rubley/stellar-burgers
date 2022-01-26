@@ -1,6 +1,6 @@
 import { BASE_URL } from "./constants";
 
-export const getCookie = name => {
+export const getCookie: (name: string) => string | undefined = name => {
   let matches = document.cookie.match(new RegExp(
     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   ));
@@ -8,7 +8,7 @@ export const getCookie = name => {
 }
 
 
-export const setCookie = (name, value, options = {}) => {
+export const setCookie: (name: string, value: string, options?: any) => void = (name, value, options = {}) => {
   options = {
     path: '/',
     //значения по умолчанию
@@ -32,13 +32,13 @@ export const setCookie = (name, value, options = {}) => {
   document.cookie = updatedCookie;
 }
 
-export const deleteCookie = name => {
+export const deleteCookie: (name: string) => void = name => {
   setCookie(name, "", {
     'max-age': -1
   })
 }
 
-export const checkResponse = res => res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
+export const checkResponse = (res: Response) => res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 
 export const refreshToken = () => {
   return fetch(`${BASE_URL}/auth/token`, {
@@ -50,7 +50,7 @@ export const refreshToken = () => {
   }).then(checkResponse);
 }
 
-export const retriableFetch = async (url, options = {}) => {
+export const retriableFetch = async (url: string, options:any = {}) => {
   try {
     const res = await fetch(url, options)
     const result = await checkResponse(res)

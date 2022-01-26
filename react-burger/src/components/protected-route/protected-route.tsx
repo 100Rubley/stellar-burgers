@@ -16,7 +16,7 @@ const ProtectedRoute: FC<IProtectedRoute> = ({ children, ...rest }) => {
         (children) :
         (
           <Redirect
-            to={{ pathname: '/login', state: { form: location } }}
+            to={{ pathname: '/login', state: { from: location } }}
           />
         )
     } />

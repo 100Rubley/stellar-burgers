@@ -52,7 +52,7 @@ const App: FC = () => {
     // string
     const [modalType, setModalType] = React.useState('order')
 
-    const togglePopup = () => {
+    const togglePopup: () => void = () => {
       setIsPopup(!isPopup)
       if (isPopup) {
         dispatch(removeCurrentIngredient())
@@ -62,7 +62,7 @@ const App: FC = () => {
       }
     }
 
-    const closeOnESC = (e: KeyboardEvent) => {
+    const closeOnESC: (e: KeyboardEvent) => void = e => {
       if (e.key === 'Escape') {
         dispatch(removeCurrentIngredient())
         togglePopup()
@@ -77,7 +77,7 @@ const App: FC = () => {
     }
     // ------------------------------------------------------------
 
-    const handleOrderRequest = (data: any) => {
+    const handleOrderRequest = (data: string[]) => {
       if (!isAuth) {
         history.replace({ pathname: '/login', state: { form: location } })
       } else {

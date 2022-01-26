@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import s from './modal-overlay.module.css'
 
 interface IModalOverlayProps {
-  handleOverlayClick: any
+  handleOverlayClick: () => void
 }
 
 const ModalOverlay: FC<IModalOverlayProps> = ({ children, handleOverlayClick }) => {

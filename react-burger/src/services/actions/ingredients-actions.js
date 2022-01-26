@@ -1,5 +1,5 @@
 import { SET_INGREDIENTS_SUCCESS, SET_INGREDIENTS_REQUEST, SET_INGREDIENTS_ERROR, SET_CURRENT_INGREDIENT, REMOVE_CURRENT_INGREDIENT } from "./action-types"
-import { checkResponse } from'../../utils/common'
+import { checkResponse } from'../../utils/common.ts'
 import { BASE_URL } from "../../utils/constants"
 
 export const setIngredientsSuccess = ingredients => ({ type: SET_INGREDIENTS_SUCCESS, ingredients })

@@ -3,9 +3,9 @@ import {
   REQUEST_SUCCESS,
   REQUEST
 } from "./action-types"
-import { checkResponse, setCookie, getCookie } from '../../utils/common'
-import { deleteCookie } from "../../utils/common"
-import { retriableFetch } from "../../utils/common"
+import { checkResponse, setCookie, getCookie } from '../../utils/common.ts'
+import { deleteCookie } from "../../utils/common.ts"
+import { retriableFetch } from "../../utils/common.ts"
 import { BASE_URL } from "../../utils/constants"
 
 export const request = () => ({ type: REQUEST })

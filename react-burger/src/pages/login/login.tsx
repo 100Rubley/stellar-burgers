@@ -6,13 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
 
 export interface ILocation {
-  // почему-то вариант state: {
-  //           from: string
-  //         }
-  // дает ошибку
-
-  state: object
-  form: string
+  pathname: string
+  state: {}
+  from: string
 }
 
 export interface IIput {
@@ -33,7 +29,7 @@ const Login: FC = () => {
 
   const dispatch = useDispatch()
   const location = useLocation<ILocation>()
-  const background: any = location.state && location.state.form;
+  const background: any = location.state && location.state.from;
   const isAuth = useSelector((state: any) => state.user.isAuth)
   const inputPassRef = useRef<HTMLInputElement>(null!)
 
