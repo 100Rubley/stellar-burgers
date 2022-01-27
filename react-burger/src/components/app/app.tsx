@@ -19,6 +19,7 @@ import Profile from '../../pages/profile/profile'
 import Error404 from '../../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
 import { getUserData } from '../../services/actions/user-actions'
+import { ROUTES } from '../../utils/constants'
 
 interface IBackgroundLocation {
   background: {
@@ -92,7 +93,7 @@ const App: FC = () => {
         <AppHeader />
 
         <Switch location={background || location}>
-          <Route path='/' exact>
+          <Route path={ROUTES.home.path} exact>
             <div className={s.wrapper}>
               <div onClick={setModalIngredientType}>
                 <BurgerIngredients handleClick={togglePopup} />
@@ -103,27 +104,27 @@ const App: FC = () => {
             </div>
           </Route>
 
-          <Route path='/ingredients/:ingredientId' exact>
+          <Route path={ROUTES.ingredient.path} exact>
             <IngredientDetails />
           </Route>
 
-          <Route path='/login' exact>
+          <Route path={ROUTES.login.path} exact>
             <Login />
           </Route>
 
-          <Route path='/register' exact>
+          <Route path={ROUTES.register.path} exact>
             <SignUp />
           </Route>
 
-          <Route path='/forgot-password' exact>
+          <Route path={ROUTES.forgotPassword.path} exact>
             <NewPassword />
           </Route>
 
-          <Route path='/reset-password' exact>
+          <Route path={ROUTES.resetPassword.path} exact>
             <ResetPassword />
           </Route>
 
-          <ProtectedRoute path='/profile' exact>
+          <ProtectedRoute path={ROUTES.profile.path} exact>
             <Profile />
           </ProtectedRoute>
 

@@ -1,0 +1,19 @@
+.navTitle{
+  display: inline-block;
+  position: relative;
+  bottom: 6px;
+  text-decoration: none;
+}
+
+.inactive{
+  color: #8585AD;
+}
+
+.active{
+  color: #F2F2F3;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
