@@ -21,6 +21,11 @@ export const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
 export const CLEAR_CONSTRUCTOR ='CLEAR_CONSTRUCTOR'
 // __________________________________
 
+// Modal special
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const HIDE_MODAL = 'HIDE_MODAL'
+// __________________________________
+
 // Постоянные для user-reducer
 export const REQUEST = 'REQUEST'
 export const REQUEST_ERROR = 'REQUEST_ERROR'

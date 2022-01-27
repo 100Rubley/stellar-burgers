@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/app';
+import AppContainer from './components/app/app-container';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import { store } from './services/redusers';
@@ -14,7 +14,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
         <DndProvider backend={HTML5Backend} >
-          <App />
+          <AppContainer />
         </DndProvider>
       </Provider>
     </BrowserRouter>

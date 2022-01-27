@@ -1,15 +1,6 @@
 import React, { FC } from 'react'
 import AppHeader from '../app-header/app-header'
-import BurgerIngredients from '../bureger-ingredients/burger-ingredients'
-import BurgerConstructor from '../burger-constructor/burger-constructor'
-import Modal from '../modal/modal'
-import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
-import s from './app.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeCurrentIngredient } from '../../services/actions/ingredients-actions'
-import { requestIngredients } from '../../services/actions/ingredients-actions'
-import { postOrder } from '../../services/actions/constructor-actions'
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Login from '../../pages/login/login'
 import SignUp from '../../pages/sign-up/sign-up'
@@ -18,9 +9,11 @@ import ResetPassword from '../../pages/reset-password/reset-password'
 import Profile from '../../pages/profile/profile'
 import Error404 from '../../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
-import { getUserData } from '../../services/actions/user-actions'
 import { ROUTES } from '../../utils/constants'
+import MainContentContainer from '../main-content-container/main-content-container'
 
+
+// понядобится в дальнейшей типизации
 interface IBackgroundLocation {
   background: {
     pathname: string
@@ -31,130 +24,51 @@ interface IBackgroundLocation {
   }
 }
 
-const App: FC = () => {
-  const ModalSwitch: FC = () => {
-    const location = useLocation<IBackgroundLocation | undefined>()
-    const history = useHistory()
-    const dispatch = useDispatch()
+interface IAppProps {
+  location: any
+  background: any
+}
 
-    const background = location.state && location.state.background
+const App: FC<IAppProps> = ({ location, background }) => {
+  return (
+    <>
+      <AppHeader />
 
-    React.useEffect(() => {
-      // redux пока не переделываем на ts
-      dispatch(requestIngredients());
-      dispatch(getUserData())
-    }, [dispatch]);
+      <Switch location={background || location}>
+        <Route path={ROUTES.home.path} exact>
+          <MainContentContainer />
+        </Route>
 
-    const isAuth = useSelector((state: any) => state.user.isAuth)
-    // используется для того, чтобы отобразить/убрать оверлей
+        <Route path={ROUTES.ingredient.path} exact>
+          <IngredientDetails />
+        </Route>
 
-    // boolean
-    const [isPopup, setIsPopup] = React.useState(false)
-    // string
-    const [modalType, setModalType] = React.useState('order')
+        <Route path={ROUTES.login.path} exact>
+          <Login />
+        </Route>
 
-    const togglePopup: () => void = () => {
-      setIsPopup(!isPopup)
-      if (isPopup) {
-        dispatch(removeCurrentIngredient())
-        if (modalType !== 'order') {
-          history.goBack()
-        }
-      }
-    }
+        <Route path={ROUTES.register.path} exact>
+          <SignUp />
+        </Route>
 
-    const closeOnESC: (e: KeyboardEvent) => void = e => {
-      if (e.key === 'Escape') {
-        dispatch(removeCurrentIngredient())
-        togglePopup()
-      }
-    }
+        <Route path={ROUTES.forgotPassword.path} exact>
+          <NewPassword />
+        </Route>
 
-    const setModalIngredientType = () => {
-      setModalType('ingredient')
-    }
-    const setModalOrderType = () => {
-      setModalType('order')
-    }
-    // ------------------------------------------------------------
+        <Route path={ROUTES.resetPassword.path} exact>
+          <ResetPassword />
+        </Route>
 
-    const handleOrderRequest = (data: string[]) => {
-      if (!isAuth) {
-        history.replace({ pathname: '/login', state: { form: location } })
-      } else {
-        dispatch(postOrder(data))
-        setIsPopup(!isPopup)
-        history.replace({ pathname: '/' })
-      }
-    }
+        <ProtectedRoute path={ROUTES.profile.path} exact>
+          <Profile />
+        </ProtectedRoute>
 
-    return (
-      <>
-        <AppHeader />
-
-        <Switch location={background || location}>
-          <Route path={ROUTES.home.path} exact>
-            <div className={s.wrapper}>
-              <div onClick={setModalIngredientType}>
-                <BurgerIngredients handleClick={togglePopup} />
-              </div>
-              <div onClick={setModalOrderType}>
-                <BurgerConstructor handleRequest={handleOrderRequest} />
-              </div>
-            </div>
-          </Route>
-
-          <Route path={ROUTES.ingredient.path} exact>
-            <IngredientDetails />
-          </Route>
-
-          <Route path={ROUTES.login.path} exact>
-            <Login />
-          </Route>
-
-          <Route path={ROUTES.register.path} exact>
-            <SignUp />
-          </Route>
-
-          <Route path={ROUTES.forgotPassword.path} exact>
-            <NewPassword />
-          </Route>
-
-          <Route path={ROUTES.resetPassword.path} exact>
-            <ResetPassword />
-          </Route>
-
-          <ProtectedRoute path={ROUTES.profile.path} exact>
-            <Profile />
-          </ProtectedRoute>
-
-          <Route path='*'>
-            <Error404 />
-          </Route>
-        </Switch>
-
-        {background && isPopup && (
-          <Route
-            path='/ingredients/:ingredientId'
-            children={
-              <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={'Детали ингредиента'}>
-                <IngredientDetails />
-              </Modal>
-            }
-          />
-        )}
-
-        {modalType === 'order' && isPopup &&
-          <Modal handleKeyPress={closeOnESC} handleCloseButtonClick={togglePopup} headerTitle={null} >
-
-            <OrderDetails />
-
-          </Modal>
-        }
-      </>
-    );
-  }
-  return <ModalSwitch />
+        <Route path='*'>
+          <Error404 />
+        </Route>
+      </Switch>
+    </>
+  );
 }
 
 export default App;
