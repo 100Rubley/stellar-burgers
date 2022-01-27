@@ -164,14 +164,13 @@ export const logOut = () => dispatch => {
 
 
 export const getUserData = () => dispatch => {
-  const accessToken = getCookie('accessToken')
   dispatch(request())
 
   retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer' + accessToken
+      'Authorization': getCookie('accessToken')
     }
   })
     .then(res => {
