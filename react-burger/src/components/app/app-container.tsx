@@ -15,7 +15,7 @@ const AppContainer: FC = () => {
   }, [dispatch, ingredients])
 
   return (
-    <App location={location} background={background} />
+    <App location={location} background={background} ingredients={ingredients}/>
   )
 }
 

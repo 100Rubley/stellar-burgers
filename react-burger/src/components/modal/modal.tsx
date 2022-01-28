@@ -3,17 +3,18 @@ import s from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
-import { removeCurrentIngredient } from '../../services/actions/ingredients-actions';
+import { useDispatch } from 'react-redux';
+import { hideIngredientsModal, removeCurrentIngredient } from '../../services/actions/ingredients-actions';
 import { hideOrderModal } from '../../services/actions/constructor-actions';
+import { useHistory } from 'react-router-dom';
 
 interface IModalProps {
   headerTitle?: string | null
 }
 
 const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
-  const isModal = useSelector((state: any) => state.burgerConstructor.isModal)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     document.addEventListener('keydown', closeOnESC)
@@ -22,16 +23,17 @@ const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
 
   const closeOnESC: (e: KeyboardEvent) => void = e => {
     if (e.key === 'Escape') {
-      dispatch(removeCurrentIngredient())
       onModalClose()
     }
   }
-  
+
   const onModalClose = () => {
     dispatch(hideOrderModal())
-  }
+    dispatch(hideIngredientsModal())
+    dispatch(removeCurrentIngredient())
 
-  if (!isModal) return null
+    history.replace({ pathname: '/' })
+  }
 
   return createPortal(
     <ModalOverlay handleOverlayClick={onModalClose}>

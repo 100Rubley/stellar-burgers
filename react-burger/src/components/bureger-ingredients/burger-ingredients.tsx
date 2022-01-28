@@ -3,22 +3,23 @@ import React, { FC, useRef, useState } from 'react'
 import s from './burger-ingredients.module.css'
 import { useSelector } from 'react-redux';
 import BurgerIngredient, { IIngredient } from './burger-ingredient/burger-ingredient';
+import { BUN, MAIN, SAUCE, TABS } from '../../utils/constants';
 
 interface IBurgerIngredientsProps {
-  handleClick: () => void
+  handleClick: (isOpen: boolean, ingredient: any) => void
 }
 
 const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
-  // string
-  const [current, setCurrent] = useState('Булки')
+  const { isModal } = useSelector((state: any) => state.ingredients)
+  const data = useSelector((state: any) => state.ingredients.ingredients)
+  const ingredientsRequest = useSelector((state: any) => state.ingredients.ingredientsRequest)
 
+  const [current, setCurrent] = useState(BUN)
   const bunRef = useRef<HTMLInputElement>(null!)
   const sauceRef = useRef<HTMLInputElement>(null!)
   const mainRef = useRef<HTMLInputElement>(null!)
   const tabRef = useRef<HTMLInputElement>(null!)
 
-  const data = useSelector((state: any) => state.ingredients.ingredients)
-  const ingredientsRequest = useSelector((state: any) => state.ingredients.ingredientsRequest)
 
   const checkActualTab = () => {
     const tabsTop = tabRef.current.getBoundingClientRect().top;
@@ -29,12 +30,21 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
     const maxValue = Math.min(bunsDistance, saucesDistance, mainsDistance);
 
     if (maxValue === bunsDistance) {
-      setCurrent('Булки');
+      setCurrent(BUN);
     } else if (maxValue === saucesDistance) {
-      setCurrent('Соусы');
+      setCurrent(SAUCE);
     } else {
-      setCurrent('Начинки');
+      setCurrent(MAIN);
     }
+  }
+
+  const onTabClick = (e: any) => {
+    setCurrent(e)
+    e === BUN
+      ? bunRef.current.scrollIntoView({ behavior: "smooth" })
+      : e === MAIN
+        ? mainRef.current.scrollIntoView({ behavior: "smooth" })
+        : sauceRef.current.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -44,15 +54,13 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
       </p>
 
       <div style={{ display: 'flex' }} className='mt-5' ref={tabRef}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
-          Булки
-        </Tab>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-          Соусы
-        </Tab>
-        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
-          Начинки
-        </Tab>
+        {
+          TABS.map((tab: any) => (
+            <Tab value={tab.type} key={tab.type} active={current === tab.type} onClick={onTabClick}>
+              {tab.displayName}
+            </Tab>
+          ))
+        }
       </div>
 
       {
@@ -64,7 +72,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Булки
               </p>
               {data.filter((i: IIngredient) => i.type === 'bun').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -76,7 +84,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Соусы
               </p>
               {data.filter((i: IIngredient) => i.type === 'sauce').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -88,7 +96,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Начинки
               </p>
               {data.filter((i: IIngredient) => i.type === 'main').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )

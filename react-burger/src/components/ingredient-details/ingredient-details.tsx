@@ -1,20 +1,9 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import s from './ingredient-details.module.css'
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
-import { IIngredient } from '../bureger-ingredients/burger-ingredient/burger-ingredient';
 
+const IngredientDetails: FC<{ data: any }> = ({ data }) => {
 
-const IngredientDetails: FC = () => {
-  const dispatch = useDispatch()
-  const { ingredientId } = useParams<{ ingredientId: string }>()
-  const ingredients = useSelector((state: any) => state.ingredients.ingredients)
-  const data = useSelector((state: any) => state.ingredients?.currentIngredient)
-  const current = ingredients.find((i: IIngredient) => i._id === ingredientId)
-  useEffect(() => {
-    dispatch(setCurrentIngredient(current))
-  }, [dispatch, current])
+  if (!data) return null
 
   return (
     <div className={s.wrapper}>

@@ -7,7 +7,7 @@ const initialState = {
   ingredientsMap: new Map(),
   bunMap: new Map(),
 
-  order: {},
+  order: Number(),
   orderError: false,
   orderRequest: false,
 

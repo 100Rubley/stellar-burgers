@@ -1,5 +1,17 @@
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api'
 
+// Надо типизировать
+export const BUN = 'bun'
+export const SAUCE = 'sauce';
+export const MAIN = 'main';
+
+export const TABS = [
+  { displayName: 'Булки', type: BUN },
+  { displayName: 'Соусы', type: SAUCE },
+  { displayName: 'Начинки', type: MAIN }]
+// ----------------
+
+// Перенести в общий файл TYPES
 interface IInnerRoutes {
   readonly title: string
   readonly path: string
@@ -7,14 +19,15 @@ interface IInnerRoutes {
 
 type TRoutesNames = 'home' | 'orders' | 'profile' | 'ingredient' | 'history' | 'login' | 'register' | 'forgotPassword' | 'resetPassword'
 
-type TRoutes = {[name in TRoutesNames]: IInnerRoutes}
+type TRoutes = { [name in TRoutesNames]: IInnerRoutes }
+// ---------------------------
 
 export const ROUTES: TRoutes = {
   home: { title: 'Конструктор', path: '/' },
   orders: { title: 'Лента заказов', path: '/orders' },
   profile: { title: 'Личный кабинет', path: '/profile' },
 
-  ingredient: { title: 'Ингредиент', path: '/ingredient/:ingredientId' },
+  ingredient: { title: 'Ингредиент', path: '/ingredients/:ingredientId' },
   history: { title: '', path: '/profile/orders' },
 
   login: { title: 'Вход', path: '/login' },
