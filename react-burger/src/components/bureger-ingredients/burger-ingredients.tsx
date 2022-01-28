@@ -6,11 +6,10 @@ import BurgerIngredient, { IIngredient } from './burger-ingredient/burger-ingred
 import { BUN, MAIN, SAUCE, TABS } from '../../utils/constants';
 
 interface IBurgerIngredientsProps {
-  handleClick: (isOpen: boolean, ingredient: any) => void
+  handleClick: ( id: any) => void
 }
 
 const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
-  const { isModal } = useSelector((state: any) => state.ingredients)
   const data = useSelector((state: any) => state.ingredients.ingredients)
   const ingredientsRequest = useSelector((state: any) => state.ingredients.ingredientsRequest)
 
@@ -72,7 +71,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Булки
               </p>
               {data.filter((i: IIngredient) => i.type === 'bun').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick( i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -84,7 +83,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Соусы
               </p>
               {data.filter((i: IIngredient) => i.type === 'sauce').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -96,7 +95,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Начинки
               </p>
               {data.filter((i: IIngredient) => i.type === 'main').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(isModal, i) }} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
