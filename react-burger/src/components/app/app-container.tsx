@@ -9,10 +9,10 @@ const AppContainer: FC = () => {
   const { ingredients } = useSelector((state: any) => state.ingredients)
   const location = useLocation<any>()
   const background = location.state && location.state.background
-
+ 
   useEffect(() => {
     if (!ingredients.length) dispatch(requestIngredients())
-  }, [dispatch, ingredients])
+  }, [dispatch, ingredients.length])
 
   return (
     <App location={location} background={background} ingredients={ingredients}/>

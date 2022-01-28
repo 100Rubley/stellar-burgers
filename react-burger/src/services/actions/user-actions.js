@@ -170,7 +170,7 @@ export const getUserData = () => dispatch => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': getCookie('accessToken')
+      Authorization: `${getCookie('accessToken')}`
     }
   })
     .then(res => {
@@ -185,14 +185,13 @@ export const getUserData = () => dispatch => {
 }
 
 export const refreshUserData = (email, name) => dispatch => {
-  const accessToken = getCookie('accessToken')
   dispatch(request())
 
   retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + accessToken
+      Authorization: `${getCookie('accessToken')}`
     },
     body: JSON.stringify({ email, name })
   })
