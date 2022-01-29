@@ -1,6 +1,4 @@
-import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR, CLEAR_CONSTRUCTOR } from "../actions/action-types"
-import { addBun, addIngredient, addToIngredientsMap, addToBunMap, postOrderSuccess, postOrderRequest, postOrderError } from '../actions/constructor-actions'
-
+import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR, CLEAR_CONSTRUCTOR, SHOW_MODAL, HIDE_MODAL } from "../actions/action-types"
 
 const initialState = {
   constructorIngredients: [],
@@ -9,13 +7,20 @@ const initialState = {
   ingredientsMap: new Map(),
   bunMap: new Map(),
 
-  order: {},
+  order: Number(),
   orderError: false,
   orderRequest: false,
+
+  isModal: false,
 }
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SHOW_MODAL:
+      return { ...state, isModal: true }
+    case HIDE_MODAL:
+      return { ...state, isModal: false }
+
     case ADD_BUN:
       return { ...state, bun: action.item }
     case ADD_INGREDIENT:
@@ -70,7 +75,7 @@ export const constructorReducer = (state = initialState, action) => {
     }
 
     case CLEAR_CONSTRUCTOR:
-      return {...state, constructorIngredients: [], bun: {}, bunMap: new Map(), ingredientsMap: new Map()}
+      return { ...state, constructorIngredients: [], bun: {}, bunMap: new Map(), ingredientsMap: new Map() }
 
     default:
       return state

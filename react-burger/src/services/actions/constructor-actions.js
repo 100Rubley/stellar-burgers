@@ -1,6 +1,9 @@
-import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR, CLEAR_CONSTRUCTOR } from "./action-types"
-import { checkResponse } from '../../utils/common'
+import { ADD_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, REMOVE_ITEM, ADD_TO_INGREDIENTS_MAP, ADD_TO_BUN_MAP, POST_ORDER_SUCCESS, POST_ORDER_REQUEST, POST_ORDER_ERROR, CLEAR_CONSTRUCTOR, SHOW_MODAL, HIDE_MODAL } from "./action-types"
+import { checkResponse } from '../../utils/common.ts'
 import { BASE_URL } from "../../utils/constants"
+
+export const showOrderModal = () => ({ type: SHOW_MODAL })
+export const hideOrderModal = () => ({ type: HIDE_MODAL })
 
 export const addBun = item => ({ type: ADD_BUN, item })
 export const addIngredient = item => ({ type: ADD_INGREDIENT, item })

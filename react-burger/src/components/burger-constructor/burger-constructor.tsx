@@ -1,13 +1,19 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
+import { FC } from 'react';
+import React from 'react';
+import { IIngredient, IItem } from '../../utils/types';
 
-const BurgerConstructor = ({ handleRequest }) => {
-  const bun = useSelector(state => state.burgerConstructor?.bun)
-  const ingredients = useSelector(state => state.burgerConstructor?.constructorIngredients)
+interface IBurgerConstructor {
+  handleRequest: (data: string[]) => void
+}
+
+const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
+  const bun = useSelector((state: any) => state.burgerConstructor?.bun)
+  const ingredients = useSelector((state: any) => state.burgerConstructor?.constructorIngredients)
 
   const isBun = !Object.keys(bun).length === false
   const isIngredients = !Object.keys(ingredients).length === false
@@ -18,7 +24,7 @@ const BurgerConstructor = ({ handleRequest }) => {
 
   const requestData = [
     bun._id,
-    ...ingredients.map(i => i._id)
+    ...ingredients.map((i: IIngredient) => i._id)
   ]
 
   return (
@@ -45,7 +51,7 @@ const BurgerConstructor = ({ handleRequest }) => {
             <section className={`${s.scrollable}`}>
               {
                 isIngredients
-                  ? ingredients?.map(i => (
+                  ? ingredients?.map((i: IItem)=> (
                     <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
                   ))
                   // Заменить нижнюю заглушку
@@ -74,7 +80,7 @@ const BurgerConstructor = ({ handleRequest }) => {
         (isBun && isIngredients) &&
         <footer className={`${s.footer} mt-10`}>
           <span className={`${s.summary} mr-10 text text_type_main-large`}>
-            {ingredients.reduce((sum, current) => sum + current.price, 0) + bun.price}
+            {ingredients.reduce((sum: number, current: IIngredient) => sum + current.price, 0) + bun.price}
             <CurrencyIcon type="primary" />
           </span>
           <Button type="primary" size="large" onClick={() => { handleRequest(requestData) }}>
@@ -84,10 +90,6 @@ const BurgerConstructor = ({ handleRequest }) => {
       }
     </article>
   )
-}
-
-BurgerConstructor.propTypes = {
-  handleRequest: PropTypes.func
 }
 
 export default BurgerConstructor

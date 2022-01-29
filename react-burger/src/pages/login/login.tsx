@@ -1,42 +1,43 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useCallback } from 'react'
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
+import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
+import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
+import { TIcon } from '../../utils/types'
 
-const Login = () => {
-  const [emailValue, setEmailValue] = React.useState('')
-  const [passValue, setPassValue] = React.useState('')
+export interface ILocation {
+  pathname: string
+  state: {}
+  from: string
+}
 
-  const [icon, setIcon] = React.useState('ShowIcon')
+const Login: FC = () => {
+  const [form, setValue] = useState({ email: '', password: '' })
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const [icon, setIcon] = useState<TIcon>('HideIcon')
 
   const dispatch = useDispatch()
-  const history = useHistory()
-  const location = useLocation()
-  const background = location.state && location.state.form;
-  const isAuth = useSelector(state => state.user.isAuth)
+  const location = useLocation<ILocation>()
+  const background: any = location.state && location.state.from;
+  const isAuth = useSelector((state: any) => state.user.isAuth)
+  const inputPassRef = useRef<HTMLInputElement>(null!)
+
+  const passInputType = icon === 'ShowIcon' ? 'text' : 'password'
 
   const onIconClick = () => {
     setTimeout(() => inputPassRef.current.focus(), 0)
     icon === 'ShowIcon' ? setIcon('HideIcon') : setIcon('ShowIcon')
   }
-  const inputPassRef = React.useRef(null)
-  const inputEmailRef = React.useRef(null)
-
-  const onEmailChange = e => {
-    setEmailValue(e.target.value)
-  }
-
-  const onPassChange = e => {
-    setPassValue(e.target.value)
-  }
 
   const logInHandle = useCallback(
     e => {
       e.preventDefault()
-      dispatch(logIn(emailValue, passValue))
-    }, [emailValue, passValue, dispatch]
+      dispatch(logIn(form.email, form.password))
+    }, [form, dispatch]
   )
 
   if (isAuth) {
@@ -58,25 +59,20 @@ const Login = () => {
           type={'email'}
           placeholder={'E-mail'}
           name={'email'}
-          error={false}
-          errorText={'Ошибка'}
           size={'default'}
-          onChange={onEmailChange}
-          ref={inputEmailRef}
-          value={emailValue}
+          onChange={onChange}
+          value={form.email || ''}
         />
         <Input
-          type={'password'}
+          type={passInputType}
           placeholder={'Пароль'}
           name={'password'}
-          error={false}
-          errorText={'Ошибка'}
           size={'default'}
-          icon={`${icon}`}
-          onChange={onPassChange}
-          ref={inputPassRef}
+          icon={icon}
+          onChange={onChange}
           onIconClick={onIconClick}
-          value={passValue}
+          ref={inputPassRef}
+          value={form.password || ''}
         />
         <Button type="primary" size="medium">
           Войти

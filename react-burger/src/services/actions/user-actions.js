@@ -3,9 +3,9 @@ import {
   REQUEST_SUCCESS,
   REQUEST
 } from "./action-types"
-import { checkResponse, setCookie, getCookie } from '../../utils/common'
-import { deleteCookie } from "../../utils/common"
-import { retriableFetch } from "../../utils/common"
+import { checkResponse, setCookie, getCookie } from '../../utils/common.ts'
+import { deleteCookie } from "../../utils/common.ts"
+import { retriableFetch } from "../../utils/common.ts"
 import { BASE_URL } from "../../utils/constants"
 
 export const request = () => ({ type: REQUEST })
@@ -164,14 +164,13 @@ export const logOut = () => dispatch => {
 
 
 export const getUserData = () => dispatch => {
-  const accessToken = getCookie('accessToken')
   dispatch(request())
 
   retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer' + accessToken
+      Authorization: `${getCookie('accessToken')}`
     }
   })
     .then(res => {
@@ -186,14 +185,13 @@ export const getUserData = () => dispatch => {
 }
 
 export const refreshUserData = (email, name) => dispatch => {
-  const accessToken = getCookie('accessToken')
   dispatch(request())
 
   retriableFetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + accessToken
+      Authorization: `${getCookie('accessToken')}`
     },
     body: JSON.stringify({ email, name })
   })

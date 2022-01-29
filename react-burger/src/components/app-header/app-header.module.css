@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-.container {
-  display: flex;
-}
-
 .logoWrapper{
   margin: auto;
 }
@@ -31,12 +27,4 @@
 menu {
   position: absolute;
   right: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-.active {
-  color: aliceblue;
 }

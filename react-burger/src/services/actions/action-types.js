@@ -4,6 +4,8 @@ export const SET_INGREDIENTS_REQUEST = 'SET_INGREDIENTS_REQUEST'
 export const SET_INGREDIENTS_ERROR = 'SET_INGREDIENTS_ERROR'
 export const SET_CURRENT_INGREDIENT = 'SET_CURRENT_INGREDIENT'
 export const REMOVE_CURRENT_INGREDIENT = 'REMOVE_CURRENT_INGREDIENT'
+export const SHOW_INGREDIENTS_MODAL = 'SHOW_INGREDIENTS_MODAL'
+export const HIDE_INGREDIENTS_MODAL = 'HIDE_INGREDIENTS_MODAL'
 // __________________________________
 
 // Постоянные для constructor-reducer
@@ -19,6 +21,11 @@ export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST'
 export const POST_ORDER_ERROR = 'POST_ORDER_ERROR'
 
 export const CLEAR_CONSTRUCTOR ='CLEAR_CONSTRUCTOR'
+// __________________________________
+
+// Modal special
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const HIDE_MODAL = 'HIDE_MODAL'
 // __________________________________
 
 // Постоянные для user-reducer

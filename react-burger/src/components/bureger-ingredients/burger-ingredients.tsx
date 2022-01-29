@@ -1,19 +1,25 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useRef, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import s from './burger-ingredients.module.css'
-import BurgerIngredient from './burger-ingredient/burger-ingredient.jsx'
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import BurgerIngredient from './burger-ingredient/burger-ingredient';
+import { BUN, MAIN, SAUCE, TABS } from '../../utils/constants';
+import { IIngredient } from '../../utils/types';
 
-const BurgerIngredients = ({ handleClick }) => {
-  const [current, setCurrent] = useState('Булки')
-  const bunRef = useRef()
-  const sauceRef = useRef()
-  const mainRef = useRef()
-  const tabRef = useRef()
+interface IBurgerIngredientsProps {
+  handleClick: ( id: any) => void
+}
 
-  const data = useSelector(state => state.ingredients.ingredients)
-  const ingredientsRequest = useSelector(state => state.ingredients.ingredientsRequest)
+const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
+  const data = useSelector((state: any) => state.ingredients.ingredients)
+  const ingredientsRequest = useSelector((state: any) => state.ingredients.ingredientsRequest)
+
+  const [current, setCurrent] = useState(BUN)
+  const bunRef = useRef<HTMLInputElement>(null!)
+  const sauceRef = useRef<HTMLInputElement>(null!)
+  const mainRef = useRef<HTMLInputElement>(null!)
+  const tabRef = useRef<HTMLInputElement>(null!)
+
 
   const checkActualTab = () => {
     const tabsTop = tabRef.current.getBoundingClientRect().top;
@@ -24,12 +30,21 @@ const BurgerIngredients = ({ handleClick }) => {
     const maxValue = Math.min(bunsDistance, saucesDistance, mainsDistance);
 
     if (maxValue === bunsDistance) {
-      setCurrent('Булки');
+      setCurrent(BUN);
     } else if (maxValue === saucesDistance) {
-      setCurrent('Соусы');
+      setCurrent(SAUCE);
     } else {
-      setCurrent('Начинки');
+      setCurrent(MAIN);
     }
+  }
+
+  const onTabClick = (e: any) => {
+    setCurrent(e)
+    e === BUN
+      ? bunRef.current.scrollIntoView({ behavior: "smooth" })
+      : e === MAIN
+        ? mainRef.current.scrollIntoView({ behavior: "smooth" })
+        : sauceRef.current.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -39,15 +54,13 @@ const BurgerIngredients = ({ handleClick }) => {
       </p>
 
       <div style={{ display: 'flex' }} className='mt-5' ref={tabRef}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
-          Булки
-        </Tab>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-          Соусы
-        </Tab>
-        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
-          Начинки
-        </Tab>
+        {
+          TABS.map((tab: any) => (
+            <Tab value={tab.type} key={tab.type} active={current === tab.type} onClick={onTabClick}>
+              {tab.displayName}
+            </Tab>
+          ))
+        }
       </div>
 
       {
@@ -58,8 +71,8 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='bun' ref={bunRef}>
                 Булки
               </p>
-              {data.filter(i => i.type === 'bun').map(i => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              {data.filter((i: IIngredient) => i.type === 'bun').map((i: IIngredient) => (
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick( i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -70,8 +83,8 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='sauce' ref={sauceRef}>
                 Соусы
               </p>
-              {data.filter(i => i.type === 'sauce').map(i => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              {data.filter((i: IIngredient) => i.type === 'sauce').map((i: IIngredient) => (
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -82,8 +95,8 @@ const BurgerIngredients = ({ handleClick }) => {
               <p className="text text_type_main-medium" id='main' ref={mainRef}>
                 Начинки
               </p>
-              {data.filter(i => i.type === 'main').map(i => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={handleClick} key={i._id} id={i._id}>
+              {data.filter((i: IIngredient) => i.type === 'main').map((i: IIngredient) => (
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id}>
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
@@ -93,10 +106,6 @@ const BurgerIngredients = ({ handleClick }) => {
       }
     </article>
   )
-}
-
-BurgerIngredients.propTypes = {
-  handleClick: PropTypes.func
 }
 
 export default BurgerIngredients

@@ -1,21 +1,21 @@
 import s from './profile.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, FormEvent, SyntheticEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { getUserData, logOut, refreshUserData } from '../../services/actions/user-actions'
 
-const Profile = () => {
+const Profile: FC = () => {
   const dispatch = useDispatch()
 
-  const isLoaded = useSelector(state => state.user.request)
+  const isLoaded = useSelector((state: any) => state.user.request)
 
-  const userName = useSelector(state => state.user.name)
-  const userEmail = useSelector(state => state.user.email)
-  const userPass = useSelector(state => state.user.password)
+  const userName = useSelector((state: any) => state.user.name)
+  const userEmail = useSelector((state: any) => state.user.email)
+  const userPass = useSelector((state: any) => state.user.password)
 
   const [form, setValue] = useState({ email: `${userEmail}`, name: `${userName}`, password: `${userPass}` })
-  const onChange = e => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -31,7 +31,7 @@ const Profile = () => {
     dispatch(getUserData())
   }, [dispatch])
 
-  const onSubmitHandle = e => {
+  const onSubmitHandle = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     dispatch(refreshUserData(form.email, form.name))
@@ -39,7 +39,7 @@ const Profile = () => {
     setIsEdit(false)
   }
 
-  const onCancelHandle = e => {
+  const onCancelHandle = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault()
     setValue({ email: `${userEmail}`, name: `${userName}`, password: `${userPass}` })
     setIsEdit(false)
