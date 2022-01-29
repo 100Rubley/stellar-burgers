@@ -4,20 +4,13 @@ import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
+import { TIcon } from '../../utils/types'
 
 export interface ILocation {
   pathname: string
   state: {}
   from: string
 }
-
-export interface IIput {
-  name: string
-  value: string
-}
-
-export type TIcon = 'CurrencyIcon' | 'BurgerIcon' | 'LockIcon' | 'DragIcon' | 'CloseIcon' | 'CheckMarkIcon' | 'ListIcon' | 'ProfileIcon' |
-  'EditIcon' | 'InfoIcon' | 'ShowIcon' | 'HideIcon' | 'LogoutIcon' | 'DeleteIcon' | 'ArrowUpIcon' | 'ArrowDownIcon' | 'MenuIcon' | undefined
 
 const Login: FC = () => {
   const [form, setValue] = useState({ email: '', password: '' })

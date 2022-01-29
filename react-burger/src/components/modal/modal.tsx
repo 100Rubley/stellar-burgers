@@ -27,7 +27,7 @@ const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
     }
   }
 
-  const onModalClose = () => {
+  const onModalClose: () => void = () => {
     dispatch(hideOrderModal())
     dispatch(hideIngredientsModal())
     dispatch(removeCurrentIngredient())

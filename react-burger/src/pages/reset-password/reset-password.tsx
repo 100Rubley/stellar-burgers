@@ -4,7 +4,7 @@ import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { savePassword } from '../../services/actions/user-actions'
-import { TIcon } from '../login/login'
+import { ILocation, TIcon } from '../../utils/types'
 
 const ResetPassword: FC = () => {
   // redirect

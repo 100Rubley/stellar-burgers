@@ -5,22 +5,10 @@ import { useDrag } from "react-dnd";
 import { addToConstructor } from "../../../services/actions/constructor-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { IIngredient } from "../../../utils/types";
 
 interface IBurgerIngredientProps {
   ingredient: IIngredient
-}
-
-export interface IIngredient {
-  _id: string
-  name: string
-  type: string
-  proteins: number
-  carbohydrates: number
-  calories: number
-  price: number
-  image: string
-  image_mobile?: string
-  image_large?: string
 }
 
 const BurgerIngredient: FC<IBurgerIngredientProps> = ({ ingredient }) => {

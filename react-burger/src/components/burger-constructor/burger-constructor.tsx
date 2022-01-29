@@ -2,10 +2,10 @@ import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-de
 import s from './burger-constructor.module.css'
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import DraggableIngredient, { IItem } from './draggable-ingredient/draggable-ingredient'
+import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 import { FC } from 'react';
 import React from 'react';
-import {IIngredient} from '../bureger-ingredients/burger-ingredient/burger-ingredient'
+import { IIngredient, IItem } from '../../utils/types';
 
 interface IBurgerConstructor {
   handleRequest: (data: string[]) => void

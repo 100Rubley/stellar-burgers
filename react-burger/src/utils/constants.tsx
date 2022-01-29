@@ -1,3 +1,5 @@
+import { TRoutes } from "./types";
+
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api'
 
 // Надо типизировать
@@ -11,16 +13,6 @@ export const TABS = [
   { displayName: 'Начинки', type: MAIN }]
 // ----------------
 
-// Перенести в общий файл TYPES
-interface IInnerRoutes {
-  readonly title: string
-  readonly path: string
-}
-
-type TRoutesNames = 'home' | 'orders' | 'profile' | 'ingredient' | 'history' | 'login' | 'register' | 'forgotPassword' | 'resetPassword'
-
-type TRoutes = { [name in TRoutesNames]: IInnerRoutes }
-// ---------------------------
 
 export const ROUTES: TRoutes = {
   home: { title: 'Конструктор', path: '/' },

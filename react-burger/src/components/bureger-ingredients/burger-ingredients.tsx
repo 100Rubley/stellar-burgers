@@ -2,8 +2,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { FC, useRef, useState } from 'react'
 import s from './burger-ingredients.module.css'
 import { useSelector } from 'react-redux';
-import BurgerIngredient, { IIngredient } from './burger-ingredient/burger-ingredient';
+import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import { BUN, MAIN, SAUCE, TABS } from '../../utils/constants';
+import { IIngredient } from '../../utils/types';
 
 interface IBurgerIngredientsProps {
   handleClick: ( id: any) => void

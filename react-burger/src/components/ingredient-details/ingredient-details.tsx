@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
+import { IIngredient } from '../../utils/types'
 import s from './ingredient-details.module.css'
 
-const IngredientDetails: FC<{ data: any }> = ({ data }) => {
+const IngredientDetails: FC<{ data: IIngredient }> = ({ data }) => {
 
   if (!data) return null
 

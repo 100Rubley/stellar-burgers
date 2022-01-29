@@ -25,7 +25,7 @@ const MainContentContainer = () => {
     }
   }
 
-  const onIngredientClick = (id: any) => {
+  const onIngredientClick = (id: string) => {
     history.replace({pathname: `/ingredients/${id}`})
   }
 

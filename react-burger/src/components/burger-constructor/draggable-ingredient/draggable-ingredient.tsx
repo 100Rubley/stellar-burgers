@@ -4,18 +4,13 @@ import { useDrag, useDrop } from 'react-dnd';
 import React, { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { moveIngredient, removeItem } from '../../../services/actions/constructor-actions'
-import { IIngredient } from '../../bureger-ingredients/burger-ingredient/burger-ingredient';
+import { IItem } from '../../../utils/types';
 
 interface IDraggableIngredientProps {
   name: string
   price: number
   image: string
   uniqueId: number
-}
-
-export interface IItem extends IIngredient {
-  uniqueId: number
-  index: number | undefined
 }
 
 const DraggableIngredient: FC<IDraggableIngredientProps> = ({ name, price, image, uniqueId }) => {
