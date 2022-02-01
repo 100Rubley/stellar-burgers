@@ -4,7 +4,7 @@ import s from './burger-ingredients.module.css'
 import { useSelector } from 'react-redux';
 import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import { BUN, MAIN, SAUCE, TABS } from '../../utils/constants';
-import { IIngredient } from '../../utils/types';
+import { IIngredient } from '../../utils/types/types';
 
 interface IBurgerIngredientsProps {
   handleClick: ( id: any) => void

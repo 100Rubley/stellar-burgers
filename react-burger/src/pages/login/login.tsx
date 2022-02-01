@@ -4,7 +4,7 @@ import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn } from '../../services/actions/user-actions'
-import { TIcon } from '../../utils/types'
+import { TIcon } from '../../utils/types/types'
 
 export interface ILocation {
   pathname: string

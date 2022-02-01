@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import React, { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { moveIngredient, removeItem } from '../../../services/actions/constructor-actions'
-import { IItem } from '../../../utils/types';
+import { IItem } from '../../../utils/types/types';
 
 interface IDraggableIngredientProps {
   name: string

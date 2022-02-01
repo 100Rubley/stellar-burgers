@@ -4,7 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import Modal from '../../components/modal/modal';
 import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
-import { IIngredient } from '../../utils/types';
+import { IIngredient } from '../../utils/types/types';
 import { ILocation } from '../login/login';
 
 interface IIngredientContainerProps {

@@ -11,7 +11,7 @@ import ProtectedRoute from '../protected-route/protected-route'
 import { ROUTES } from '../../utils/constants'
 import MainContentContainer from '../main-content-container/main-content-container'
 import IngredientContainer from '../../pages/ingredient/ingredient-container'
-import { IIngredient, ILocation } from '../../utils/types';
+import { IIngredient, ILocation } from '../../utils/types/types';
 
 interface IAppProps {
   ingredients: [

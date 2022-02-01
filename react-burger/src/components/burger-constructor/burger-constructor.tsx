@@ -5,7 +5,7 @@ import { useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 import { FC } from 'react';
 import React from 'react';
-import { IIngredient, IItem } from '../../utils/types';
+import { IIngredient, IItem } from '../../utils/types/types';
 
 interface IBurgerConstructor {
   handleRequest: (data: string[]) => void

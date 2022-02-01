@@ -5,7 +5,7 @@ import { useDrag } from "react-dnd";
 import { addToConstructor } from "../../../services/actions/constructor-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { IIngredient } from "../../../utils/types";
+import { IIngredient } from "../../../utils/types/types";
 
 interface IBurgerIngredientProps {
   ingredient: IIngredient

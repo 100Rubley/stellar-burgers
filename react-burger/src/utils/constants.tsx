@@ -1,4 +1,4 @@
-import { TRoutes } from "./types";
+import { TRoutes } from "./types/types";
 
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api'
 

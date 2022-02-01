@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IIngredient } from '../../utils/types'
+import { IIngredient } from '../../utils/types/types'
 import s from './ingredient-details.module.css'
 
 const IngredientDetails: FC<{ data: IIngredient }> = ({ data }) => {

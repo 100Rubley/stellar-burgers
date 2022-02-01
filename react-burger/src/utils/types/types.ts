@@ -1,14 +1,3 @@
-// export interface IBackground {
-//   Background: ILocation
-// // }
-// import { Location as ILocation } from "history";
-
-// export interface IBackgroundLocation {
-//   background: ILocation
-//   location: {
-//     background: any
-//   }
-// }
 
 export interface ILocation {
   hash: string;
@@ -37,7 +26,7 @@ export interface IIngredient {
 
 export interface IItem extends IIngredient {
   uniqueId: number;
-  index: number | undefined;
+  index?: number | undefined;
 }
 
 export type TIcon =
@@ -82,3 +71,5 @@ export type TRoutesNames =
   | "resetPassword";
 
 export type TRoutes = { [name in TRoutesNames]: IInnerRoutes };
+
+

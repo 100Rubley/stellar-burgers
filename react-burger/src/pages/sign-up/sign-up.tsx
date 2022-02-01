@@ -4,7 +4,7 @@ import React, { ChangeEvent, FC, useCallback, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../../services/actions/user-actions'
-import { TIcon } from '../../utils/types'
+import { TIcon } from '../../utils/types/types'
 
 const SignUp: FC = () => {
   const dispatch = useDispatch()
