@@ -12,64 +12,63 @@ import {
   REMOVE_ITEM,
   SHOW_MODAL,
 } from "../../services/actions/action-types";
-import { IItem } from "./types";
-
+import { IIngredient, IItem } from "./types";
 
 // Типы для constructor action-creator's
 export type TShowOrderModal = {
-  type: typeof SHOW_MODAL;
+  readonly type: typeof SHOW_MODAL;
 };
 
 export type THideOrderModal = {
-  type: typeof HIDE_MODAL;
+  readonly type: typeof HIDE_MODAL;
 };
 
 export type TAddBun = {
-  type: typeof ADD_BUN;
+  readonly type: typeof ADD_BUN;
   item: IItem;
 };
 
 export type TAddIngredient = {
-  type: typeof ADD_INGREDIENT;
+  readonly type: typeof ADD_INGREDIENT;
   item: IItem;
 };
 
 export type TAddToIngredientsMap = {
-  type: typeof ADD_TO_INGREDIENTS_MAP;
+  readonly type: typeof ADD_TO_INGREDIENTS_MAP;
   id: string;
 };
 
 export type TAddToBunMap = {
-  type: typeof ADD_TO_BUN_MAP;
+  readonly type: typeof ADD_TO_BUN_MAP;
   id: string;
 };
 
 export type TMoveIngredient = {
-  type: typeof MOVE_INGREDIENT;
+  readonly type: typeof MOVE_INGREDIENT;
   dragIndex: number;
   hoverIndex: number;
 };
 
 export type TRemoveItem = {
-  type: typeof REMOVE_ITEM;
+  readonly type: typeof REMOVE_ITEM;
   id: number;
 };
 
 export type TClearConstructor = {
-  type: typeof CLEAR_CONSTRUCTOR;
+  readonly type: typeof CLEAR_CONSTRUCTOR;
 };
 
 export type TPostOrderSuccess = {
-  type: typeof POST_ORDER_SUCCESS;
+  readonly type: typeof POST_ORDER_SUCCESS;
   number: number;
 };
 
 export type TPostOrderError = {
-  type: typeof POST_ORDER_ERROR;
+  readonly type: typeof POST_ORDER_ERROR;
 };
 
 export type TPostOrderRequest = {
-  type: typeof POST_ORDER_REQUEST;
+  readonly type: typeof POST_ORDER_REQUEST;
 };
 
 export type TConstructorActions =
@@ -86,4 +85,20 @@ export type TConstructorActions =
   | TPostOrderError
   | TPostOrderRequest;
 
-  // __________________________
+// __________________________
+
+// Типы для constructor reduser
+export type TConstructorReducer = {
+  constructorIngredients: Array<IItem>;
+  bun: IItem | {};
+
+  ingredientsMap: any;
+  bunMap: any;
+
+  order: number;
+  orderError: boolean;
+  orderRequest: boolean;
+
+  isModal: boolean;
+};
+// ____________________________

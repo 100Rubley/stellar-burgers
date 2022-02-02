@@ -26,7 +26,7 @@ export interface IIngredient {
 
 export interface IItem extends IIngredient {
   uniqueId: number;
-  index?: number | undefined;
+  index?: number;
 }
 
 export type TIcon =

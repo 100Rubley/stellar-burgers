@@ -4,20 +4,24 @@ import {
   REQUEST_SUCCESS,
 } from "../../services/actions/action-types";
 
+// Типы для user action-creator's
 type TPayload = {
   [name: string]: string | boolean;
 };
 
 export type TRequest = {
   type: typeof REQUEST;
+  payload: TPayload;
 };
 
 export type TRequestError = {
   type: typeof REQUEST_ERROR;
+  payload: TPayload;
 };
 
 export type TRequestSuccess = {
   type: typeof REQUEST_SUCCESS;
+  payload: TPayload;
 };
 
 export type TLogInSuccess = {
@@ -72,3 +76,20 @@ export type TUserTypes =
   | TCancelResetSuccess
   | TLogOutSuccess
   | TSetUserData;
+
+// __________________________
+
+// Типы для user reduser
+export type TUserReducer = {
+  email: string;
+  password: string;
+  name: string;
+
+  isAuth: boolean;
+
+  request: boolean;
+  error: boolean;
+
+  resetPassSuccess: boolean;
+};
+// ____________________________

@@ -7,7 +7,9 @@ import {
   SET_INGREDIENTS_SUCCESS,
   SHOW_INGREDIENTS_MODAL,
 } from "../../services/actions/action-types";
-import { IIngredient } from "./types";
+import { IIngredient, IItem } from "./types";
+
+// Типы для ingredients action-creator's
 
 export type TSetIngredientsSuccess = {
   type: typeof SET_INGREDIENTS_SUCCESS;
@@ -47,3 +49,17 @@ export type TIngredientsAction =
   | TRemoveCurrentIngredient
   | TShowIngredientsModal
   | THideIngredientsModal;
+
+// ______________________
+
+// Типы для ingredients reduser
+export type TIngredientsReducer = {
+  ingredients: Array<IIngredient>;
+  ingredientsError: boolean;
+  ingredientsRequest: boolean;
+
+  currentIngredient: IItem | {};
+
+  isModal: boolean;
+};
+// ____________________________
