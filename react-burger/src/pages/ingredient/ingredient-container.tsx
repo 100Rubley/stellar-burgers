@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hooks'
 import { useLocation, useParams } from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import Modal from '../../components/modal/modal';
@@ -8,14 +8,12 @@ import { IIngredient } from '../../utils/types/types';
 import { ILocation } from '../login/login';
 
 interface IIngredientContainerProps {
-  ingredients: [
-    ingredient: IIngredient
-  ]
+  ingredients: ReadonlyArray<IIngredient>
 }
 
 const IngredientContainer: FC<IIngredientContainerProps> = ({ ingredients }) => {
   const { ingredientId } = useParams<{ ingredientId: string }>()
-  const currentIngredient = ingredients.filter((i: any) => i._id === ingredientId)[0]
+  const currentIngredient = ingredients.filter((i: IIngredient) => i._id === ingredientId)[0]
   const dispatch = useDispatch()
   const location = useLocation<ILocation>()
 

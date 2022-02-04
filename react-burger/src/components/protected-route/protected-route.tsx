@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../utils/hooks'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 import { getUserData } from '../../services/actions/user-actions'
 import { ROUTES } from '../../utils/constants'
@@ -10,7 +10,7 @@ interface IProtectedRoute {
 }
 
 const ProtectedRoute: FC<IProtectedRoute> = ({ children, ...rest }) => {
-  const isAuth = useSelector((state: any) => state.user.isAuth)
+  const isAuth = useSelector((state) => state.user.isAuth)
   const [isLoaded, setIsLoaded] = useState(false)
   const location = useLocation()
   const dispatch = useDispatch()

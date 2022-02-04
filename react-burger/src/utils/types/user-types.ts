@@ -11,17 +11,17 @@ type TPayload = {
 
 export type TRequest = {
   type: typeof REQUEST;
-  payload: TPayload;
+  payload?: TPayload;
 };
 
 export type TRequestError = {
   type: typeof REQUEST_ERROR;
-  payload: TPayload;
+  payload?: TPayload;
 };
 
 export type TRequestSuccess = {
   type: typeof REQUEST_SUCCESS;
-  payload: TPayload;
+  payload?: TPayload;
 };
 
 export type TLogInSuccess = {
@@ -64,7 +64,7 @@ export type TSetUserData = {
   payload: TPayload;
 };
 
-export type TUserTypes =
+export type TUserActions =
   | TRequest
   | TRequestError
   | TRequestSuccess

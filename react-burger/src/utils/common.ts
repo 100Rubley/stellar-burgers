@@ -59,21 +59,21 @@ export const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const retriableFetch = async (url: string, options:any = {}) => {
+export const retriableFetch = async (url: string, options: any = {}) => {
   try {
-    const res = await fetch(url, options)
-    const result = await checkResponse(res)
-    return result
+    const res = await fetch(url, options);
+    const result = await checkResponse(res);
+    return result;
   } catch (err: any | unknown) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken()
-      setCookie('refreshToken', refreshData.refreshToken)
-      setCookie('accessToken', refreshData.accessToken)
-      options.headers.authorization = refreshData.accessToken
-      const res = await fetch(url, options)
-      return await checkResponse(res)
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken();
+      setCookie("refreshToken", refreshData.refreshToken);
+      setCookie("accessToken", refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkResponse(res);
     } else {
-      throw err
+      throw err;
     }
   }
-}
+};

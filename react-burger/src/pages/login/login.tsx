@@ -2,7 +2,7 @@ import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { Link, Redirect, useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../utils/hooks'
 import { logIn } from '../../services/actions/user-actions'
 import { TIcon } from '../../utils/types/types'
 
@@ -23,7 +23,7 @@ const Login: FC = () => {
   const dispatch = useDispatch()
   const location = useLocation<ILocation>()
   const background: any = location.state && location.state.from;
-  const isAuth = useSelector((state: any) => state.user.isAuth)
+  const isAuth = useSelector((state) => state.user.isAuth)
   const inputPassRef = useRef<HTMLInputElement>(null!)
 
   const passInputType = icon === 'ShowIcon' ? 'text' : 'password'

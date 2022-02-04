@@ -3,7 +3,7 @@ import s from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hooks'
 import { hideIngredientsModal, removeCurrentIngredient } from '../../services/actions/ingredients-actions';
 import { hideOrderModal } from '../../services/actions/constructor-actions';
 import { useHistory } from 'react-router-dom';

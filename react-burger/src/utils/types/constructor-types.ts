@@ -89,8 +89,8 @@ export type TConstructorActions =
 
 // Типы для constructor reduser
 export type TConstructorReducer = {
-  constructorIngredients: Array<IItem>;
-  bun: IItem | {};
+  constructorIngredients: ReadonlyArray<IItem>;
+  bun: IItem;
 
   ingredientsMap: any;
   bunMap: any;

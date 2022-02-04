@@ -1,10 +1,10 @@
 import s from './reset-password.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../utils/hooks'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { savePassword } from '../../services/actions/user-actions'
-import { ILocation, TIcon } from '../../utils/types/types'
+import { TIcon } from '../../utils/types/types'
 
 const ResetPassword: FC = () => {
   // redirect

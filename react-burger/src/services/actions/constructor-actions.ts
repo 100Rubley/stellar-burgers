@@ -28,7 +28,7 @@ import {
   TRemoveItem,
   TShowOrderModal,
 } from "../../utils/types/constructor-types";
-import { IItem } from "../../utils/types/types";
+import { IItem, TAppDispatch, TAppThunk } from "../../utils/types/types";
 
 export const showOrderModal = (): TShowOrderModal => ({ type: SHOW_MODAL });
 export const hideOrderModal = (): THideOrderModal => ({ type: HIDE_MODAL });
@@ -74,7 +74,7 @@ export const postOrderError = (): TPostOrderError => ({
   type: POST_ORDER_ERROR,
 });
 
-export const addToConstructor = (item: IItem) => (dispatch: any) => {
+export const addToConstructor: TAppThunk = (item: IItem) => (dispatch: TAppDispatch) => {
   if (item.type === "bun") {
     dispatch(addToBunMap(item._id));
     dispatch(addBun(item));
@@ -84,7 +84,7 @@ export const addToConstructor = (item: IItem) => (dispatch: any) => {
   }
 };
 
-export const postOrder = (data: string[]) => (dispatch: any) => {
+export const postOrder: TAppThunk = (data: string[]) => (dispatch: TAppDispatch) => {
   dispatch(postOrderRequest());
   fetch(`${BASE_URL}/orders`, {
     method: "POST",

@@ -9,7 +9,7 @@ import {
 } from "./action-types";
 import { checkResponse } from "../../utils/common";
 import { BASE_URL } from "../../utils/constants";
-import { IIngredient } from "../../utils/types/types";
+import { IIngredient, TAppDispatch, TAppThunk } from "../../utils/types/types";
 import {
   THideIngredientsModal,
   TSetCurrentIngredient,
@@ -17,10 +17,10 @@ import {
   TSetIngredientsRequest,
   TSetIngredientsSuccess,
   TShowIngredientsModal,
-} from "../../utils/types/ingredients-typs";
+} from "../../utils/types/ingredients-types";
 
 export const setIngredientsSuccess = (
-  ingredients: Array<IIngredient>
+  ingredients: [ingredient: IIngredient]
 ): TSetIngredientsSuccess => ({ type: SET_INGREDIENTS_SUCCESS, ingredients });
 export const setIngredientsRequest = (): TSetIngredientsRequest => ({
   type: SET_INGREDIENTS_REQUEST,
@@ -42,7 +42,7 @@ export const hideIngredientsModal = (): THideIngredientsModal => ({
   type: HIDE_INGREDIENTS_MODAL,
 });
 
-export const requestIngredients = () => (dispatch: any) => {
+export const requestIngredients: TAppThunk = () => (dispatch: TAppDispatch) => {
   dispatch(setIngredientsRequest());
   fetch(`${BASE_URL}/ingredients`)
     .then(checkResponse)

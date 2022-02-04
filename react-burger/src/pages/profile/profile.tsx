@@ -1,18 +1,18 @@
 import s from './profile.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { ChangeEvent, FC, FormEvent, SyntheticEvent, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../utils/hooks'
 import { NavLink } from 'react-router-dom'
 import { getUserData, logOut, refreshUserData } from '../../services/actions/user-actions'
 
 const Profile: FC = () => {
   const dispatch = useDispatch()
 
-  const isLoaded = useSelector((state: any) => state.user.request)
+  const isLoaded = useSelector((state) => state.user.request)
 
-  const userName = useSelector((state: any) => state.user.name)
-  const userEmail = useSelector((state: any) => state.user.email)
-  const userPass = useSelector((state: any) => state.user.password)
+  const userName = useSelector((state) => state.user.name)
+  const userEmail = useSelector((state) => state.user.email)
+  const userPass = useSelector((state) => state.user.password)
 
   const [form, setValue] = useState({ email: `${userEmail}`, name: `${userName}`, password: `${userPass}` })
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

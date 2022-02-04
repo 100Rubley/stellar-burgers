@@ -1,4 +1,4 @@
-import { TUserReducer, TUserTypes } from "../../utils/types/user-types";
+import { TUserReducer, TUserActions } from "../../utils/types/user-types";
 import {
   REQUEST_SUCCESS,
   REQUEST_ERROR,
@@ -20,7 +20,7 @@ const initialState: TUserReducer = {
 
 export const userReducer = (
   state = initialState,
-  action: TUserTypes
+  action: TUserActions
 ): TUserReducer => {
   switch (action.type) {
     case REQUEST:

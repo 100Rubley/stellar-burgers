@@ -16,6 +16,7 @@ import {
   TSetUserData,
   TSignUpSuccess,
 } from "../../utils/types/user-types";
+import { TAppDispatch, TAppThunk } from "../../utils/types/types";
 
 export const request = (): TRequest => ({ type: REQUEST });
 export const requestError = (): TRequestError => ({ type: REQUEST_ERROR });
@@ -60,7 +61,9 @@ export const setUserData = (email: string, name: string): TSetUserData => ({
   payload: { email, name, isAuth: true },
 });
 
-export const resetPassword = (email: string) => (dispatch: any) => {
+export const resetPassword: TAppThunk = (email: string) => (
+  dispatch: TAppDispatch
+) => {
   dispatch(resetPasswordRequest());
   fetch(`${BASE_URL}/password-reset`, {
     method: "POST",
@@ -83,8 +86,8 @@ export const resetPassword = (email: string) => (dispatch: any) => {
     });
 };
 
-export const savePassword = (newPassword: string, token: string) => (
-  dispatch: any
+export const savePassword: TAppThunk = (newPassword: string, token: string) => (
+  dispatch: TAppDispatch
 ) => {
   dispatch(request());
 
@@ -110,9 +113,11 @@ export const savePassword = (newPassword: string, token: string) => (
     });
 };
 
-export const signUp = (email: string, password: string, name: string) => (
-  dispatch: any
-) => {
+export const signUp: TAppThunk = (
+  email: string,
+  password: string,
+  name: string
+) => (dispatch: TAppDispatch) => {
   dispatch(request());
 
   fetch(`${BASE_URL}/auth/register`, {
@@ -143,7 +148,9 @@ export const signUp = (email: string, password: string, name: string) => (
     });
 };
 
-export const logIn = (email: string, password: string) => (dispatch: any) => {
+export const logIn: TAppThunk = (email: string, password: string) => (
+  dispatch: TAppDispatch
+) => {
   dispatch(request());
 
   fetch(`${BASE_URL}/auth/login`, {
@@ -173,7 +180,7 @@ export const logIn = (email: string, password: string) => (dispatch: any) => {
     });
 };
 
-export const logOut = () => (dispatch: any) => {
+export const logOut: TAppThunk = () => (dispatch: TAppDispatch) => {
   const refreshToken = getCookie("refreshToken");
   dispatch(request());
 
@@ -198,14 +205,14 @@ export const logOut = () => (dispatch: any) => {
     });
 };
 
-export const getUserData = () => (dispatch: any) => {
+export const getUserData: TAppThunk = () => (dispatch: TAppDispatch) => {
   dispatch(request());
 
   retriableFetch(`${BASE_URL}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `${getCookie("accessToken")}`,
+      Authorization: `Bearer ${getCookie("accessToken")}`,
     },
   })
     .then((res) => {
@@ -219,8 +226,8 @@ export const getUserData = () => (dispatch: any) => {
     });
 };
 
-export const refreshUserData = (email: string, name: string) => (
-  dispatch: any
+export const refreshUserData: TAppThunk = (email: string, name: string) => (
+  dispatch: TAppDispatch
 ) => {
   dispatch(request());
 
@@ -228,7 +235,7 @@ export const refreshUserData = (email: string, name: string) => (
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `${getCookie("accessToken")}`,
+      Authorization: `Bearer ${getCookie("accessToken")}`,
     },
     body: JSON.stringify({ email, name }),
   })

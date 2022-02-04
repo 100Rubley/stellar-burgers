@@ -1,3 +1,22 @@
+import { Action, ActionCreator } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { store } from "../../services/redusers";
+import { TConstructorActions } from "./constructor-types";
+import { TIngredientsActions } from "./ingredients-types";
+import { TUserActions } from "./user-types";
+
+export type TRootState = ReturnType<typeof store.getState>;
+
+export type TApplicationActions =
+  | TConstructorActions
+  | TUserActions
+  | TIngredientsActions;
+
+export type TAppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, TRootState, TApplicationActions>
+>;
+
+export type TAppDispatch = typeof store.dispatch;
 
 export interface ILocation {
   hash: string;
@@ -72,4 +91,7 @@ export type TRoutesNames =
 
 export type TRoutes = { [name in TRoutesNames]: IInnerRoutes };
 
-
+export type TTab = {
+  readonly displayName: string;
+  readonly type: string;
+};

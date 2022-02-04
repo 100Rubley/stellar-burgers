@@ -14,9 +14,7 @@ import IngredientContainer from '../../pages/ingredient/ingredient-container'
 import { IIngredient, ILocation } from '../../utils/types/types';
 
 interface IAppProps {
-  ingredients: [
-    ingredient: IIngredient
-  ]
+  ingredients: ReadonlyArray<IIngredient>
 }
 
 const App: FC<IAppProps> = ({ ingredients }) => {

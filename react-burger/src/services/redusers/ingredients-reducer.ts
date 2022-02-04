@@ -1,7 +1,7 @@
 import {
   TIngredientsReducer,
-  TIngredientsAction,
-} from "../../utils/types/ingredients-typs";
+  TIngredientsActions,
+} from "../../utils/types/ingredients-types";
 import {
   SET_CURRENT_INGREDIENT,
   SET_INGREDIENTS_ERROR,
@@ -24,7 +24,7 @@ const initialState: TIngredientsReducer = {
 
 export const ingredientsReducer = (
   state = initialState,
-  action: TIngredientsAction
+  action: TIngredientsActions
 ): TIngredientsReducer => {
   switch (action.type) {
     case SHOW_INGREDIENTS_MODAL:

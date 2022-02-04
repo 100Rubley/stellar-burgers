@@ -13,7 +13,7 @@ import { IIngredient, IItem } from "./types";
 
 export type TSetIngredientsSuccess = {
   type: typeof SET_INGREDIENTS_SUCCESS;
-  ingredients: Array<IIngredient>;
+  ingredients: [ingredient: IIngredient];
 };
 
 export type TSetIngredientsRequest = {
@@ -41,7 +41,7 @@ export type THideIngredientsModal = {
   type: typeof HIDE_INGREDIENTS_MODAL;
 };
 
-export type TIngredientsAction =
+export type TIngredientsActions =
   | TSetIngredientsSuccess
   | TSetIngredientsRequest
   | TSetIngredientsError
@@ -54,7 +54,7 @@ export type TIngredientsAction =
 
 // Типы для ingredients reduser
 export type TIngredientsReducer = {
-  ingredients: Array<IIngredient>;
+  ingredients: ReadonlyArray<IIngredient>;
   ingredientsError: boolean;
   ingredientsRequest: boolean;
 

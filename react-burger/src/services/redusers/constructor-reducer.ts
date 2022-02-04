@@ -2,7 +2,6 @@ import {
   TConstructorActions,
   TConstructorReducer,
 } from "../../utils/types/constructor-types";
-import { IItem } from "../../utils/types/types";
 import {
   ADD_BUN,
   ADD_INGREDIENT,
@@ -20,7 +19,21 @@ import {
 
 const initialState: TConstructorReducer = {
   constructorIngredients: [],
-  bun: {},
+  bun: {
+    _id: "",
+    name: "",
+    type: "bun",
+    proteins: 0,
+    fat: 0,
+    carbohydrates: 0,
+    calories: 0,
+    price: 0,
+    image: "",
+    image_mobile: "",
+    image_large: "",
+    uniqueId: 0,
+    index: 0,
+  },
 
   ingredientsMap: new Map(),
   bunMap: new Map(),
@@ -125,7 +138,21 @@ export const constructorReducer = (
       return {
         ...state,
         constructorIngredients: [],
-        bun: {},
+        bun: {
+          _id: "",
+          name: "",
+          type: "bun",
+          proteins: 0,
+          fat: 0,
+          carbohydrates: 0,
+          calories: 0,
+          price: 0,
+          image: "",
+          image_mobile: "",
+          image_large: "",
+          uniqueId: 0,
+          index: 0,
+        },
         bunMap: new Map(),
         ingredientsMap: new Map(),
       };
