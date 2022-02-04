@@ -1,14 +1,13 @@
 import s from './sign-up.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { ChangeEvent, FC, useCallback, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { useDispatch, useSelector } from '../../utils/hooks'
+import { Link } from 'react-router-dom'
+import { useDispatch } from '../../utils/hooks'
 import { signUp } from '../../services/actions/user-actions'
 import { TIcon } from '../../utils/types/types'
 
 const SignUp: FC = () => {
   const dispatch = useDispatch()
-  const isAuth = useSelector((state) => state.user.isAuth)
 
   const [form, setValue] = useState({ email: ``, name: ``, password: `` })
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,16 +30,6 @@ const SignUp: FC = () => {
       dispatch(signUp(form.email, form.password, form.name))
     }, [form, dispatch]
   )
-
-  if (isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/'
-        }}
-      />
-    );
-  }
 
   return (
     <div className={s.wrapper}>

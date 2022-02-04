@@ -1,8 +1,8 @@
 import s from './login.module.css'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
-import { Link, Redirect, useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from '../../utils/hooks'
+import { Link } from 'react-router-dom'
+import { useDispatch } from '../../utils/hooks'
 import { logIn } from '../../services/actions/user-actions'
 import { TIcon } from '../../utils/types/types'
 
@@ -21,9 +21,6 @@ const Login: FC = () => {
   const [icon, setIcon] = useState<TIcon>('HideIcon')
 
   const dispatch = useDispatch()
-  const location = useLocation<ILocation>()
-  const background: any = location.state && location.state.from;
-  const isAuth = useSelector((state) => state.user.isAuth)
   const inputPassRef = useRef<HTMLInputElement>(null!)
 
   const passInputType = icon === 'ShowIcon' ? 'text' : 'password'
@@ -39,16 +36,6 @@ const Login: FC = () => {
       dispatch(logIn(form.email, form.password))
     }, [form, dispatch]
   )
-
-  if (isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: `${background.pathname}`
-        }}
-      />
-    );
-  }
 
   return (
     <div className={s.wrapper}>

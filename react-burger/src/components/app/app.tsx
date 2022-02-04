@@ -12,6 +12,7 @@ import { ROUTES } from '../../utils/constants'
 import MainContentContainer from '../main-content-container/main-content-container'
 import IngredientContainer from '../../pages/ingredient/ingredient-container'
 import { IIngredient, ILocation } from '../../utils/types/types';
+import UnauthRedirect from '../with-unauth-redirect/with-unauth-redirect';
 
 interface IAppProps {
   ingredients: ReadonlyArray<IIngredient>
@@ -34,21 +35,21 @@ const App: FC<IAppProps> = ({ ingredients }) => {
           <IngredientContainer ingredients={ingredients}/>
         </Route>
 
-        <Route path={ROUTES.login.path} exact>
+        <UnauthRedirect path={ROUTES.login.path} exact>
           <Login />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.register.path} exact>
+        <UnauthRedirect path={ROUTES.register.path} exact>
           <SignUp />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.forgotPassword.path} exact>
+        <UnauthRedirect path={ROUTES.forgotPassword.path} exact>
           <NewPassword />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.resetPassword.path} exact>
+        <UnauthRedirect path={ROUTES.resetPassword.path} exact>
           <ResetPassword />
-        </Route>
+        </UnauthRedirect>
 
         <ProtectedRoute path={ROUTES.profile.path} exact>
           <Profile />
