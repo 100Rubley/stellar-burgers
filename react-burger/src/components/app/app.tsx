@@ -14,6 +14,7 @@ import IngredientContainer from '../../pages/ingredient/ingredient-container'
 import { IIngredient, ILocation } from '../../utils/types/types';
 import UnauthRedirect from '../with-unauth-redirect/with-unauth-redirect';
 import FeedContainer from '../feed/feed-container'
+import FeedPage from '../../pages/feed/feed-page';
 
 interface IAppProps {
   ingredients: ReadonlyArray<IIngredient>
@@ -33,11 +34,15 @@ const App: FC<IAppProps> = ({ ingredients }) => {
         </Route>
 
         <Route path={ROUTES.ingredient.path}>
-          <IngredientContainer ingredients={ingredients}/>
+          <IngredientContainer ingredients={ingredients} />
         </Route>
 
         <Route path={ROUTES.orders.path} exact>
           <FeedContainer />
+        </Route>
+
+        <Route path={ROUTES.orderPage.path} >
+          <FeedPage />
         </Route>
 
         <UnauthRedirect path={ROUTES.login.path} exact>

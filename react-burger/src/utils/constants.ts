@@ -16,6 +16,7 @@ export const TABS: Array<TTab> = [
 export const ROUTES: TRoutes = {
   home: { title: "Конструктор", path: "/" },
   orders: { title: "Лента заказов", path: "/feed" },
+  orderPage: { title: "", path: "/feed/:id" },
   profile: { title: "Личный кабинет", path: "/profile" },
 
   ingredient: { title: "Ингредиент", path: "/ingredients/:ingredientId" },

@@ -87,7 +87,8 @@ export type TRoutesNames =
   | "login"
   | "register"
   | "forgotPassword"
-  | "resetPassword";
+  | "resetPassword"
+  | "orderPage";
 
 export type TRoutes = { [name in TRoutesNames]: IInnerRoutes };
 
