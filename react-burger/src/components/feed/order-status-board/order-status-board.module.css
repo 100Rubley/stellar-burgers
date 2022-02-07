@@ -1,0 +1,29 @@
+.order_status {
+  display: grid;
+  grid-template-columns: 282px auto;
+  gap: 36px;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: calc(100vh - 200px);
+  max-height: 120px;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: .5em;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
+.wrapper {
+  margin-top: 60px;
+}

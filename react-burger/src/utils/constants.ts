@@ -3,7 +3,6 @@ import { TRoutes, TTab } from "./types/types";
 export const BASE_URL: "https://norma.nomoreparties.space/api" =
   "https://norma.nomoreparties.space/api";
 
-// Надо типизировать
 export const BUN: "bun" = "bun";
 export const SAUCE: "sauce" = "sauce";
 export const MAIN: "main" = "main";
@@ -13,11 +12,10 @@ export const TABS: Array<TTab> = [
   { displayName: "Соусы", type: SAUCE },
   { displayName: "Начинки", type: MAIN },
 ];
-// ----------------
 
 export const ROUTES: TRoutes = {
   home: { title: "Конструктор", path: "/" },
-  orders: { title: "Лента заказов", path: "/orders" },
+  orders: { title: "Лента заказов", path: "/feed" },
   profile: { title: "Личный кабинет", path: "/profile" },
 
   ingredient: { title: "Ингредиент", path: "/ingredients/:ingredientId" },
