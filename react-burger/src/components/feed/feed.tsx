@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ROUTES } from '../../utils/constants'
+import { IOrder } from '../../utils/types/orders-types'
 import s from './feed.module.css'
 import OrderItem from './order-item/order-item'
 import OrderStatusBoard from './order-status-board/order-status-board'
 
-const Feed = () => {
+interface IFeedProps {
+  orders: ReadonlyArray<IOrder>;
+  total: number;
+  totalToday: number;
+}
+
+const Feed: FC<IFeedProps> = ({ orders, total, totalToday }) => {
+
   return (
     <div className={s.wrapper}>
       <section className={s.feed}>
@@ -13,14 +21,14 @@ const Feed = () => {
         </div>
 
         <div className={s.scrollable}>
-          {/* тут надо будет мапиться по заказам, которые придут в пропсы */}
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-
-
+          {orders &&
+            orders.map(order =>
+              <OrderItem key={order.id}
+                {...order}
+              />
+            )
+          }
         </div>
-
       </section>
 
       <section className={s.orders}>

@@ -3,19 +3,26 @@ import {
   REQUEST_ERROR,
   REQUEST_SUCCESS,
 } from "../../services/actions/action-types";
+import { IIngredient } from "./types";
 
-export enum STATUS {
-  DONE = "done",
-  CREATED = "created",
-  CANCELLED = "cancelled",
-  PENDING = "pending",
+export type TOrderStatus = "done" | "created" | "cancelled" | "pending";
+
+// этот интерфэйс нужен для типизации заказа, который будет отрисовываться
+export interface IOrder {
+  id: number;
+  createdAt: string;
+  fullname: string;
+  status: TOrderStatus;
+  ingredients: ReadonlyArray<IIngredient>;
 }
+// _______________________________________________________________________
 
 export type TServerOrder = {
   ingredients: ReadonlyArray<string>;
   _id: string;
-  status: STATUS;
+  status: TOrderStatus;
   number: number;
+  name: string;
   createdAt: string;
   updatedAt: string;
 };

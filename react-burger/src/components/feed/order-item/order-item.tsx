@@ -1,40 +1,51 @@
 import s from './order-item.module.css'
-import React from 'react'
+import React, { FC } from 'react'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { IIngredient } from '../../../utils/types/types'
+import { formatRelative } from 'date-fns'
+import { ru } from 'date-fns/locale'
 
-const OrderItem = () => {
+interface IOrderItemProps {
+  fullname: string;
+  ingredients: ReadonlyArray<IIngredient>
+  createdAt: string;
+  id: number;
+  status: string;
+}
+
+const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }) => {
+  if (!ingredients) return null
+
+  const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })
+
   return (
     <div className={s.wrapper}>
       <p className={s.flex}>
         <span className="text text_type_main-medium">
-          Тут будет id
+          #{id}
         </span>
         <span className="text text_type_main-default text_color_inactive">
-          Сегодня, вo столько-то
+          {date}
         </span>
       </p>
 
       <p className={`${s.full_name} text text_type_main-medium`}>
-        FUUUUL Name
+        {fullname}
       </p>
-
-      <br />
-
-      <p className='text text_type_main-small'>Done</p>
 
       <p className={`${s.ingredients} ${s.flex}`}>
         <span>
-          {/* тут мапимся по ингредиентам, которые есть в пропсах и рисуем картинки */}
-          <img className={s.ingredientImage} src={""} alt="no img" />
-          <img className={s.ingredientImage} src={""} alt="no img" />
-          <img className={s.ingredientImage} src={""} alt="no img" />
-          <img className={s.ingredientImage} src={""} alt="no img" />
+          {
+            ingredients.map(i =>
+              <img className={s.ingredientImage} src={i?.image_mobile} alt="no img" />
+            )
+          }
 
         </span>
 
         <span>
           <span className="text text_type_main-medium">
-            {2000}
+            {ingredients.reduce((sum, current) => sum + current.price, 0)}
           </span>
           <span className={s.icon}>
             <CurrencyIcon type="primary" />
