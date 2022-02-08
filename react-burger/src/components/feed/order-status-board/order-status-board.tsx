@@ -1,50 +1,56 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from './order-status-board.module.css'
 
-const OrderStatusBoard = () => {
+interface IOrderStatusBoardProps {
+  total: number;
+  totalToday: number;
+  ordersDone: ReadonlyArray<number>;
+  ordersPending: ReadonlyArray<number>;
+}
+
+const OrderStatusBoard: FC<IOrderStatusBoardProps> = ({ ordersDone, ordersPending, total, totalToday }) => {
   return (
     <section className={s.wrapper}>
       <div className={s.order_status}>
         <div>
-          <OrderList >
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-            <div>2281337</div>
-
-          </OrderList>
+          <p className={`text text_type_main-medium mb-6`}>Готовы: </p>
+          <div className={s.scrollable}>
+            {
+              !!ordersDone
+                ? ordersDone.map(
+                  (order, index) =>
+                    <p className={`${s.done} text text_type_digits-default`} key={index}>
+                      {order}
+                    </p>)
+                : null
+            }
+          </div>
         </div>
         <div>
-          <OrderList>
-            1337228
-                  </OrderList>
+          <p className={`text text_type_main-medium mb-6`}>В работе: </p>
+          <div className={s.scrollable}>
+            {
+              !!ordersPending
+                ? ordersPending.map(
+                  (order, index) =>
+                    <p className={`text text_type_digits-default`} key={index}>
+                      {order}
+                    </p>)
+                : null
+            }
+          </div>
         </div>
       </div>
       <div>
         <p className="text text_type_main-medium mt-15">Выполнено за все время:</p>
-        <p className="text text_type_digits-large">298</p>
+        <p className="text text_type_digits-large">{total}</p>
       </div>
       <div>
         <p className="text text_type_main-medium mt-15">Выполнено за сегодня:</p>
-        <p className="text text_type_digits-large">71</p>
+        <p className="text text_type_digits-large">{totalToday}</p>
       </div>
     </section>
   )
 }
-
-const OrderList = ({ children }: any) => (
-  <>
-    <p className={`text text_type_main-medium mb-6`}>Title: </p>
-    <div className={s.scrollable}>
-      {/* {children.map((id, index) => (<p className="text text_type_digits-default" style={{color}} key={index}>{id}</p>))} */}
-      {children}
-    </div>
-  </>
-);
 
 export default OrderStatusBoard

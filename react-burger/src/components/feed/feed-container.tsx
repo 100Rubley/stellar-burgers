@@ -23,6 +23,9 @@ const FeedContainer = () => {
     ingredients: order.ingredients.map(i => ensure(getIngredientById(ingredients, i)))
   }))
 
+  const ordersDone = orders.filter(order => order.status === "done").map(order => order.id)
+  const ordersPending = orders.filter(order => order.status === "pending").map(order => order.id)
+
   useEffect(() => {
     dispatch(getOrders())
   }, [dispatch])
@@ -31,7 +34,7 @@ const FeedContainer = () => {
     <>
       {
         !!orders
-          ? <Feed orders={orders} total={total} totalToday={totalToday} />
+          ? <Feed orders={orders} total={total} totalToday={totalToday} ordersDone={ordersDone} ordersPending={ordersPending} />
           : <div>Loading...</div>
       }
     </>

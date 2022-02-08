@@ -17,9 +17,6 @@ const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }
   if (!ingredients) return null
 
   const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })
-  const generateUniqueId = () => {
-    return (Date.now() + Math.random())
-  }
 
   return (
     <div className={s.wrapper}>
@@ -36,12 +33,12 @@ const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }
         {fullname}
       </p>
 
-      <p className={`${s.footer}`}>
+      <div className={`${s.footer}`}>
         <ul className={s.iconsWrapper}>
           {
-            ingredients.map(i =>
-              <li className={s.imageWrapper}>
-                <img className={s.ingredientImage} src={i?.image} alt="no img" key={generateUniqueId()} />
+            ingredients.map((i, index) =>
+              <li className={s.imageWrapper} key={index}>
+                <img className={s.ingredientImage} src={i?.image} alt="no img"/>
               </li>
             )
           }
@@ -57,7 +54,7 @@ const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }
             </span>
           </div>
         </span>
-      </p>
+      </div>
     </div>
   )
 }

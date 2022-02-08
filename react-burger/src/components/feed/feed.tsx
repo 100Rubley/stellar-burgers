@@ -9,9 +9,11 @@ interface IFeedProps {
   orders: ReadonlyArray<IOrder>;
   total: number;
   totalToday: number;
+  ordersDone: ReadonlyArray<number>;
+  ordersPending: ReadonlyArray<number>;
 }
 
-const Feed: FC<IFeedProps> = ({ orders, total, totalToday }) => {
+const Feed: FC<IFeedProps> = ({ orders, total, totalToday, ordersDone, ordersPending }) => {
 
   return (
     <div className={s.wrapper}>
@@ -32,7 +34,7 @@ const Feed: FC<IFeedProps> = ({ orders, total, totalToday }) => {
       </section>
 
       <section className={s.orders}>
-        <OrderStatusBoard />
+        <OrderStatusBoard ordersDone={ordersDone} ordersPending={ordersPending} total={total} totalToday={totalToday} />
       </section>
     </div>
   )
