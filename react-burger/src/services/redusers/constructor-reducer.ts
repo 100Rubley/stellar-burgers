@@ -1,7 +1,9 @@
+import { ensure } from "../../utils/common";
 import {
   TConstructorActions,
   TConstructorReducer,
 } from "../../utils/types/constructor-types";
+import { IItem } from "../../utils/types/types";
 import {
   ADD_BUN,
   ADD_INGREDIENT,
@@ -94,14 +96,10 @@ export const constructorReducer = (
       };
 
     case MOVE_INGREDIENT: {
-      // если присвоить тип IItem для DragIngredient, получаем ошибку
-      //
-      // Type 'IItem | undefined' is not assignable to type 'IItem'.
-      // Type 'undefined' is not assignable to type 'IItem'.
-      //
-      // ошибка в том, что find может вернуть undefined, как исправить? хз
-      const dragIngredient: any = state.constructorIngredients.find(
-        (i) => i.uniqueId === action.dragIndex
+      const dragIngredient: IItem = ensure(
+        state.constructorIngredients.find(
+          (i) => i.uniqueId === action.dragIndex
+        )
       );
       const dragIndex = state.constructorIngredients.findIndex(
         (i) => i.uniqueId === action.dragIndex

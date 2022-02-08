@@ -8,12 +8,12 @@
 
 .feed {
   margin-top: 24px;
-  min-width: 600px;
+  width: 600px;
 }
 
 .orders {
   margin-top: 24px;
-  min-width: 600px;
+  width: 600px;
 }
 
 .scrollable {
