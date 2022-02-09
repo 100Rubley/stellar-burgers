@@ -9,7 +9,7 @@ import { hideOrderModal } from '../../services/actions/constructor-actions';
 import { useHistory } from 'react-router-dom';
 
 interface IModalProps {
-  headerTitle?: string | null
+  headerTitle?: number | string | null
 }
 
 const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
@@ -39,9 +39,15 @@ const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
     <ModalOverlay handleOverlayClick={onModalClose}>
       <div className={s.wrapper}>
         <div className={s.header}>
-          <p className="text text_type_main-large">
-            {headerTitle ? headerTitle : null}
-          </p>
+          {
+            typeof headerTitle === 'string'
+              ? <p className="text text_type_main-large">
+                {headerTitle}
+              </p>
+              : <p className="text text_type_digits-default">
+                #{headerTitle}
+              </p>
+          }
           <button className={s.button} onClick={onModalClose}>
             <CloseIcon type="primary" />
           </button>

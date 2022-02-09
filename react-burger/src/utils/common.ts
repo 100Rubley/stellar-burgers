@@ -1,4 +1,5 @@
 import { BASE_URL } from "./constants";
+import { IIngredient } from "./types/types";
 
 export const getCookie: (name: string) => string | undefined = (name) => {
   let matches = document.cookie.match(
@@ -90,3 +91,6 @@ export const ensure = <T>(
 
   return argument;
 };
+// _________________________________________________________
+
+export const getIngredientById = (array: ReadonlyArray<IIngredient>, id: string) => array.find(i => i._id === id)

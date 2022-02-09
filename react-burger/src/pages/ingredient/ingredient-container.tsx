@@ -29,7 +29,6 @@ const IngredientContainer: FC<IIngredientContainerProps> = ({ ingredients }) => 
           : <Modal headerTitle='Детали ингредиента'>
             <IngredientDetails data={currentIngredient} />
           </Modal>
-
       }
     </>
   )

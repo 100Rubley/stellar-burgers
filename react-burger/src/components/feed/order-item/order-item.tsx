@@ -4,6 +4,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { IIngredient } from '../../../utils/types/types'
 import { formatRelative } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import { useHistory } from 'react-router-dom'
 
 interface IOrderItemProps {
   fullname: string;
@@ -14,12 +15,18 @@ interface IOrderItemProps {
 }
 
 const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }) => {
-  if (!ingredients) return null
-
+  const history = useHistory()
+  
   const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })
-
+  
+  const onOrderItemClick = (id: number) => {
+    history.replace({pathname: `/feed/${id}`})
+  }
+  
+  if (!ingredients) return null
+  
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} onClick={() => onOrderItemClick(id)}>
       <p className={s.flex}>
         <span className="text text_type_digits-default">
           #{id}
