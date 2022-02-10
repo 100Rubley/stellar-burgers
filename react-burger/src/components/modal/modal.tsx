@@ -9,10 +9,11 @@ import { hideOrderModal } from '../../services/actions/constructor-actions';
 import { useHistory } from 'react-router-dom';
 
 interface IModalProps {
-  headerTitle?: number | string | null
+  headerTitle?: number | string | null;
+  from: string
 }
 
-const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
+const Modal: FC<IModalProps> = ({ children, headerTitle, from }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -32,7 +33,7 @@ const Modal: FC<IModalProps> = ({ children, headerTitle }) => {
     dispatch(hideIngredientsModal())
     dispatch(removeCurrentIngredient())
 
-    history.replace({ pathname: '/' })
+    history.replace({ pathname: from })
   }
 
   return createPortal(

@@ -18,6 +18,8 @@ export const ROUTES: TRoutes = {
   orders: { title: "Лента заказов", path: "/feed" },
   orderPage: { title: "", path: "/feed/:id" },
   profile: { title: "Личный кабинет", path: "/profile" },
+  profileOrders: { title: "", path: "/profile/orders" },
+  profileOrderPage: { title: "", path: "/profile/orders/:id" },
 
   ingredient: { title: "Ингредиент", path: "/ingredients/:ingredientId" },
   history: { title: "", path: "/profile/orders" },

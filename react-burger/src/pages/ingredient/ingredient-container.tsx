@@ -26,7 +26,7 @@ const IngredientContainer: FC<IIngredientContainerProps> = ({ ingredients }) => 
       {
         !location.key
           ? <IngredientDetails data={currentIngredient} />
-          : <Modal headerTitle='Детали ингредиента'>
+          : <Modal headerTitle='Детали ингредиента' from='/'>
             <IngredientDetails data={currentIngredient} />
           </Modal>
       }

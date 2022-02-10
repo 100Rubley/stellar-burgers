@@ -82,6 +82,8 @@ export type TRoutesNames =
   | "home"
   | "orders"
   | "profile"
+  | "profileOrders"
+  | "profileOrderPage"
   | "ingredient"
   | "history"
   | "login"

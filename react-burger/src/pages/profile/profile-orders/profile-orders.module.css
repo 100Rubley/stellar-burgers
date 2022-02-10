@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 1200px;
+  margin: 60px auto;
+}
+
+.nav {
+  width: 320px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listItem {
+  cursor: pointer;
+}
+
+.active {
+  color: aliceblue;
+}

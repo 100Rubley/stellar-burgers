@@ -43,7 +43,7 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
       {
         show
           ? <p className={`${s.id} text text_type_digits-default`}>
-            {paramsId}
+            #{paramsId}
           </p>
           : null
       }

@@ -35,7 +35,7 @@ const MainContentContainer = () => {
       <BurgerConstructor handleRequest={handleOrderRequest} />
       {
         isOrderModal
-          && <Modal>
+          && <Modal from='/'>
             <OrderDetails orderId={orderId} />
           </Modal>
       }

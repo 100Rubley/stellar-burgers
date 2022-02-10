@@ -25,7 +25,7 @@ const FeedPageContainer = () => {
       {
         !location.key
           ? <FeedPage show={true} orders={orders} paramsId={parsedId} />
-          : <Modal headerTitle={parsedId}>
+          : <Modal headerTitle={parsedId} from='/feed'>
             <FeedPage show={false} orders={orders} paramsId={parsedId} />
           </Modal>
       }
