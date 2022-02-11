@@ -4,13 +4,15 @@ import { store } from "../../services/redusers";
 import { TConstructorActions } from "./constructor-types";
 import { TIngredientsActions } from "./ingredients-types";
 import { TUserActions } from "./user-types";
+import { TWsActions } from "./ws-types";
 
 export type TRootState = ReturnType<typeof store.getState>;
 
 export type TApplicationActions =
   | TConstructorActions
   | TUserActions
-  | TIngredientsActions;
+  | TIngredientsActions
+  | TWsActions;
 
 export type TAppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, TRootState, TApplicationActions>

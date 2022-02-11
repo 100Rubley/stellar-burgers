@@ -3,6 +3,9 @@ import { TRoutes, TTab } from "./types/types";
 export const BASE_URL: "https://norma.nomoreparties.space/api" =
   "https://norma.nomoreparties.space/api";
 
+  
+export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+
 export const BUN: "bun" = "bun";
 export const SAUCE: "sauce" = "sauce";
 export const MAIN: "main" = "main";

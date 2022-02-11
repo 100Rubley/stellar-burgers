@@ -12,7 +12,7 @@ import {
   REMOVE_ITEM,
   SHOW_MODAL,
 } from "../../services/actions/action-types";
-import { IIngredient, IItem } from "./types";
+import { IItem } from "./types";
 
 // Типы для constructor action-creator's
 export type TShowOrderModal = {
