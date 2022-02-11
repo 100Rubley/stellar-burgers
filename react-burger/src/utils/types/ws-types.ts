@@ -28,9 +28,15 @@ export interface IWsConnectionError {
   readonly type: typeof WS_CONNECTION_ERROR;
 }
 
+export interface IwsOrders {
+  orders: Array<TOrderResponce>;
+  total: number;
+  totalToday: number
+}
+
 export interface IWsGetMessage {
   readonly type: typeof WS_GET_MESSAGE;
-  readonly orders: Array<TOrderResponce>;
+  readonly orders: IwsOrders;
 }
 
 export type TWsActions =

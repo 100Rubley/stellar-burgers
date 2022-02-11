@@ -12,7 +12,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
 } from "./action-types";
-import { checkResponse } from "../../utils/common";
+import { checkResponse, getCookie } from "../../utils/common";
 import { BASE_URL } from "../../utils/constants";
 import {
   TAddBun,
@@ -90,6 +90,7 @@ export const postOrder: TAppThunk = (data: string[]) => (dispatch: TAppDispatch)
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("accessToken")}`,
     },
     body: JSON.stringify({
       ingredients: data,

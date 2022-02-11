@@ -5,6 +5,7 @@ import {
   IWsConnectionStart,
   IWsConnectionSuccess,
   IWsGetMessage,
+  IwsOrders,
 } from "../../utils/types/ws-types";
 import {
   WS_CONNECTION_CLOSED,
@@ -30,7 +31,7 @@ export const wsConnectionClosed = (): IWsConnectionClosed => ({
   type: WS_CONNECTION_CLOSED,
 });
 
-export const wsGetMessage = (orders: Array<TOrderResponce>): IWsGetMessage => ({
+export const wsGetMessage = (orders: IwsOrders): IWsGetMessage => ({
   type: WS_GET_MESSAGE,
   orders,
 });

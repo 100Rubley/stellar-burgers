@@ -1,8 +1,8 @@
 import { TOrderActions, TOrdersReducer } from "../../utils/types/orders-types";
 import {
-  REQUEST,
-  REQUEST_ERROR,
-  REQUEST_SUCCESS,
+  ORDERS_REQUEST,
+  ORDERS_REQUEST_ERROR,
+  ORDERS_REQUEST_SUCCESS,
 } from "../actions/action-types";
 
 const initialState: TOrdersReducer = {
@@ -16,11 +16,11 @@ const initialState: TOrdersReducer = {
 
 export const ordersReducer = (state = initialState, action: TOrderActions): TOrdersReducer => {
   switch (action.type) {
-    case REQUEST:
+    case ORDERS_REQUEST:
       return { ...state, error: false, request: true, ...action.payload };
-    case REQUEST_ERROR:
+    case ORDERS_REQUEST_ERROR:
       return { ...state, error: true, request: false, ...action.payload };
-    case REQUEST_SUCCESS:
+    case ORDERS_REQUEST_SUCCESS:
       return { ...state, error: false, request: false, ...action.payload };
     default:
       return state;

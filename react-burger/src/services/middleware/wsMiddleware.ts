@@ -1,18 +1,11 @@
-import type { Middleware, MiddlewareAPI } from "redux";
+import type { Middleware } from "redux";
 import { getCookie } from "../../utils/common";
-import type {
-  TApplicationActions,
-  TAppDispatch,
-  TRootState,
-} from "../../utils/types/types";
-import { WS_CONNECTION_START } from "../actions/action-types";
 import {
   wsConnectionClosed,
   wsConnectionError,
   wsConnectionSuccess,
   wsGetMessage,
 } from "../actions/ws-actions";
-import { store } from "../redusers";
 
 type wsActions = {
   WS_CONNECTION_START: string;
@@ -28,10 +21,6 @@ export const websocket = (url: string, actions: wsActions): Middleware => {
 
     const {
       WS_CONNECTION_START,
-      WS_CONNECTION_CLOSED,
-      WS_CONNECTION_SUCCESS,
-      WS_CONNECTION_ERROR,
-      WS_GET_MESSAGE,
     } = actions;
 
     return (next) => (action) => {
@@ -40,7 +29,6 @@ export const websocket = (url: string, actions: wsActions): Middleware => {
       const token = getCookie("accessToken");
 
       if (type === WS_CONNECTION_START) {
-        // надо проверить в accessToken сидит Bearer, если нет, то отсавить, если да, то обрезать
         socket = new WebSocket(`${url}${"?token=" + token}`);
       }
 

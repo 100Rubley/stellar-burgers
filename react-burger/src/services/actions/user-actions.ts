@@ -17,6 +17,7 @@ import {
   TSignUpSuccess,
 } from "../../utils/types/user-types";
 import { TAppDispatch, TAppThunk } from "../../utils/types/types";
+import { wsConnectionStart } from "./ws-actions";
 
 export const request = (): TRequest => ({ type: REQUEST });
 export const requestError = (): TRequestError => ({ type: REQUEST_ERROR });
@@ -218,6 +219,7 @@ export const getUserData: TAppThunk = () => (dispatch: TAppDispatch) => {
     .then((res) => {
       if (res && res.success) {
         dispatch(setUserData(res.user.email, res.user.name));
+        // dispatch(wsConnectionStart())
       }
     })
     .catch((err) => {

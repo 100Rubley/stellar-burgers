@@ -63,9 +63,9 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
       <div className={`${s.scrollable} mb-10`}>
         {
           currentOrderIngredients && currentOrderIngredients.map(
-            i =>
+            (i, index) =>
               (
-                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} />
+                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} key={index}/>
               )
           )
         }

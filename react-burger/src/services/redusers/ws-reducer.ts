@@ -38,7 +38,7 @@ export const wsReducer = (state = initialState, action: TWsActions) => {
     case WS_GET_MESSAGE:
       return {
         ...state,
-        orders: action.orders,
+        orders: [...action.orders.orders],
       };
       
     default:

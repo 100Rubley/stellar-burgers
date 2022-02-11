@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './profile-orders.module.css'
 import { NavLink } from 'react-router-dom'
-import { useDispatch } from '../../../utils/hooks'
+import { useDispatch, useSelector } from '../../../utils/hooks'
 import { logOut } from '../../../services/actions/user-actions'
-
+import { wsConnectionStart } from '../../../services/actions/ws-actions'
+import UserOrderItem from '../order-item/order-item'
 
 const ProfileOrders = () => {
   const linkStyle = 'text text_type_main-medium text_color_inactive'
   const [path, setPath] = useState('/profile/orders')
+  const wsOrders = useSelector(state => state.wsOrders)
   const dispatch = useDispatch()
   const logOutHandle = () => {
     dispatch(logOut())
   }
+
+  useEffect(() => {
+    if (!wsOrders.wsConnected) {
+      dispatch(wsConnectionStart())
+    }
+  }, [dispatch])
 
   return (
     <div className={s.wrapper}>
@@ -43,7 +51,10 @@ const ProfileOrders = () => {
       </nav>
 
       <div>
-        tut budut zacazi
+        {
+          !!wsOrders.orders.length && wsOrders.orders.map(i =>
+            <UserOrderItem />)
+        }
       </div>
     </div>
 

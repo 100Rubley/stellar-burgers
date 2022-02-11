@@ -46,7 +46,7 @@ const Modal: FC<IModalProps> = ({ children, headerTitle, from }) => {
                 {headerTitle}
               </p>
               : <p className="text text_type_digits-default">
-                #{headerTitle}
+                {headerTitle}
               </p>
           }
           <button className={s.button} onClick={onModalClose}>

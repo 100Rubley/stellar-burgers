@@ -1,23 +1,23 @@
-import { REQUEST, REQUEST_ERROR, REQUEST_SUCCESS } from "./action-types";
+import { ORDERS_REQUEST, ORDERS_REQUEST_ERROR, ORDERS_REQUEST_SUCCESS } from "./action-types";
 import {
-  TRequest,
-  TRequestError,
-  TRequestSuccess,
+  TOrdersRequest,
+  TOrdersRequestError,
+  TOrdersRequestSuccess,
   TServerOrder,
 } from "../../utils/types/orders-types";
 import { TAppDispatch, TAppThunk } from "../../utils/types/types";
 import { BASE_URL } from "../../utils/constants";
 import { checkResponse } from "../../utils/common";
 
-export const request = (): TRequest => ({ type: REQUEST });
-export const requestError = (): TRequestError => ({ type: REQUEST_ERROR });
+export const request = (): TOrdersRequest => ({ type: ORDERS_REQUEST });
+export const requestError = (): TOrdersRequestError => ({ type: ORDERS_REQUEST_ERROR });
 
 export const setOrders = (
   orders: ReadonlyArray<TServerOrder>,
   total: number,
   totalToday: number
-): TRequestSuccess => ({
-  type: REQUEST_SUCCESS,
+): TOrdersRequestSuccess => ({
+  type: ORDERS_REQUEST_SUCCESS,
   payload: { list: orders, total, totalToday },
 });
 

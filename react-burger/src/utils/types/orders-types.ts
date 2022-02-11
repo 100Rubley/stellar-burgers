@@ -1,7 +1,7 @@
 import {
-  REQUEST,
-  REQUEST_ERROR,
-  REQUEST_SUCCESS,
+  ORDERS_REQUEST,
+  ORDERS_REQUEST_ERROR,
+  ORDERS_REQUEST_SUCCESS,
 } from "../../services/actions/action-types";
 import { IIngredient } from "./types";
 
@@ -45,19 +45,19 @@ type TPayload = {
   [name: string]: ReadonlyArray<TServerOrder> | boolean | number;
 };
 
-export type TRequest = {
-  type: typeof REQUEST;
+export type TOrdersRequest = {
+  type: typeof ORDERS_REQUEST;
   payload?: TPayload;
 };
 
-export type TRequestError = {
-  type: typeof REQUEST_ERROR;
+export type TOrdersRequestError = {
+  type: typeof ORDERS_REQUEST_ERROR;
   payload?: TPayload;
 };
 
-export type TRequestSuccess = {
-  type: typeof REQUEST_SUCCESS;
+export type TOrdersRequestSuccess = {
+  type: typeof ORDERS_REQUEST_SUCCESS;
   payload?: TPayload;
 };
 
-export type TOrderActions = TRequest | TRequestError | TRequestSuccess;
+export type TOrderActions = TOrdersRequest | TOrdersRequestError | TOrdersRequestSuccess;
