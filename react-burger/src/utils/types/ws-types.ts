@@ -5,11 +5,11 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
 } from "../../services/actions/action-types";
-import { TOrderResponce } from "../types/orders-types";
+import { TServerOrder } from "../types/orders-types";
 
 export interface IWsReducer {
   wsConnected: boolean;
-  orders: ReadonlyArray<TOrderResponce>;
+  orders: ReadonlyArray<TServerOrder>;
 }
 
 export interface IWsConnectionStart {
@@ -29,9 +29,7 @@ export interface IWsConnectionError {
 }
 
 export interface IwsOrders {
-  orders: Array<TOrderResponce>;
-  total: number;
-  totalToday: number
+  orders: ReadonlyArray<TServerOrder>;
 }
 
 export interface IWsGetMessage {

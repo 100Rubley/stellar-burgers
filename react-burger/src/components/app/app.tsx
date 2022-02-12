@@ -16,6 +16,7 @@ import UnauthRedirect from '../with-unauth-redirect/with-unauth-redirect';
 import FeedContainer from '../feed/feed-container'
 import FeedPageContainer from '../../pages/feed/feed-page-container';
 import ProfileOrders from '../../pages/profile/profile-orders/profile-orders';
+import ProfileOrderContainer from '../../pages/profile/profile-orders/profile-order-container';
 
 interface IAppProps {
   ingredients: ReadonlyArray<IIngredient>
@@ -68,6 +69,10 @@ const App: FC<IAppProps> = ({ ingredients }) => {
 
         <ProtectedRoute path={ROUTES.profileOrders.path} exact>
           <ProfileOrders />
+        </ProtectedRoute>
+
+        <ProtectedRoute path={ROUTES.profileOrderPage.path} exact>
+          <ProfileOrderContainer />
         </ProtectedRoute>
 
         <Route path='*'>

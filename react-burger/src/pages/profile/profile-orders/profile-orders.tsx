@@ -50,10 +50,12 @@ const ProfileOrders = () => {
         </p>
       </nav>
 
-      <div>
+      <div className={s.scrollable}>
         {
-          !!wsOrders.orders.length && wsOrders.orders.map(i =>
-            <UserOrderItem />)
+          !!wsOrders.orders.length && wsOrders.orders.map((i, index) => 
+            // console.log(i)
+            <UserOrderItem {...i} key={index}/>
+            )
         }
       </div>
     </div>

@@ -65,7 +65,7 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
           currentOrderIngredients && currentOrderIngredients.map(
             (i, index) =>
               (
-                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} key={index}/>
+                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} key={index} />
               )
           )
         }

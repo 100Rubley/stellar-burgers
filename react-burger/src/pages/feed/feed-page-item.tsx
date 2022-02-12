@@ -20,7 +20,7 @@ const FeedPageItem: FC<IFeedPageItemProps> = ({ img, price, name, type }) => {
 
       </div>
 
-      <div className={`ml-4 text text_type_main-default`}>
+      <div className={`text text_type_main-default`}>
         {name}
       </div>
 

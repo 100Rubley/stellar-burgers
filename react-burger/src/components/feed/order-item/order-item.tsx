@@ -36,11 +36,11 @@ const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }
         </span>
       </p>
 
-      <p className={`${s.full_name} text text_type_main-medium`}>
+      <p className={`${s.full_name} text text_type_main-medium mb-6 mt-6`}>
         {fullname}
       </p>
 
-      <div className={`${s.footer}`}>
+      <div className={`${s.footer} mb-2`}>
         <ul className={s.iconsWrapper}>
           {
             ingredients.map((i, index) =>

@@ -22,3 +22,23 @@
 .active {
   color: aliceblue;
 }
+
+.scrollable {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: scroll;
+  width: calc(1240px - 420px);
+  height: calc(100vh - 210px);
+}
+
+.scrollable::-webkit-scrollbar {
+  width: .5em;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
