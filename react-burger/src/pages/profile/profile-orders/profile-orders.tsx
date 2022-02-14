@@ -15,6 +15,8 @@ const ProfileOrders = () => {
     dispatch(logOut())
   }
 
+  const ordersArray = [...wsOrders?.orders].reverse()
+
   useEffect(() => {
     if (!wsOrders.wsConnected) {
       dispatch(wsConnectionStart())
@@ -52,10 +54,11 @@ const ProfileOrders = () => {
 
       <div className={s.scrollable}>
         {
-          !!wsOrders.orders.length && wsOrders.orders.map((i, index) => 
-            // console.log(i)
-            <UserOrderItem {...i} key={index}/>
-            )
+          !!wsOrders.orders.length 
+          && ordersArray
+          .map((i, index) =>
+            <UserOrderItem {...i} key={index} />
+          )
         }
       </div>
     </div>

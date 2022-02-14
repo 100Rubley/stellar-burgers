@@ -38,6 +38,24 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
     }
   }
 
+  const ingredientsMap = new Map()
+
+  currentOrderIngredients && currentOrderIngredients
+    .map(i => {
+      const current = i?._id
+      console.log(current)
+
+      if (!ingredientsMap.has(current)) {
+        ingredientsMap.set(current, 1);
+      } else {
+        ingredientsMap.set(current, ingredientsMap.get(current) + 1);
+      }
+      return ingredientsMap
+    })
+
+  const uI: any = currentOrderIngredients && new Set(currentOrderIngredients)
+  const uniqueIngredients = [...uI]
+
   return (
     <div className={s.wrapper}>
       {
@@ -62,11 +80,13 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
 
       <div className={`${s.scrollable} mb-10`}>
         {
-          currentOrderIngredients && currentOrderIngredients.map(
-            (i, index) =>
-              (
-                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} key={index} />
+          uniqueIngredients.map(
+            (i, index) => {
+              const amount = ingredientsMap.get(i?._id)
+              return (
+                i && <FeedPageItem img={i.image} name={i.name} type={i.type} price={i.price} key={index} amount={amount} />
               )
+            }
           )
         }
       </div>

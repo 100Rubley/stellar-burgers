@@ -7,10 +7,11 @@ interface IFeedPageItemProps {
   price: number;
   name: string;
   type: TIngredientType;
+  amount: number
 }
 
-const FeedPageItem: FC<IFeedPageItemProps> = ({ img, price, name, type }) => {
-  const amount = type === 'bun' ? 2 : 1
+const FeedPageItem: FC<IFeedPageItemProps> = ({ img, price, name, type, amount }) => {
+  amount = type === 'bun' ? 2 : amount
   return (
     <div className={`${s.itemWrapper} mb-4 mr-6`}>
       <div className={s.iconsWrapper}>

@@ -12,6 +12,9 @@ const UserOrderItem: FC<TServerOrder> = ({ createdAt, number, name, ingredients,
   const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })
   const stateIngredients = useSelector(state => state.ingredients.ingredients)
   const orderIngredients = ingredients.map(i => getIngredientById(stateIngredients, i))
+  const uI: any = new Set(orderIngredients)
+  const uniqueIngredients = [...uI]
+
   const history = useHistory()
   const showStatus = (status: TOrderStatus) => {
     switch (status) {
@@ -55,11 +58,19 @@ const UserOrderItem: FC<TServerOrder> = ({ createdAt, number, name, ingredients,
       <div className={`${s.footer} mb-6`}>
         <ul className={s.iconsWrapper}>
           {
-            orderIngredients.map((i, index) =>
-              <li className={s.imageWrapper} key={index}>
-                <img className={s.ingredientImage} src={i?.image} alt="no img" />
-              </li>
-            )
+            uniqueIngredients
+              .filter((itemId, index: number) => index < 6)
+              .map((i, index) => {
+                const rest = ingredients ? (ingredients?.length - 6) : 0
+
+                return (
+                  <li className={s.imageWrapper} key={index}>
+                    <img className={s.ingredientImage} src={i?.image} alt="no img" />
+                    {index === 5 && <span className={s.count}>+{rest}</span>}
+                  </li>
+                )
+              }
+              )
           }
         </ul>
 

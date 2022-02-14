@@ -20,6 +20,7 @@
   display: grid;
   grid-template-columns: 1fr min-content min-content;
   overflow: hidden;
+  max-width: 640px;
 }
 
 .iconsWrapper {
@@ -104,4 +105,14 @@
   display: grid;
   grid-gap: 9px;
   grid-template-columns: repeat(2, min-content);
+}
+
+.count {
+  z-index: 6;
+  position: absolute;
+  display:  flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(28, 28, 33, 0.6);
+  border-radius: 50%;
 }

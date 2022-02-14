@@ -16,15 +16,18 @@ interface IOrderItemProps {
 
 const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }) => {
   const history = useHistory()
-  
+
   const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })
-  
+
   const onOrderItemClick = (id: number) => {
-    history.replace({pathname: `/feed/${id}`})
+    history.replace({ pathname: `/feed/${id}` })
   }
-  
+
+  const uI: any = new Set(ingredients)
+  const uniqueIngredients = [...uI]
+
   if (!ingredients) return null
-  
+
   return (
     <div className={s.wrapper} onClick={() => onOrderItemClick(id)}>
       <p className={s.flex}>
@@ -43,11 +46,19 @@ const OrderItem: FC<IOrderItemProps> = ({ fullname, ingredients, createdAt, id }
       <div className={`${s.footer} mb-2`}>
         <ul className={s.iconsWrapper}>
           {
-            ingredients.map((i, index) =>
-              <li className={s.imageWrapper} key={index}>
-                <img className={s.ingredientImage} src={i?.image} alt="no img"/>
-              </li>
-            )
+            uniqueIngredients
+              .filter((itemId: string, index: number) => index < 6)
+              .map((i, index) => {
+                const rest = ingredients ? (ingredients?.length - 6) : 0
+
+                return (
+                  <li className={s.imageWrapper} key={index}>
+                    <img className={s.ingredientImage} src={i?.image} alt="no img" />
+                    {index === 5 && <span className={s.count}>+{rest}</span>}
+                  </li>
+                )
+              }
+              )
           }
         </ul>
 
