@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import Modal from '../../components/modal/modal'
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { getOrders } from '../../services/actions/orders-actions'
-import { useSelector } from '../../utils/hooks'
+import { useDispatch, useSelector } from '../../utils/hooks'
 import FeedPage from './feed-page'
 
 const FeedPageContainer = () => {

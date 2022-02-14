@@ -1,8 +1,7 @@
 import React, { useEffect } from "react"
-import { useDispatch } from "react-redux"
 import { getOrders } from "../../services/actions/orders-actions"
 import { ensure, getIngredientById } from "../../utils/common"
-import { useSelector } from "../../utils/hooks"
+import { useSelector, useDispatch } from "../../utils/hooks"
 import Feed from "./feed"
 
 const FeedContainer = () => {

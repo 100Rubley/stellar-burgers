@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from '../../utils/hooks'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, useLocation } from 'react-router-dom'
 import { getUserData } from '../../services/actions/user-actions'
+import { ROUTES } from '../../utils/constants'
 
 interface IUnauthRoute {
   path: string
@@ -12,6 +13,9 @@ const UnauthRedirect: FC<IUnauthRoute> = ({ children, ...rest }) => {
   const isAuth = useSelector((state) => state.user.isAuth)
   const [isLoaded, setIsLoaded] = useState(false)
   const dispatch = useDispatch()
+  const location = useLocation<any>()
+  const locationFrom = location.state?.from;
+  const redirectUrl = locationFrom ? locationFrom.pathname : ROUTES.home.path;
 
   useEffect(() => {
     dispatch(getUserData())
@@ -24,7 +28,7 @@ const UnauthRedirect: FC<IUnauthRoute> = ({ children, ...rest }) => {
         !isAuth ?
           (children) :
           (
-            <Redirect to={{ pathname: '/' }}
+            <Redirect to={{ pathname: redirectUrl }}
             />
           )
       } />

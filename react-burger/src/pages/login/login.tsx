@@ -6,12 +6,6 @@ import { useDispatch } from '../../utils/hooks'
 import { logIn } from '../../services/actions/user-actions'
 import { TIcon } from '../../utils/types/types'
 
-export interface ILocation {
-  pathname: string
-  state: {}
-  from: string
-}
-
 const Login: FC = () => {
   const [form, setValue] = useState({ email: '', password: '' })
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
