@@ -23,6 +23,8 @@ const FeedPageContainer = () => {
     })
   }, [dispatch, orders, ingredients])
 
+  if (!orders.length) return null
+
   return (
     <>
       {

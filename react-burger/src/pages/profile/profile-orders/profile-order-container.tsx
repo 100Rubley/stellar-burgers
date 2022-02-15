@@ -16,6 +16,8 @@ const ProfileOrderContainer = () => {
     if (!orders.length) dispatch(wsConnectionStart())    
   }, [dispatch, orders])
 
+  if (!orders.length) return null
+
   return (
     <>
       {
