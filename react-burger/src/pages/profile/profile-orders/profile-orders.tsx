@@ -3,7 +3,7 @@ import s from './profile-orders.module.css'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from '../../../utils/hooks'
 import { logOut } from '../../../services/actions/user-actions'
-import { wsConnectionStart } from '../../../services/actions/ws-actions'
+import { wsProfileConnectionStart, wsUserConnectionClosed } from '../../../services/actions/ws-actions'
 import UserOrderItem from '../order-item/order-item'
 
 const ProfileOrders = () => {
@@ -15,12 +15,17 @@ const ProfileOrders = () => {
     dispatch(logOut())
   }
 
-  const ordersArray = [...wsOrders?.orders].reverse()
+  const ordersArray = [...wsOrders?.userOrders].reverse()
 
   useEffect(() => {
-    if (!wsOrders.wsConnected) {
-      dispatch(wsConnectionStart())
+    if (!wsOrders.wsUserConnected) {
+      dispatch(wsProfileConnectionStart())
     }
+    return (() => {
+      dispatch(wsUserConnectionClosed())
+    })
+    // wsOrders.wsUserConnected не добавлен в зависимости, тк будет бесконечная перерисовка
+    // тоже самое происходит, если совсем убрать все зависимости
   }, [dispatch])
 
   return (
@@ -54,11 +59,11 @@ const ProfileOrders = () => {
 
       <div className={s.scrollable}>
         {
-          !!wsOrders.orders.length 
+          !!wsOrders.userOrders.length
           && ordersArray
-          .map((i, index) =>
-            <UserOrderItem {...i} key={index} />
-          )
+            .map((i, index) =>
+              <UserOrderItem {...i} key={index} />
+            )
         }
       </div>
     </div>

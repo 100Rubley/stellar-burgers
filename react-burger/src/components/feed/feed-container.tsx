@@ -1,17 +1,17 @@
 import React, { useEffect } from "react"
-import { getOrders } from "../../services/actions/orders-actions"
+import { wsConnectionClosed, wsConnectionStart } from "../../services/actions/ws-actions"
 import { ensure, getIngredientById } from "../../utils/common"
 import { useSelector, useDispatch } from "../../utils/hooks"
 import Feed from "./feed"
 
 const FeedContainer = () => {
   const dispatch = useDispatch()
-  const ordersFromServer = useSelector(state => state.orders.list)
-  const total = useSelector(state => state.orders.total)
-  const totalToday = useSelector(state => state.orders.totalToday)
+  const wsOrders = useSelector(state => state.wsOrders)
+  const total = wsOrders.total
+  const totalToday = wsOrders.totalToday
   const ingredients = useSelector(state => state.ingredients.ingredients)
 
-  const orders = ordersFromServer.map(order => ({
+  const orders = wsOrders.orders.map(order => ({
     id: order.number,
     createdAt: order.createdAt,
     fullname: order.name,
@@ -23,7 +23,14 @@ const FeedContainer = () => {
   const ordersPending = orders.filter(order => order.status === "pending").map(order => order.id)
 
   useEffect(() => {
-    dispatch(getOrders())
+    if (!wsOrders.wsConnected) {
+      dispatch(wsConnectionStart())
+    }
+    return (() => {
+      dispatch(wsConnectionClosed())
+    })
+    // wsOrders.wsConnected не добавлен в зависимости, тк будет бесконечная перерисовка
+    // тоже самое происходит, если совсем убрать все зависимости
   }, [dispatch])
 
   return (
