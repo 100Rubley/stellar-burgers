@@ -1,4 +1,5 @@
 import { BASE_URL } from "./constants";
+import { IIngredient } from "./types/types";
 
 export const getCookie: (name: string) => string | undefined = (name) => {
   let matches = document.cookie.match(
@@ -59,21 +60,37 @@ export const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const retriableFetch = async (url: string, options:any = {}) => {
+export const retriableFetch = async (url: string, options: any = {}) => {
   try {
-    const res = await fetch(url, options)
-    const result = await checkResponse(res)
-    return result
+    const res = await fetch(url, options);
+    const result = await checkResponse(res);
+    return result;
   } catch (err: any | unknown) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken()
-      setCookie('refreshToken', refreshData.refreshToken)
-      setCookie('accessToken', refreshData.accessToken)
-      options.headers.authorization = refreshData.accessToken
-      const res = await fetch(url, options)
-      return await checkResponse(res)
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken();
+      setCookie("refreshToken", refreshData.refreshToken);
+      setCookie("accessToken", refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkResponse(res);
     } else {
-      throw err
+      throw err;
     }
   }
-}
+};
+
+// функция, которая помогает обрабатывать undefined от find
+
+export const ensure = <T>(
+  argument: T | undefined | null,
+  message = "This value was promised to be there"
+): T => {
+  if (argument === undefined || argument === null) {
+    throw new TypeError(message);
+  }
+
+  return argument;
+};
+// _________________________________________________________
+
+export const getIngredientById = (array: ReadonlyArray<IIngredient>, id: string) => array.find(i => i._id === id)

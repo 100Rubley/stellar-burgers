@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../utils/hooks'
 import { useHistory, useLocation } from 'react-router-dom'
 import { postOrder, showOrderModal } from '../../services/actions/constructor-actions'
 import BurgerIngredients from "../bureger-ingredients/burger-ingredients"
@@ -9,9 +9,9 @@ import OrderDetails from '../order-details/order-details'
 import s from './main-content-container.module.css'
 
 const MainContentContainer = () => {
-  const { isAuth } = useSelector((state: any) => state.user)
-  const orderId = useSelector((state: any) => state.burgerConstructor.order)
-  const isOrderModal = useSelector((state: any) => state.burgerConstructor.isModal)
+  const { isAuth } = useSelector((state) => state.user)
+  const orderId = useSelector((state) => state.burgerConstructor.order)
+  const isOrderModal = useSelector((state) => state.burgerConstructor.isModal)
   const history = useHistory()
   const dispatch = useDispatch()
   const location = useLocation()
@@ -35,7 +35,7 @@ const MainContentContainer = () => {
       <BurgerConstructor handleRequest={handleOrderRequest} />
       {
         isOrderModal
-          && <Modal>
+          && <Modal from='/'>
             <OrderDetails orderId={orderId} />
           </Modal>
       }

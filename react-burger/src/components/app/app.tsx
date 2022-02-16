@@ -11,12 +11,15 @@ import ProtectedRoute from '../protected-route/protected-route'
 import { ROUTES } from '../../utils/constants'
 import MainContentContainer from '../main-content-container/main-content-container'
 import IngredientContainer from '../../pages/ingredient/ingredient-container'
-import { IIngredient, ILocation } from '../../utils/types';
+import { IIngredient, ILocation } from '../../utils/types/types';
+import UnauthRedirect from '../with-unauth-redirect/with-unauth-redirect';
+import FeedContainer from '../feed/feed-container'
+import FeedPageContainer from '../../pages/feed/feed-page-container';
+import ProfileOrders from '../../pages/profile/profile-orders/profile-orders';
+import ProfileOrderContainer from '../../pages/profile/profile-orders/profile-order-container';
 
 interface IAppProps {
-  ingredients: [
-    ingredient: IIngredient
-  ]
+  ingredients: ReadonlyArray<IIngredient>
 }
 
 const App: FC<IAppProps> = ({ ingredients }) => {
@@ -33,27 +36,43 @@ const App: FC<IAppProps> = ({ ingredients }) => {
         </Route>
 
         <Route path={ROUTES.ingredient.path}>
-          <IngredientContainer ingredients={ingredients}/>
+          <IngredientContainer ingredients={ingredients} />
         </Route>
 
-        <Route path={ROUTES.login.path} exact>
+        <Route path={ROUTES.orders.path} exact>
+          <FeedContainer />
+        </Route>
+
+        <Route path={ROUTES.orderPage.path} >
+          <FeedPageContainer />
+        </Route>
+
+        <UnauthRedirect path={ROUTES.login.path} exact>
           <Login />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.register.path} exact>
+        <UnauthRedirect path={ROUTES.register.path} exact>
           <SignUp />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.forgotPassword.path} exact>
+        <UnauthRedirect path={ROUTES.forgotPassword.path} exact>
           <NewPassword />
-        </Route>
+        </UnauthRedirect>
 
-        <Route path={ROUTES.resetPassword.path} exact>
+        <UnauthRedirect path={ROUTES.resetPassword.path} exact>
           <ResetPassword />
-        </Route>
+        </UnauthRedirect>
 
         <ProtectedRoute path={ROUTES.profile.path} exact>
           <Profile />
+        </ProtectedRoute>
+
+        <ProtectedRoute path={ROUTES.profileOrders.path} exact>
+          <ProfileOrders />
+        </ProtectedRoute>
+
+        <ProtectedRoute path={ROUTES.profileOrderPage.path} exact>
+          <ProfileOrderContainer />
         </ProtectedRoute>
 
         <Route path='*'>

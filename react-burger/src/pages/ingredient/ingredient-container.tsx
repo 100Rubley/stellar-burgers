@@ -1,23 +1,20 @@
 import React, { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hooks'
 import { useLocation, useParams } from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import Modal from '../../components/modal/modal';
 import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
-import { IIngredient } from '../../utils/types';
-import { ILocation } from '../login/login';
+import { IIngredient } from '../../utils/types/types';
 
 interface IIngredientContainerProps {
-  ingredients: [
-    ingredient: IIngredient
-  ]
+  ingredients: ReadonlyArray<IIngredient>
 }
 
 const IngredientContainer: FC<IIngredientContainerProps> = ({ ingredients }) => {
   const { ingredientId } = useParams<{ ingredientId: string }>()
-  const currentIngredient = ingredients.filter((i: any) => i._id === ingredientId)[0]
+  const currentIngredient = ingredients.filter((i: IIngredient) => i._id === ingredientId)[0]
   const dispatch = useDispatch()
-  const location = useLocation<ILocation>()
+  const location = useLocation()
 
   useEffect(() => {
     if (!currentIngredient) dispatch(setCurrentIngredient(currentIngredient))
@@ -28,10 +25,9 @@ const IngredientContainer: FC<IIngredientContainerProps> = ({ ingredients }) => 
       {
         !location.key
           ? <IngredientDetails data={currentIngredient} />
-          : <Modal headerTitle='Детали ингредиента'>
+          : <Modal headerTitle='Детали ингредиента' from='/'>
             <IngredientDetails data={currentIngredient} />
           </Modal>
-
       }
     </>
   )

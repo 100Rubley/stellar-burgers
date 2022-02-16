@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  width: 1240px;
+  height: calc(100vh - 88px);
+  margin: auto;
+  justify-content: space-between;
+}
+
+.feed {
+  margin-top: 24px;
+  width: 600px;
+}
+
+.orders {
+  margin-top: 24px;
+  width: 600px;
+}
+
+.scrollable {
+  margin-top: 25px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+}
+
+.scrollable::-webkit-scrollbar {
+  width: .5em;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}

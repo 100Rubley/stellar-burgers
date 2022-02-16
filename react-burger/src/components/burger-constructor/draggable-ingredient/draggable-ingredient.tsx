@@ -2,9 +2,9 @@ import s from './draggable-ingredient.module.css'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag, useDrop } from 'react-dnd';
 import React, { FC, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../utils/hooks'
 import { moveIngredient, removeItem } from '../../../services/actions/constructor-actions'
-import { IItem } from '../../../utils/types';
+import { IItem } from '../../../utils/types/types';
 
 interface IDraggableIngredientProps {
   name: string

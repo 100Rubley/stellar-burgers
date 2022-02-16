@@ -3,9 +3,9 @@ import React, { FC } from "react"
 import s from './burger-ingredient.module.css'
 import { useDrag } from "react-dnd";
 import { addToConstructor } from "../../../services/actions/constructor-actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../../utils/hooks'
 import { Link, useLocation } from "react-router-dom";
-import { IIngredient } from "../../../utils/types";
+import { IIngredient } from "../../../utils/types/types";
 
 interface IBurgerIngredientProps {
   ingredient: IIngredient
@@ -17,8 +17,8 @@ const BurgerIngredient: FC<IBurgerIngredientProps> = ({ ingredient }) => {
 
   const ingredientId = ingredient._id
 
-  const bunAmount = useSelector((state: any) => state.burgerConstructor.bunMap?.get(ingredientId))
-  const ingredientAmount = useSelector((state: any) => state.burgerConstructor.ingredientsMap?.get(ingredientId))
+  const bunAmount = useSelector((state) => state.burgerConstructor.bunMap?.get(ingredientId))
+  const ingredientAmount = useSelector((state) => state.burgerConstructor.ingredientsMap?.get(ingredientId))
 
   const amount = ingredient.type === 'bun'
     ? bunAmount

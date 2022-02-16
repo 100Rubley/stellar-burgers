@@ -1,14 +1,24 @@
-// export interface IBackground {
-//   Background: ILocation
-// // }
-// import { Location as ILocation } from "history";
+import { Action, ActionCreator } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { store } from "../../services/redusers";
+import { TConstructorActions } from "./constructor-types";
+import { TIngredientsActions } from "./ingredients-types";
+import { TUserActions } from "./user-types";
+import { TWsActions } from "./ws-types";
 
-// export interface IBackgroundLocation {
-//   background: ILocation
-//   location: {
-//     background: any
-//   }
-// }
+export type TRootState = ReturnType<typeof store.getState>;
+
+export type TApplicationActions =
+  | TConstructorActions
+  | TUserActions
+  | TIngredientsActions
+  | TWsActions;
+
+export type TAppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, TRootState, TApplicationActions>
+>;
+
+export type TAppDispatch = typeof store.dispatch;
 
 export interface ILocation {
   hash: string;
@@ -37,7 +47,7 @@ export interface IIngredient {
 
 export interface IItem extends IIngredient {
   uniqueId: number;
-  index: number | undefined;
+  index?: number;
 }
 
 export type TIcon =
@@ -74,11 +84,19 @@ export type TRoutesNames =
   | "home"
   | "orders"
   | "profile"
+  | "profileOrders"
+  | "profileOrderPage"
   | "ingredient"
   | "history"
   | "login"
   | "register"
   | "forgotPassword"
-  | "resetPassword";
+  | "resetPassword"
+  | "orderPage";
 
 export type TRoutes = { [name in TRoutesNames]: IInnerRoutes };
+
+export type TTab = {
+  readonly displayName: string;
+  readonly type: string;
+};

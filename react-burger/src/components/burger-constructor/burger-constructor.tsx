@@ -1,21 +1,21 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import s from './burger-constructor.module.css'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/hooks'
 import { useDrop } from 'react-dnd';
 import DraggableIngredient from './draggable-ingredient/draggable-ingredient'
 import { FC } from 'react';
 import React from 'react';
-import { IIngredient, IItem } from '../../utils/types';
+import { IIngredient, IItem } from '../../utils/types/types';
 
 interface IBurgerConstructor {
   handleRequest: (data: string[]) => void
 }
 
 const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
-  const bun = useSelector((state: any) => state.burgerConstructor?.bun)
-  const ingredients = useSelector((state: any) => state.burgerConstructor?.constructorIngredients)
+  const bun = useSelector((state) => state.burgerConstructor?.bun)
+  const ingredients = useSelector((state) => state.burgerConstructor?.constructorIngredients)
 
-  const isBun = !Object.keys(bun).length === false
+  const isBun = bun.price === 0 ? false : true
   const isIngredients = !Object.keys(ingredients).length === false
 
   const [, drop] = useDrop(() => ({
@@ -51,7 +51,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
             <section className={`${s.scrollable}`}>
               {
                 isIngredients
-                  ? ingredients?.map((i: IItem)=> (
+                  ? ingredients?.map((i: IItem) => (
                     <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
                   ))
                   // Заменить нижнюю заглушку
