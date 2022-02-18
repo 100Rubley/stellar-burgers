@@ -30,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cover": "npm run test -- --coverage ."
+    "cover": "npm run test -- --coverage .",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.2",
+    "cypress": "^9.5.0",
     "fetch-mock": "^9.11.0",
     "redux-mock-store": "^1.5.4"
   }
