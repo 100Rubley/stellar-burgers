@@ -51,6 +51,7 @@ const BurgerIngredient: FC<IBurgerIngredientProps> = ({ ingredient }) => {
         state: { background: location }
       }}
       className={s.link}
+      data-cy='ingredientContainer'
     >
       <div className={s.wrapper} ref={drag}>
         <div className='mr-4 ml-4'>

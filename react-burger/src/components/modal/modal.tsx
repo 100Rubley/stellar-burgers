@@ -49,7 +49,7 @@ const Modal: FC<IModalProps> = ({ children, headerTitle, from }) => {
                 {headerTitle}
               </p>
           }
-          <button className={s.button} onClick={onModalClose}>
+          <button className={s.button} onClick={onModalClose} data-cy='closeModal'>
             <CloseIcon type="primary" />
           </button>
         </div>
