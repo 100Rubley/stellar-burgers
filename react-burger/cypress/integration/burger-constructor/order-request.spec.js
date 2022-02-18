@@ -33,7 +33,12 @@ describe('order request ability', function () {
   it(
     'should log in',
     function () {
-
+      cy.intercept('POST', 'https://norma.nomoreparties.space/api/auth/login', { fixture: 'login.json' })
+      cy.visit('http://localhost:3000/login');
+      cy.get('[data-cy=login_emailInput]').click();
+      cy.get('[name=email]').type('test@mail.com');
+      cy.get('[name=password]').type('Vovka1337');
+      cy.get('button').contains('Войти').click();
     }
   )
 }
