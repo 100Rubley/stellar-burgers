@@ -28,7 +28,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
   ]
 
   return (
-    <article className={`${s.wrapper} mt-25`} ref={drop}>
+    <article className={`${s.wrapper} mt-25`} ref={drop} data-cy='dropTarget'>
 
       {
         isBun || isIngredients

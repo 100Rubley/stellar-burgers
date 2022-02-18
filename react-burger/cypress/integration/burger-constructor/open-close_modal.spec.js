@@ -1,4 +1,4 @@
-describe('the app is available', function () {
+describe('modal fuctioning', function () {
   it(
     'should be available on localhost:3000',
     function () {
