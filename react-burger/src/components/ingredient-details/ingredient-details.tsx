@@ -16,7 +16,7 @@ const IngredientDetails: FC<{ data: IIngredient }> = ({ data }) => {
       <div className={`${s.detailsContainer} mt-4 mb-15`}>
         <div className={s.details}>
           <p className="text text_type_main-default text_color_inactive">Калории, ккал</p>
-          <p className="text text_type_digits-default text_color_inactive">{data.calories}</p>
+          <p className="text text_type_digits-default text_color_inactive" data-cy='modal-ingredientCalories'>{data.calories}</p>
         </div>
 
         <div className={s.details}>

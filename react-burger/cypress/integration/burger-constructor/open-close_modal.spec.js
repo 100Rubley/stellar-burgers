@@ -7,12 +7,24 @@ describe('modal fuctioning', function () {
   )
 
   it(
-    'should open and close modal',
+    'should open modal and show details',
     function () {
       cy.get('[data-cy=ingredientContainer]').contains('Краторная булка N-200i').as('firstBun')
       cy.get('@firstBun').click();
       cy.contains('Детали ингредиента');
+    }
+  )
 
+  it(
+    'modal should display ingredients details',
+    function () {
+      cy.get('[data-cy=modal-ingredientCalories]').contains('420')
+    }
+  )
+
+  it(
+    'should close modal',
+    function () {
       cy.get('[data-cy=closeModal]').first().click();
       cy.contains('Детали ингредиента').should('not.exist');
     }
