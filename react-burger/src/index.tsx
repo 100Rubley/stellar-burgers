@@ -7,11 +7,11 @@ import { Provider } from 'react-redux'
 import { store } from './services/redusers';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
         <DndProvider backend={HTML5Backend} >
           <AppContainer />
