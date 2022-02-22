@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { wsConnectionClosed } from '../../services/actions/ws-actions'
 import { ROUTES } from '../../utils/constants'
+import { useDispatch } from '../../utils/hooks'
 import { IOrder } from '../../utils/types/orders-types'
 import s from './feed.module.css'
 import OrderItem from './order-item/order-item'
@@ -14,6 +16,13 @@ interface IFeedProps {
 }
 
 const Feed: FC<IFeedProps> = ({ orders, total, totalToday, ordersDone, ordersPending }) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    return (() => {
+      dispatch(wsConnectionClosed())
+    })
+  })
 
   return (
     <div className={s.wrapper}>
