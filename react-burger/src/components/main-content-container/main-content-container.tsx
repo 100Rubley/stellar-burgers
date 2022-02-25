@@ -34,7 +34,7 @@ const MainContentContainer = () => {
       <BurgerIngredients handleClick={onIngredientClick} />
       <BurgerConstructor handleRequest={handleOrderRequest} />
       {
-        isOrderModal
+        !!orderId && isOrderModal
           && <Modal from='/'>
             <OrderDetails orderId={orderId} />
           </Modal>

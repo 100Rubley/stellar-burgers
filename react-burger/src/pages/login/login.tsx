@@ -36,14 +36,17 @@ const Login: FC = () => {
       <form className={s.form} onSubmit={logInHandle}>
         <div className="text text_type_main-default mt-15">Вход</div>
 
-        <Input
-          type={'email'}
-          placeholder={'E-mail'}
-          name={'email'}
-          size={'default'}
-          onChange={onChange}
-          value={form.email || ''}
-        />
+        <div data-cy='login_emailInput'>
+          <Input
+            type={'email'}
+            placeholder={'E-mail'}
+            name={'email'}
+            size={'default'}
+            onChange={onChange}
+            value={form.email || ''}
+
+          />
+        </div>
         <Input
           type={passInputType}
           placeholder={'Пароль'}

@@ -43,7 +43,6 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
   currentOrderIngredients && currentOrderIngredients
     .map(i => {
       const current = i?._id
-      console.log(current)
 
       if (!ingredientsMap.has(current)) {
         ingredientsMap.set(current, 1);

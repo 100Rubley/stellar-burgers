@@ -26,9 +26,6 @@ const FeedContainer = () => {
     if (!wsOrders.wsConnected) {
       dispatch(wsConnectionStart())
     }
-    return (() => {
-      dispatch(wsConnectionClosed())
-    })
     // wsOrders.wsConnected не добавлен в зависимости, тк будет бесконечная перерисовка
     // тоже самое происходит, если совсем убрать все зависимости
   }, [dispatch])
@@ -37,7 +34,7 @@ const FeedContainer = () => {
     <>
       {
         !!orders
-          ? <Feed orders={orders} total={total} totalToday={totalToday} ordersDone={ordersDone} ordersPending={ordersPending} />
+          ? <Feed orders={orders} total={total} totalToday={totalToday} ordersDone={ordersDone} ordersPending={ordersPending}/>
           : <div>Loading...</div>
       }
     </>

@@ -84,7 +84,7 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick }) => {
                 Соусы
               </p>
               {data.filter((i: IIngredient) => i.type === 'sauce').map((i: IIngredient) => (
-                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id}>
+                <div className={`${s.ingredientContainer} mt-6 ml-4 mb-10`} onClick={() => { handleClick(i._id) }} key={i._id} id={i._id} >
                   <BurgerIngredient ingredient={i} />
                 </div>
               )
