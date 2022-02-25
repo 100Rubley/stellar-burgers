@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react'
 import { useDispatch } from '../../utils/hooks'
 import { useLocation, useParams } from 'react-router-dom';
-import IngredientDetails from '../../components/ingredient-details/ingredient-details';
-import Modal from '../../components/modal/modal';
+import IngredientDetails from '../../pages/ingredient/indredient-details';
+import Modal from '../modal/modal';
 import { setCurrentIngredient } from '../../services/actions/ingredients-actions';
 import { IIngredient } from '../../utils/types/types';
 

@@ -5,18 +5,18 @@ import Login from '../../pages/login/login'
 import SignUp from '../../pages/sign-up/sign-up'
 import NewPassword from '../../pages/new-password/new-password'
 import ResetPassword from '../../pages/reset-password/reset-password'
-import Profile from '../../pages/profile/profile'
+import Profile from '../profile-settings/profile'
 import Error404 from '../../pages/error404/error404'
 import ProtectedRoute from '../protected-route/protected-route'
 import { ROUTES } from '../../utils/constants'
-import MainContentContainer from '../main-content-container/main-content-container'
-import IngredientContainer from '../../pages/ingredient/ingredient-container'
+import MainContentContainer from '../../pages/main/main'
+import IngredientContainer from '../ingredient-details/ingredient-container'
 import { IIngredient, ILocation } from '../../utils/types/types';
 import UnauthRedirect from '../with-unauth-redirect/with-unauth-redirect';
-import FeedContainer from '../feed/feed-container'
-import FeedPageContainer from '../../pages/feed/feed-page-container';
-import ProfileOrders from '../../pages/profile/profile-orders/profile-orders';
-import ProfileOrderContainer from '../../pages/profile/profile-orders/profile-order-container';
+import FeedContainer from '../../pages/order-feed/order-feed'
+import FeedPageContainer from '../../pages/order-history-user/user-orders-history';
+import ProfileOrders from '../user-orders-history/user-orders/user-orders';
+import ProfileOrderContainer from '../user-orders-history/user-orders';
 
 interface IAppProps {
   ingredients: ReadonlyArray<IIngredient>

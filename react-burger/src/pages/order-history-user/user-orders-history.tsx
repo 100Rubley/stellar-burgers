@@ -4,7 +4,7 @@ import Modal from '../../components/modal/modal'
 import { requestIngredients } from '../../services/actions/ingredients-actions'
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/ws-actions'
 import { useDispatch, useSelector } from '../../utils/hooks'
-import FeedPage from './feed-page'
+import OrderHistory from '../../components/order-history/order-history'
 
 const FeedPageContainer = () => {
   const { id } = useParams<{ id: string }>()
@@ -29,9 +29,9 @@ const FeedPageContainer = () => {
     <>
       {
         !location.key
-          ? <FeedPage show={true} orders={orders} paramsId={parsedId} />
+          ? <OrderHistory show={true} orders={orders} paramsId={parsedId} />
           : <Modal headerTitle={parsedId} from='/feed'>
-            <FeedPage show={false} orders={orders} paramsId={parsedId} />
+            <OrderHistory show={false} orders={orders} paramsId={parsedId} />
           </Modal>
       }
     </>

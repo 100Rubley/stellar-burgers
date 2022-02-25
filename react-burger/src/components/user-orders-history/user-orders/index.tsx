@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import Modal from '../../../components/modal/modal'
+import Modal from '../../modal/modal'
 import { wsConnectionStart } from '../../../services/actions/ws-actions'
 import { useDispatch, useSelector } from '../../../utils/hooks'
-import FeedPage from '../../feed/feed-page'
+import OrderHistory from '../../order-history/order-history'
 
 const ProfileOrderContainer = () => {
   const { id } = useParams<{ id: string }>()
@@ -22,9 +22,9 @@ const ProfileOrderContainer = () => {
     <>
       {
         !location.key
-          ? <FeedPage show={true} orders={orders} paramsId={parsedId} />
+          ? <OrderHistory show={true} orders={orders} paramsId={parsedId} />
           : <Modal headerTitle={parsedId} from='/profile/orders'>
-            <FeedPage show={false} orders={orders} paramsId={parsedId} />
+            <OrderHistory show={false} orders={orders} paramsId={parsedId} />
           </Modal>
       }
     </>
