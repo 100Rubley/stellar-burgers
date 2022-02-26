@@ -15,8 +15,6 @@ interface IFeedPageProps {
 }
 
 const OrderHistory: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
-  // пожалуйста, не смотрите на эти костыли, у меня паника -_-
-
   const order = orders && orders.length && orders.find((order: TServerOrder) => order.number === paramsId)
   const date = order && formatRelative(new Date(order.createdAt), new Date(), { locale: ru })
   const ingredients = useSelector(state => state.ingredients.ingredients)

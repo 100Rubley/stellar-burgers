@@ -54,8 +54,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
                   ? ingredients?.map((i: IItem) => (
                     <DraggableIngredient key={i.uniqueId} uniqueId={i.uniqueId} name={i.name} price={i.price} image={i.image} />
                   ))
-                  // Заменить нижнюю заглушку
-                  : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Добавьте начинку</div>
+                  : <div className={`${s.addMain} text text_type_main-medium text_color_inactive`}>Добавьте начинку</div>
               }
             </section>
 
@@ -72,8 +71,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ handleRequest }) => {
               </div>
             }
           </div>
-          // Заменить нижнюю заглушку
-          : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Перетащите сюда булку</div>
+          : <div className={`${s.add} text text_type_main-medium text_color_inactive`}>Перетащите сюда булку</div>
       }
 
       {
