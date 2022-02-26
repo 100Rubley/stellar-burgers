@@ -28,3 +28,15 @@ menu {
   position: absolute;
   right: 0;
 }
+
+/* .nav svg:hover {
+  fill: #F2F2F3;
+} */
+
+.nav:hover {
+  color: #F2F2F3;
+}
+
+.nav:hover:first-child {
+  color: #F2F2F3;
+}

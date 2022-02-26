@@ -13,7 +13,10 @@ const AppHeader: FC = () => {
       <div className={s.wrapper}>
         <nav className={s.nav}>
           <HeaderNavItem text={ROUTES.home.title} path={ROUTES.home.path} exact={true}>
-            <BurgerIcon type={pathname === ROUTES.home.path ? 'primary' : 'secondary'} />
+            
+
+              <BurgerIcon type={pathname === ROUTES.home.path ? 'primary' : 'secondary'}/>
+            
           </HeaderNavItem>
 
           <HeaderNavItem text={ROUTES.orders.title} path={ROUTES.orders.path} >

@@ -1,19 +1,23 @@
-.navTitle{
+.navTitle {
   display: inline-block;
   position: relative;
   bottom: 6px;
   text-decoration: none;
 }
 
-.inactive{
-  color: #8585AD;
+.inactive {
+  color: #8585ad;
 }
 
-.active{
-  color: #F2F2F3;
+.inactive:hover > svg {
+  fill: #f2f2f3;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: row;
+.inactive:hover > span {
+  color: #f2f2f3;
 }
+
+.active {
+  color: #f2f2f3;
+}
+
