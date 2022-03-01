@@ -32,7 +32,7 @@ const App: FC<IAppProps> = ({ ingredients }) => {
 
       <Switch location={background || location}>
         <Route path={ROUTES.home.path} exact>
-          <MainContentContainer />
+          <MainContentContainer /> {/* currently checking */}
         </Route>
 
         <Route path={ROUTES.ingredient.path}>

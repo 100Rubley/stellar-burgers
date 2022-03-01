@@ -7,11 +7,13 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import s from './main-content-container.module.css'
 import Modal from '../../components/modal/modal'
 import OrderDetails from '../order/order-details'
+import Preloader from '../loading/preloader'
 
 const MainContentContainer = () => {
-  const { isAuth } = useSelector((state) => state.user)
-  const orderId = useSelector((state) => state.burgerConstructor.order)
-  const isOrderModal = useSelector((state) => state.burgerConstructor.isModal)
+  const { isAuth } = useSelector(state => state.user)
+  const orderId = useSelector(state => state.burgerConstructor.order)
+  const isOrderModal = useSelector(state => state.burgerConstructor.isModal)
+  const orederRequest = useSelector(state => state.burgerConstructor.orderRequest)
   const history = useHistory()
   const dispatch = useDispatch()
   const location = useLocation()
@@ -26,7 +28,7 @@ const MainContentContainer = () => {
   }
 
   const onIngredientClick = (id: string) => {
-    history.replace({pathname: `/ingredients/${id}`})
+    history.replace({ pathname: `/ingredients/${id}` })
   }
 
   return (
@@ -34,8 +36,12 @@ const MainContentContainer = () => {
       <BurgerIngredients handleClick={onIngredientClick} />
       <BurgerConstructor handleRequest={handleOrderRequest} />
       {
-        !!orderId && isOrderModal
-          && <Modal from='/'>
+        orederRequest
+          ? <Modal from='/'>
+            <Preloader />
+          </Modal>
+          : isOrderModal &&
+          <Modal from='/'>
             <OrderDetails orderId={orderId} />
           </Modal>
       }
