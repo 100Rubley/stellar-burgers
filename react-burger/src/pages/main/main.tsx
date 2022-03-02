@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from '../../utils/hooks'
 import { useHistory, useLocation } from 'react-router-dom'
-import { postOrder, showOrderModal } from '../../services/actions/constructor-actions'
+import { hideOrderModal, postOrder, showOrderModal } from '../../services/actions/constructor-actions'
 import { getBurgerConstructorState } from "../../services/selecors"
 import MenuContainer from "../../components/ingredients-menu/menu-container"
 import BurgerConstructorContainer from "../../components/burger-constructor/burger-constructor-container"
@@ -31,17 +31,23 @@ const MainContentContainer = () => {
     history.replace({ pathname: `/ingredients/${id}` })
   }
 
+  const closeModal = (from: string) => {
+    dispatch(hideOrderModal())
+    
+    history.replace({ pathname: from })
+  }
+
   return (
     <div className={s.wrapper}>
       <MenuContainer handleClick={onIngredientClick} />
       <BurgerConstructorContainer handleRequest={handleOrderRequest} />
       {
         orderRequest
-          ? <Modal from='/'>
+          ? <Modal from='/' handleClose={closeModal}>
             <Preloader />
           </Modal>
           : isModal &&
-          <Modal from='/'>
+          <Modal from='/' handleClose={closeModal}>
             <OrderDetails orderId={order} />
           </Modal>
       }
