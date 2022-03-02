@@ -23,9 +23,13 @@ const BurgerIngredients: FC<IBurgerIngredientsProps> = ({ handleClick, buns, sau
 
   const checkActualTab = () => {
     const tabsTop = tabRef.current.getBoundingClientRect().top;
-    const bunsDistance = Math.abs(tabsTop - bunRef.current.getBoundingClientRect().top);
-    const saucesDistance = Math.abs(tabsTop - sauceRef.current.getBoundingClientRect().top);
-    const mainsDistance = Math.abs(tabsTop - mainRef.current.getBoundingClientRect().top);
+    const bunsTop = bunRef.current.getBoundingClientRect().top;
+    const sucesTop = sauceRef.current.getBoundingClientRect().top;
+    const mainsTop = mainRef.current.getBoundingClientRect().top;
+
+    const bunsDistance = Math.abs(tabsTop - bunsTop);
+    const saucesDistance = Math.abs(tabsTop - sucesTop);
+    const mainsDistance = Math.abs(tabsTop - mainsTop);
 
     const maxValue = Math.min(bunsDistance, saucesDistance, mainsDistance);
 

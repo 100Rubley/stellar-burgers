@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { postOrder, showOrderModal } from '../../services/actions/constructor-actions'
 import { getBurgerConstructorState } from "../../services/selecors"
 import MenuContainer from "../../components/ingredients-menu/menu-container"
-import BurgerConstructor from "../../components/burger-constructor/burger-constructor"
+import BurgerConstructorContainer from "../../components/burger-constructor/burger-constructor-container"
 import s from './main-content-container.module.css'
 import Modal from '../../components/modal/modal'
 import OrderDetails from '../order/order-details'
@@ -34,7 +34,7 @@ const MainContentContainer = () => {
   return (
     <div className={s.wrapper}>
       <MenuContainer handleClick={onIngredientClick} />
-      <BurgerConstructor handleRequest={handleOrderRequest} />
+      <BurgerConstructorContainer handleRequest={handleOrderRequest} />
       {
         orderRequest
           ? <Modal from='/'>
