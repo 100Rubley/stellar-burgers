@@ -2,18 +2,18 @@ import React from 'react'
 import { useDispatch, useSelector } from '../../utils/hooks'
 import { useHistory, useLocation } from 'react-router-dom'
 import { postOrder, showOrderModal } from '../../services/actions/constructor-actions'
-import BurgerIngredients from "../../components/ingredients-menu/menu"
+import { getBurgerConstructorState } from "../../services/selecors"
+import MenuContainer from "../../components/ingredients-menu/menu-container"
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor"
 import s from './main-content-container.module.css'
 import Modal from '../../components/modal/modal'
 import OrderDetails from '../order/order-details'
 import Preloader from '../loading/preloader'
+import { getUserState } from '../../services/selecors'
 
 const MainContentContainer = () => {
-  const { isAuth } = useSelector(state => state.user)
-  const orderId = useSelector(state => state.burgerConstructor.order)
-  const isOrderModal = useSelector(state => state.burgerConstructor.isModal)
-  const orederRequest = useSelector(state => state.burgerConstructor.orderRequest)
+  const { isAuth } = useSelector(getUserState)
+  const { order, isModal, orderRequest } = useSelector(getBurgerConstructorState)
   const history = useHistory()
   const dispatch = useDispatch()
   const location = useLocation()
@@ -33,16 +33,16 @@ const MainContentContainer = () => {
 
   return (
     <div className={s.wrapper}>
-      <BurgerIngredients handleClick={onIngredientClick} />
+      <MenuContainer handleClick={onIngredientClick} />
       <BurgerConstructor handleRequest={handleOrderRequest} />
       {
-        orederRequest
+        orderRequest
           ? <Modal from='/'>
             <Preloader />
           </Modal>
-          : isOrderModal &&
+          : isModal &&
           <Modal from='/'>
-            <OrderDetails orderId={orderId} />
+            <OrderDetails orderId={order} />
           </Modal>
       }
 
