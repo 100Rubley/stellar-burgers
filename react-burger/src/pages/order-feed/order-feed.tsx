@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
-import { wsConnectionClosed, wsConnectionStart } from "../../services/actions/ws-actions"
+import { wsConnectionStart } from "../../services/actions/ws-actions"
 import { ensure, getIngredientById } from "../../utils/common"
 import { useSelector, useDispatch } from "../../utils/hooks"
-import Feed from "./feed"
+import Feed from "../../components/feed/feed"
 
 const FeedContainer = () => {
   const dispatch = useDispatch()

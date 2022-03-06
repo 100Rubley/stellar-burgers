@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { TIngredientType } from '../../utils/types/types'
-import s from './feed-page.module.css'
+import s from './order-history.module.css'
 
 interface IFeedPageItemProps {
   img: string;

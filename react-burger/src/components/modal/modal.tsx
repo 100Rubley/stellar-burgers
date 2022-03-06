@@ -3,20 +3,14 @@ import s from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from '../../utils/hooks'
-import { hideIngredientsModal, removeCurrentIngredient } from '../../services/actions/ingredients-actions';
-import { hideOrderModal } from '../../services/actions/constructor-actions';
-import { useHistory } from 'react-router-dom';
 
 interface IModalProps {
   headerTitle?: number | string | null;
-  from: string
+  from: string;
+  handleClose: (from: string) => void
 }
 
-const Modal: FC<IModalProps> = ({ children, headerTitle, from }) => {
-  const dispatch = useDispatch()
-  const history = useHistory()
-
+const Modal: FC<IModalProps> = ({ children, headerTitle, from, handleClose }) => {
   useEffect(() => {
     document.addEventListener('keydown', closeOnESC)
     return () => document.removeEventListener('keydown', closeOnESC)
@@ -29,11 +23,7 @@ const Modal: FC<IModalProps> = ({ children, headerTitle, from }) => {
   }
 
   const onModalClose: () => void = () => {
-    dispatch(hideOrderModal())
-    dispatch(hideIngredientsModal())
-    dispatch(removeCurrentIngredient())
-
-    history.replace({ pathname: from })
+    handleClose(from)
   }
 
   return createPortal(

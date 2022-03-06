@@ -11,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename='/stellar-burgers'>
       <Provider store={store}>
         <DndProvider backend={HTML5Backend} >
           <AppContainer />

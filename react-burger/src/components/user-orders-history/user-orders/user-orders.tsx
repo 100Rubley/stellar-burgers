@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import s from './profile-orders.module.css'
+import s from './user-orders.module.css'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from '../../../utils/hooks'
 import { logOut } from '../../../services/actions/user-actions'
 import { wsProfileConnectionStart, wsUserConnectionClosed } from '../../../services/actions/ws-actions'
-import UserOrderItem from '../order-item/order-item'
+import UserOrderItem from '../user-order-item/user-order-item'
 
 const ProfileOrders = () => {
   const linkStyle = 'text text_type_main-medium text_color_inactive'

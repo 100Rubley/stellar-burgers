@@ -1,4 +1,4 @@
-import s from './feed-page.module.css'
+import s from './order-history.module.css'
 import React, { FC } from 'react'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { formatRelative } from 'date-fns'
@@ -6,7 +6,7 @@ import { ru } from 'date-fns/locale'
 import { TOrderStatus, TServerOrder } from '../../utils/types/orders-types'
 import { getIngredientById } from '../../utils/common'
 import { useSelector } from '../../utils/hooks'
-import FeedPageItem from './feed-page-item'
+import FeedPageItem from './order-item'
 
 interface IFeedPageProps {
   orders: ReadonlyArray<TServerOrder>;
@@ -14,9 +14,7 @@ interface IFeedPageProps {
   paramsId: number
 }
 
-const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
-  // пожалуйста, не смотрите на эти костыли, у меня паника -_-
-
+const OrderHistory: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
   const order = orders && orders.length && orders.find((order: TServerOrder) => order.number === paramsId)
   const date = order && formatRelative(new Date(order.createdAt), new Date(), { locale: ru })
   const ingredients = useSelector(state => state.ingredients.ingredients)
@@ -102,4 +100,4 @@ const FeedPage: FC<IFeedPageProps> = ({ show, paramsId, orders }) => {
   )
 }
 
-export default FeedPage
+export default OrderHistory

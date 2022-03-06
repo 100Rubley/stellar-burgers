@@ -218,7 +218,6 @@ export const getUserData: TAppThunk = () => (dispatch: TAppDispatch) => {
     .then((res) => {
       if (res && res.success) {
         dispatch(setUserData(res.user.email, res.user.name));
-        // dispatch(wsConnectionStart())
       }
     })
     .catch((err) => {

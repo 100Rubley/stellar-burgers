@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { getIngredientById } from '../../../utils/common'
 import { useSelector } from '../../../utils/hooks'
 import { TOrderStatus, TServerOrder } from '../../../utils/types/orders-types'
-import s from './order-item.module.css'
+import s from './user-order-item.module.css'
 
 const UserOrderItem: FC<TServerOrder> = ({ createdAt, number, name, ingredients, status }) => {
   const date = formatRelative(new Date(createdAt), new Date(), { locale: ru })

@@ -1,6 +1,16 @@
 .wrapper {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 60px;
   justify-content: center;
   height: calc(100vh - 88px);
+}
+
+.inactive{
+  color: #8585AD;
+}
+
+.inactive:hover {
+  color: #F2F2F3;
 }
